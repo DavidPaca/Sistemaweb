@@ -5,8 +5,8 @@
 $session_role1 = $_SESSION['roleSS'];
 //echo('hola');
 //echo($session_role1);
-//$get_comment = "SELECT * FROM comments WHERE status = 'pendiente'";
-//$get_comment_run = mysqli_query($con, $get_comment);
+$get_comment = "SELECT * FROM comments WHERE status = 'pendiente'";
+$get_comment_run = mysqli_query($con, $get_comment);
 //$num_of_rows = mysqli_num_rows($get_comment_run);
 ?>
 <div class="list-group rojo"  >
@@ -155,15 +155,13 @@ $session_role1 = $_SESSION['roleSS'];
 
 
   <!--xxxxxxxxxxxxxxxxxxxxxxxxx CODIGOS EJEMPLO xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
-  <a href="add-user.php" class="list-group-item">
-            <i class="fa fa-users"></i> Agregar Usuario
-        </a>
+  
 
   <div id="accordion">
   <div class="card">
     <div class="list-group-item" id="headingOne">
       <h5 class="fa fa-users">
-        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" background= "Black">
+        <button class="btn collapsed" style="color:#555555" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" background= "Black">
           DATOS PERSONALES DEL NIÑO(A)
         </button>
       </h5>
@@ -189,7 +187,7 @@ $session_role1 = $_SESSION['roleSS'];
   <div class="card">
     <div class="card-header" id="headingTwo">
       <h5 class="mb-0">
-        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+        <button class="btn collapsed" style="color:#555555" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           ENTREVISTA INICIAL
         </button>
       </h5>
@@ -213,7 +211,7 @@ $session_role1 = $_SESSION['roleSS'];
   <div class="card">
     <div class="card-header" id="headingThree">
       <h5 class="mb-0">
-        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        <button class="btn collapsed" style="color:#555555" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
           SOCIO ECONÓMICA
         </button>
       </h5>

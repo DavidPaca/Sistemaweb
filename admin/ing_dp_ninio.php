@@ -542,4 +542,4 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
         </div>
 
 
-        <?php //require_once('inc/footer.php'); ?>
+        <?php require_once('inc/footer.php'); ?>
