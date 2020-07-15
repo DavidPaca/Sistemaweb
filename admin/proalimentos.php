@@ -15,25 +15,25 @@ if (isset($_GET['del'])) {
 
     echo($_SESSION['roleSS']);
     if ( $_SESSION['roleSS'] == 'Coordinador') {
-        $del_query = "DELETE FROM tbl_desc_evento WHERE id_descevento = '$del_id'";
+        $del_query = "DELETE FROM tbl_alimentos WHERE id_alimentos = '$del_id'";
         if (mysqli_query($con, $del_query)) {
-            $del_msg = "Categoría ha sido eliminada";
+            $del_msg = "Alimento ha sido eliminado";
         } else {
-            $del_error = "La categoría no ha sido eliminada";
+            $del_error = "Alimento no ha sido eliminado";
         }
     }
 }
 
-if (isset($_POST['submit'])) {                    //Si Existe metodo post y si se aplasto el btn submit
+if (isset($_POST['submit'])) {
     $cat_name = mysqli_real_escape_string($con, strtolower($_POST['cat-name']));
 
     if (empty($cat_name)) {
-        $error = "Debe llenar este campo";
+        $error = "Debe llenar el campo";
     } else {
-        $check_query = "SELECT * FROM categories WHERE category = '$cat_name'";
+        $check_query = "SELECT * FROM tbl_alimentos WHERE detalle = '$cat_name'";
         $check_run = mysqli_query($con, $check_query);
         if (mysqli_num_rows($check_run) > 0) {
-            $error = "La categoría ya existe";
+            $error = "Alimento ya existe";
         } else {
             $insert_query = "INSERT INTO tbl_desc_evento (descripcion) VALUES ('$cat_name')";
             if (mysqli_query($con, $insert_query)) {
@@ -77,10 +77,11 @@ if (isset($_POST['update'])) {
                     <?php require_once('inc/sidebar.php'); ?>
                 </div>
                 <div class="col-md-9">
-                    <h1><i class="fa fa-folder-open"></i> Categoría <small> Proyectos</small></h1><hr>
+                    <h1><i class="fas fa-apple-alt"></i> Alimentos </h1><hr>
                     <ol class="breadcrumb">
-                        <li><a href="index.html"><i class="fas fa-home"></i> Menú</a></li>
-                        <li class="active"><i class="fa fa-folder-open"></i> Categoría</li>
+                        <li><a href="index.php"><i class="fas fa-home"></i> Menú</a></li>
+                        <li><a href="menuprincipalprocesos.php"><i class="fa fa-list-ul"></i> Lista de Procesos</a></li>
+                        
                     </ol>
 
                     <div class="row">

@@ -5,6 +5,7 @@ $db['db_user'] = 'root';
 $db['db_pass'] = '';
 $db['db_name'] = 'fichasbd';
 
+
 foreach ($db as $key => $value) {
     define(strtoupper($key), $value);
 }
@@ -15,4 +16,7 @@ if ($con) {
 } else {
     return "no conectado";
 }
+
+//$con = set_charset("utf8");
+
 ?>

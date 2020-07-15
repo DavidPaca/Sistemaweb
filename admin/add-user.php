@@ -27,28 +27,34 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
 /*---------------------------Guarda los datos ingresados en los cajones en las variables------------------------------------------*/
                     if (isset($_POST['submit'])) {
                         //$date = time();
+                        
+                        $tipo_docide = mysqli_real_escape_string($con, $_POST['tipo_docid']);
+                        $username = mysqli_real_escape_string($con, $_POST['ci']);
                         $first_name = mysqli_real_escape_string($con, $_POST['first-name']);     /*first name es el nombre del cajon*/
                         $last_name = mysqli_real_escape_string($con, $_POST['last-name']);
-                        $username = mysqli_real_escape_string($con, $_POST['ci']);
-                        $password = mysqli_real_escape_string($con, $_POST['password']);
+                        $fecha_nac = mysqli_real_escape_string($con, $_POST['fecha_naci']);
+                        $fecha_ingreso = mysqli_real_escape_string($con, $_POST['fecha_ing']);                                                                       //username
                         $role = $_POST['role'];
-                        $email = mysqli_real_escape_string($con, strtolower($_POST['email']));
-                        $telef = mysqli_real_escape_string($con, strtolower($_POST['telef']));
+                        $tipo_etnia = mysqli_real_escape_string($con, $_POST['tipo:etni']);
+                        $tipo_genero = mysqli_real_escape_string($con, $_POST['tipo_gene']);
                         $dir = mysqli_real_escape_string($con, strtolower($_POST['dir']));
+                        $telef = mysqli_real_escape_string($con, strtolower($_POST['telef']));
+                        $email = mysqli_real_escape_string($con, strtolower($_POST['email']));
+                        $password = mysqli_real_escape_string($con, $_POST['password']);
                         $cdi = mysqli_real_escape_string($con, strtolower($_POST['cdi']));
                         $image = $_FILES['image']['name'];
                         $image_temp = $_FILES['image']['tmp_name'];
 
-                      //  echo($first_name.$last_name.$username.$password.$role.$role.$email.$telef.$dir.$cdi);
+                      //  echo($first_name.$last_name.$username.$password.$role.$role.$email.$telef.$dir.$cdi);         //username
 
                         
                         
                         //$password = crypt($password, $salt);
 /*----------------------empty =vacio--------------------------*/
-                        if (empty($first_name) or empty($last_name) or empty($username) or empty($email) or empty($password)) {
+                        if (empty($first_name) or empty($last_name) or empty($username) or empty($email) or empty($password)) {   //username
                             $error = "Todos los (*) Campos son requeridos";
                         } else {
-                            $insert_query = "INSERT INTO tbl_usuario (ci,apellidos,nombres,tipo,correo_e,direccion_dom,telefono,contrasenia,id_cdi,imagen_usuario) values('$username','$last_name','$first_name','$role','$email','$dir','$telef','$password','$cdi','$image')";
+                            $insert_query = "INSERT INTO tbl_usuario (id_docide,num_docide,apellidos,nombres,fecha_nac,fecha_ingreso,rol,id_etnia,id_genero,direccion_dom,telefono,correo_e,contrasenia,id_cdi,imagen_usuario) values('$tipo_docide','$username','$Last_name','$first_name','$fecha_nac','$fecha_ingreso','$role','$tipo_etnia','$tipo_genero','$dir','$telef','$email','$password','$cdi','$image')";
                             if (mysqli_query($con, $insert_query)) {
                                 $msg = "Usuario ingresado";
                                 $path="img/$image";
@@ -63,7 +69,7 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                                 $first_name = "";
                                 $last_name = "";
                                 $email = "";
-                                $username = "";
+                                $username = "";         //username
                                 header("Location: users.php"); /*para poder volver al blog o login*/
                             } else {
                                 $error = "Usuario no ingresado";
@@ -74,8 +80,38 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                     <div class="row">
                         <div class="col-md-8">
                             <form action="" method="post" enctype="multipart/form-data">
+
+
+                            <div class="form-group">
+                                    <label for="role">Tipo de Documento de Identidad:</label>
+                                    <select class="form-control" name="tipo_docid" id="categories">
+                            <?php
+                            $sql_tdocu = "select * from tbl_documento_identidad";
+                            $ejecutar = mysqli_query($con, $sql_tdocu);//ejecutar consulta
+                            
+                            if (mysqli_num_rows($ejecutar) > 0) {
+                                while ($row2 = mysqli_fetch_array($ejecutar)) {
+                                    
+                                    $detalledoc = $row2['detalle'];
+                                    $iddoc = $row2['id_docide'];
+                                    echo "<option value='" . $iddoc. "' " .  ">" . ucfirst($detalledoc) . "</option>";
+                                }
+                            } else {
+                               // echo "<center><h6>Categoría no disponible</h6></center>";
+                            }
+                            ?>
+                        </select>
+                                </div>
+
+
                                 <div class="form-group">
-                                    <label for="first-name">Nombre :*</label>
+                                    <label for="username">CI:*</label>    <!--username-->
+                                    <input type="text" id="username" name="ci" class="form-control" maxlength="10" value="" placeholder="CI">    <!--username-->
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="first-name">Nombres:</label>
                                     <?php
                                     if (isset($error)) {
                                         echo "<span class='pull-right' style='color:red;'>$error</span>";
@@ -90,6 +126,7 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                                     ?>" placeholder="Nombres">
                                 </div>
 
+
                                 <div class="form-group">
                                     <label for="last-name">Apellido :*</label>
                                     <input type="text" id="last-name" name="last-name" class="form-control" value="<?php
@@ -99,10 +136,7 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                                     ?>" placeholder="Apellidos">
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="username">CI:*</label>
-                                    <input type="text" id="username" name="ci" class="form-control" maxlength="10" value="" placeholder="CI">
-                                </div>
+                               
 
                                 <div class="form-group">
                                     <label for="Password">Password :*</label>

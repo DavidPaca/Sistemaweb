@@ -122,7 +122,7 @@ require_once('inc/header.php');
                                     </div>   
                                  </div>   
 
-                               <a href="ing_nutricion.php">
+                               <a href="menuprincipalprocesos.php">
                                     <div class="panel-footer">
                                         <span class="pull-left"> PROCESOS <br></span>
                                         <span class="pull-right"><br><br><br><i class="fa fa-arrow-circle-right"></i></span>                                        <div class="clearfix"></div>
@@ -132,12 +132,9 @@ require_once('inc/header.php');
                         </div>
                     </div><hr></hr> 
 
-                   
-
-
-                
                     
-                </div>
+                    
+</div>
                 
             </div>
             
