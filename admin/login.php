@@ -36,7 +36,7 @@ if (isset($_POST['submit'])) {//if hicieron clic en submit
         echo($db_password);*/
         
         if ($ci == $db_ci && $password == $db_password && $cdia == $db_tipo_cdi ) {
-            echo("estoy adentro");
+            ("estoy adentro");
 
             header('Location: index.php');//enviar a la pagina q deseas
             $_SESSION['username'] = $db_ci;

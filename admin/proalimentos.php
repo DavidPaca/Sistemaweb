@@ -35,11 +35,11 @@ if (isset($_POST['submit'])) {
         if (mysqli_num_rows($check_run) > 0) {
             $error = "Alimento ya existe";
         } else {
-            $insert_query = "INSERT INTO tbl_desc_evento (descripcion) VALUES ('$cat_name')";
+            $insert_query = "INSERT INTO tbl_alimentos (detalle) VALUES ('$cat_name')";
             if (mysqli_query($con, $insert_query)) {
-                $msg = "Categoría ha sido agregada";
+                $msg = "Alimento ha sido agregada";
             } else {
-                $error = "Categoría no ha sido agregada";
+                $error = "Alimento No ha sido agregada";
             }
         }
     }
@@ -51,16 +51,16 @@ if (isset($_POST['update'])) {
     if (empty($cat_name)) {
         $up_error = "Debe llenar este campo";
     } else {
-        $check_query = "SELECT * FROM categories WHERE category = '$cat_name'";
+        $check_query = "SELECT * FROM tbl_alimentos WHERE detalle = '$cat_name'";
         $check_run = mysqli_query($con, $check_query);
         if (mysqli_num_rows($check_run) > 0) {
-            $up_error = "La categoría ya existe";
+            $up_error = "Alimento ya existe";
         } else {
-            $update_query = "UPDATE `categories` SET `category` = '$cat_name' WHERE `categories`.`id` = $edit_id";
+            $update_query = "UPDATE `tbl_alimentos` SET `detalle` = '$cat_name' WHERE `tbl_alimentos`.`id_alimentos` = $edit_id";
             if (mysqli_query($con, $update_query)) {
-                $up_msg = "Categoría ha sido agregada";
+                $up_msg = "Alimento ha sido agregada";
             } else {
-                $up_error = "Categoría no ha sido agregada";
+                $up_error = "Alimento no ha sido agregada";
             }
         }
     }

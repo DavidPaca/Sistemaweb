@@ -37,9 +37,9 @@ if (isset($_POST['submit'])) {
         } else {
             $insert_query = "INSERT INTO tbl_documento_identidad (detalle) VALUES ('$doc_name')";
             if (mysqli_query($con, $insert_query)) {
-                $msg = "Agregado";
+                $msg = "Documento de Identidad Agregado";
             } else {
-                $error = "No ha sido agregado";
+                $error = "Documento de Identidad No ha sido agregado";
             }
         }
     }
@@ -83,6 +83,9 @@ if (isset($_POST['update'])) {
                         <li><a href="menuprincipalprocesos.php"><i class="fa fa-list-ul"></i> Lista de Procesos</a></li>
                         
                     </ol>
+ <!-- HASTA AQUI ME QUEDE 15 DE 7 2020 -->
+
+
 
                     <div class="row">
                         <div class="col-md-6">

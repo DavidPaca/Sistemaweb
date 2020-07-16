@@ -25,7 +25,7 @@ require_once('../inc/db.php');
         <link href="css/animated.css" rel="stylesheet">
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
-        <link href="css/proyectoestilo.css" rel="stylesheet">
+        <link href="css/proyectotesisestilo.css" rel="stylesheet">
         <!--<link href="css/RegistroUsuarios.css" rel="stylesheet">-->
         <!--<link href="css/estilosBusquedaDinmica.css" rel="stylesheet">-->
 

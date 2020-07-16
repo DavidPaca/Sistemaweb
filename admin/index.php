@@ -1,9 +1,10 @@
 <?php 
+
 require_once('inc/top.php');//llamar archivos
 if(!isset($_SESSION['username'])){
     header('Location: login.php');
 }
-
+$session_role1 = $_SESSION['roleSS'];
 ?>
   </head>
   <body>
@@ -53,7 +54,7 @@ require_once('inc/header.php');
                                 </div>
                                 <a href="menuprincipaldatosninio.php">
                                     <div class="panel-footer">
-                                        <span class="pull-left">DATOS PERSONALES DEL NIÑO</span>
+                                        <span class="pull-left">DATOS PERSONALES DEL NIÑO/A</span>
                                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                         <div class="clearfix"></div>
                                     </div>
@@ -92,22 +93,27 @@ require_once('inc/header.php');
                                         <div class="col-xs-3">
                                             <i class="fa fa-users fa-5x"></i>
                                         </div>
-                                        <div class="col-xs-9">
-                                            <div class="text-right huge"><?php //echo $user_rows;?></div>
-                                            <!--<div class="text-right">Todos los usuarios</div>-->
-                                        </div>
+                                            <div class="col-xs-9">
+                                                <div class="text-right huge"><?php //echo $user_rows;?></div>
+                                                <!--<div class="text-right">Todos los usuarios</div>-->
+                                            </div>
                                     </div>
                                 </div>
-                            <a href="ing_socio_eco.php">
-                                    <div class="panel-footer">
-                                        <span class="pull-left">SOCIO ECONÓMICO <br><br></span>
-                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </a>
+                                        <a href="ing_socio_eco.php">
+                                            <div class="panel-footer">
+                                                <span class="pull-left">SOCIO ECONÓMICO <br><br></span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
                             </div>
                         </div>
 
+
+
+                           <?php
+                             if ($session_role1 == 'Coordinador') {
+                           ?>
                         <div class="col-md-6 col-lg-3">
                             <div class="panel panel-green">
                                 <div class="panel-heading">
@@ -121,8 +127,7 @@ require_once('inc/header.php');
                                         </div>   
                                     </div>   
                                  </div>   
-
-                               <a href="menuprincipalprocesos.php">
+                                 <a href="menuprincipalprocesos.php">
                                     <div class="panel-footer">
                                         <span class="pull-left"> PROCESOS <br></span>
                                         <span class="pull-right"><br><br><br><i class="fa fa-arrow-circle-right"></i></span>                                        <div class="clearfix"></div>
@@ -132,7 +137,7 @@ require_once('inc/header.php');
                         </div>
                     </div><hr></hr> 
 
-                    
+                    <?php } ?>
                     
 </div>
                 
