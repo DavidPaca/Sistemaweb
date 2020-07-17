@@ -48,6 +48,14 @@ require_once('inc/header.php');
                     <a href="proenfermedades.php" class="list-group-item">
                       <i class="fa fa-plus-square"></i> Enfermedades
                     </a>
+
+                    <a href="prointervensionesquirur.php" class="list-group-item">
+                      <i class="fa fa-user-md"></i> Intervensiones Quirúrgicas
+                    </a>
+
+                    <a href="proalergias.php" class="list-group-item">
+                      <i class="fa fa-certificate" aria-hidden="true"></i> Alergias
+                    </a>
                     
 
                     
