@@ -37,9 +37,9 @@ if (isset($_POST['submit'])) {
         } else {
             $insert_query = "INSERT INTO tbl_alimentos (detalle) VALUES ('$cat_name')";
             if (mysqli_query($con, $insert_query)) {
-                $msg = "Alimento ha sido agregada";
+                $msg = "Alimento ha sido agregado";
             } else {
-                $error = "Alimento No ha sido agregada";
+                $error = "Alimento no ha sido agregado";
             }
         }
     }
@@ -88,7 +88,7 @@ if (isset($_POST['update'])) {
                         <div class="col-md-6">
                             <form action="" method="post">
                                 <div class="form-group">
-                                    <label for="category">Categoría:</label>
+                                    <label for="detalle">Nombre del Alimento:</label>
                                     <?php
                                     if (isset($msg)) {
                                         echo "<span class='pull-right' style='color:green;'>$msg</span>";
@@ -96,24 +96,29 @@ if (isset($_POST['update'])) {
                                         echo "<span class='pull-right' style='color:red;'>$error</span>";
                                     }
                                     ?>
-                                    <input type="text" placeholder="Nombre de Categoría" class="form-control" name="cat-name">
+                                    <input type="text" placeholder="Nombre del Alimento" class="form-control" name="cat-name">
                                 </div>
-                                <input type="submit" value="Agregar Nueva" name="submit" class="btn btn-primary">
+                                <input type="submit" value="Agregar" name="submit" class="btn btn-primary">
+                                
+                                <a href="menuprincipalprocesos.php">
+                                <button type="button" class="btn btn-primary">Cancelar</button>
+                                </a>
+                                        
                             </form>
                             <?php
                             if (isset($_GET['edit'])) {
-                                $edit_check_query = "SELECT * FROM tbl_desc_evento WHERE id_descevento = $edit_id";
+                                $edit_check_query = "SELECT * FROM tbl_alimentos WHERE id_alimentos = $edit_id";
                                 $edit_check_run = mysqli_query($con, $edit_check_query);
                                 if (mysqli_num_rows($edit_check_run) > 0) {
 
                                     $edit_row = mysqli_fetch_array($edit_check_run);
-                                    $up_category = $edit_row['category'];
+                                    $up_category = $edit_row['detalle'];
                                     ?>
                                     <hr>
 
                                     <form action="" method="post">
                                         <div class="form-group">
-                                            <label for="category">Actualizar Categoría:</label>
+                                            <label for="tbl_alimentos">Actualizar Nombre del Alimento:</label>
                                             <?php
                                             if (isset($up_msg)) {
                                                 echo "<span class='pull-right' style='color:green;'>$up_msg</span>";
@@ -121,9 +126,18 @@ if (isset($_POST['update'])) {
                                                 echo "<span class='pull-right' style='color:red;'>$up_error</span>";
                                             }
                                             ?>
-                                            <input type="text" value="<?php echo $up_category; ?>" placeholder="Nombre de Categoria" class="form-control" name="cat-name">
+                                            <input type="text" value="<?php echo $up_category; ?>" placeholder="Nombre del Alimento" class="form-control" name="cat-name">
                                         </div>
-                                        <input type="submit" value="Actualizar Categoría" name="update" class="btn btn-primary">
+                                        <input type="submit" value="Actualizar" name="update" class="btn btn-primary">
+                                        
+                                        <a href="proalimentos.php">
+                                        <button type="button" class="btn btn-primary">Cerrar</button>
+                                        </a>
+
+                                        <a href="proalimentos.php">
+                                        <button type="button" class="btn btn-primary">Cancelar</button>
+                                        </a>
+                                        
                                     </form>
                                     <?php
                                 }
@@ -132,7 +146,7 @@ if (isset($_POST['update'])) {
                         </div>
                         <div class="col-md-6"><br>
                             <?php
-                            $get_query = "SELECT * FROM tbl_desc_evento ORDER BY id_descevento DESC";
+                            $get_query = "SELECT * FROM tbl_alimentos ORDER BY id_alimentos DESC";
                             $get_run = mysqli_query($con, $get_query);
                             if (mysqli_num_rows($get_run) > 0) {
 
@@ -147,8 +161,8 @@ if (isset($_POST['update'])) {
                                 <table class="table table-hover table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Id #</th>
-                                            <th>Nombre de Categoría</th>
+                                            <th>Número</th>
+                                            <th>Nombre del Alimento</th>
                                             <th>Editar</th>
                                             <th>Eliminar</th>
                                         </tr>
@@ -156,21 +170,21 @@ if (isset($_POST['update'])) {
                                     <tbody>
                                         <?php
                                         while ($get_row = mysqli_fetch_array($get_run)) {
-                                            $category_id = $get_row['id_descevento'];
-                                            $category_name = $get_row['descripcion'];
+                                            $alimento_id = $get_row['id_alimentos'];
+                                            $detalleali_name = $get_row['detalle'];
                                             ?>
                                             <tr>
-                                                <td><?php echo $category_id; ?></td>
-                                                <td><?php echo ucfirst($category_name); ?></td>
-                                                <td><a href="categories.php?edit=<?php echo $category_id; ?>"><i class="far fa-edit"></i></a></td>
-                                                <td><a href="categories.php?del=<?php echo $category_id; ?>"><i class="fas fa-trash-alt"></i></a></td>
+                                                <td><?php echo $alimento_id; ?></td>
+                                                <td><?php echo ucfirst($detalleali_name); ?></td>
+                                                <td><a href="proalimentos.php?edit=<?php echo $alimento_id; ?>"><i class="far fa-edit"></i></a></td>
+                                                <td><a href="proalimentos.php?del=<?php echo $alimento_id; ?>"><i class="fas fa-trash-alt"></i></a></td>
                                             </tr>
                                         <?php } ?>
                                     </tbody>
                                 </table>
                                 <?php
                             } else {
-                                echo "<center><h3>No se encontraron categorías</h3></center>";
+                                echo "<center><h3>No se encontraton alimentos</h3></center>";
                             }
                             ?>
                         </div>

@@ -45,6 +45,9 @@ require_once('inc/header.php');
                       <i class="fa fa-id-card"></i> Tipo de Documento de Identidad
                     </a>
 
+                    <a href="proenfermedades.php" class="list-group-item">
+                      <i class="fa fa-plus-square"></i> Enfermedades
+                    </a>
                     
 
                     

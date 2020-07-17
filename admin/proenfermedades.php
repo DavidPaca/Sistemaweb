@@ -15,52 +15,52 @@ if (isset($_GET['del'])) {
 
     echo($_SESSION['roleSS']);
     if ( $_SESSION['roleSS'] == 'Coordinador') {
-        $del_query = "DELETE FROM tbl_documento_identidad WHERE id_docide = '$del_id'";
+        $del_query = "DELETE FROM tbl_enfermedades WHERE id_enfermedades = '$del_id'";
         if (mysqli_query($con, $del_query)) {
-            $del_msg = "Tipo de Documento ha sido eliminado";
+            $del_msg = "Enfermedad ha sido eliminada";
         } else {
-            $del_error = "Tipo de Documento no ha sido eliminado";
+            $del_error = "Enfermedad no ha sido eliminada";
         }
     }
 }
 
 if (isset($_POST['submit'])) {
-    $doc_name = mysqli_real_escape_string($con, strtolower($_POST['cat-name']));
-     echo $doc_name;
-    if (empty($doc_name)) {
+    $cat_name = mysqli_real_escape_string($con, strtolower($_POST['cat-name']));
+
+    if (empty($cat_name)) {
         $error = "Debe llenar el campo";
     } else {
-        $check_query = "SELECT * FROM tbl_documento_identidad WHERE detalle = '$doc_name'";
+        $check_query = "SELECT * FROM tbl_enfermedades WHERE detalle = '$cat_name'";
         $check_run = mysqli_query($con, $check_query);
         if (mysqli_num_rows($check_run) > 0) {
-            $error = "Documento ya existe";
+            $error = "Alimento ya existe";
         } else {
-            $insert_query = "INSERT INTO tbl_documento_identidad (detalle) VALUES ('$doc_name')";
+            $insert_query = "INSERT INTO tbl_enfermedades (detalle) VALUES ('$cat_name')";
             if (mysqli_query($con, $insert_query)) {
-                $msg = "Documento de Identidad Agregado";
+                $msg = "Enfermedad ha sido agregada";
             } else {
-                $error = "Documento de Identidad No ha sido agregado";
+                $error = "Enfermedad no ha sido agregada";
             }
         }
     }
 }
 
 if (isset($_POST['update'])) {
-    $doc_name = mysqli_real_escape_string($con, strtolower($_POST['cat-name']));
+    $cat_name = mysqli_real_escape_string($con, strtolower($_POST['cat-name']));
 
-    if (empty($doc_name)) {
+    if (empty($cat_name)) {
         $up_error = "Debe llenar este campo";
     } else {
-        $check_query = "SELECT * FROM tbl_documento_identidad WHERE detalle = '$doc_name'";
+        $check_query = "SELECT * FROM tbl_enfermedades WHERE detalle = '$cat_name'";
         $check_run = mysqli_query($con, $check_query);
         if (mysqli_num_rows($check_run) > 0) {
-            $up_error = "Documento de Identidad ya existe";
+            $up_error = "Enfermedad ya existe";
         } else {
-            $update_query = "UPDATE `tbl_documento_identidad` SET `detalle` = '$doc_name' WHERE `tbl_documento_identidad`.`id_docide` = $edit_id";
+            $update_query = "UPDATE `tbl_enfermedades` SET `detalle` = '$cat_name' WHERE `tbl_enfermedades`.`id_enfermedades` = $edit_id";
             if (mysqli_query($con, $update_query)) {
-                $up_msg = "Tipo de Documento de Identidad ha sido agregada";
+                $up_msg = "Enfermedad ha sido agregada";
             } else {
-                $up_error = "Tipo de Documento de Identidad no ha sido agregada";
+                $up_error = "Enfermedad no ha sido agregada";
             }
         }
     }
@@ -77,21 +77,18 @@ if (isset($_POST['update'])) {
                     <?php require_once('inc/sidebar.php'); ?>
                 </div>
                 <div class="col-md-9">
-                    <h1><i class="fa fa-id-card"></i> Documento de Identidad </h1><hr>
+                    <h1><i class="fas fa-apple-alt"></i> Enfermedades </h1><hr>
                     <ol class="breadcrumb">
-                        <li><a href="index.html"><i class="fas fa-home"></i> Menú</a></li>
+                        <li><a href="index.php"><i class="fas fa-home"></i> Menú</a></li>
                         <li><a href="menuprincipalprocesos.php"><i class="fa fa-list-ul"></i> Lista de Procesos</a></li>
                         
                     </ol>
- <!-- HASTA AQUI ME QUEDE 15 DE 7 2020 -->
-
-
 
                     <div class="row">
                         <div class="col-md-6">
                             <form action="" method="post">
                                 <div class="form-group">
-                                    <label for="detalle">Tipo de Documento de Identificación:</label>
+                                    <label for="detalle">Nombre de la Enfermedad:</label>
                                     <?php
                                     if (isset($msg)) {
                                         echo "<span class='pull-right' style='color:green;'>$msg</span>";
@@ -99,27 +96,28 @@ if (isset($_POST['update'])) {
                                         echo "<span class='pull-right' style='color:red;'>$error</span>";
                                     }
                                     ?>
-                                    <input type="text" placeholder="Nombre de Documento de Identidad" class="form-control" name="cat-name">
+                                    <input type="text" placeholder="Nombre de la Enfermedad" class="form-control" name="cat-name">
                                 </div>
                                 <input type="submit" value="Agregar" name="submit" class="btn btn-primary">
                                 <a href="menuprincipalprocesos.php">
                                 <button type="button" class="btn btn-primary">Cancelar</button>
                                 </a>
+                                
                             </form>
                             <?php
                             if (isset($_GET['edit'])) {
-                                $edit_check_query = "SELECT * FROM tbl_documento_identidad WHERE id_docide = $edit_id";   //aqui era la tlb desc_evento - id_descevento
+                                $edit_check_query = "SELECT * FROM tbl_enfermedades WHERE id_enfermedades = $edit_id";
                                 $edit_check_run = mysqli_query($con, $edit_check_query);
                                 if (mysqli_num_rows($edit_check_run) > 0) {
 
                                     $edit_row = mysqli_fetch_array($edit_check_run);
-                                    $up_documentoi = $edit_row['detalle'];
+                                    $up_category = $edit_row['detalle'];
                                     ?>
                                     <hr>
 
                                     <form action="" method="post">
                                         <div class="form-group">
-                                            <label for="tbl_documento_identidad">Actualizar Documento de Identidad:</label>
+                                            <label for="tbl_enfermedades">Actualizar Nombre de la Enfermedad:</label>
                                             <?php
                                             if (isset($up_msg)) {
                                                 echo "<span class='pull-right' style='color:green;'>$up_msg</span>";
@@ -127,16 +125,19 @@ if (isset($_POST['update'])) {
                                                 echo "<span class='pull-right' style='color:red;'>$up_error</span>";
                                             }
                                             ?>
-                                            <input type="text" value="<?php echo $up_documentoi; ?>" placeholder="Nombre de Documento de Identidad" class="form-control" name="cat-name">
+                                            <input type="text" value="<?php echo $up_category; ?>" placeholder="Nombre de la Enfermedad" class="form-control" name="cat-name">
                                         </div>
                                         <input type="submit" value="Actualizar" name="update" class="btn btn-primary">
-                                        <a href="prodocumentoidentificacion.php">
+                                       
+                                        <a href="proenfermedades.php">
                                         <button type="button" class="btn btn-primary">Cerrar</button>
                                         </a>
-                                        <a href="prodocumentoidentificacion.php">
+
+                                        <a href="proenfermedades.php">
                                         <button type="button" class="btn btn-primary">Cancelar</button>
                                         </a>
                                     </form>
+
                                     <?php
                                 }
                             }
@@ -144,7 +145,7 @@ if (isset($_POST['update'])) {
                         </div>
                         <div class="col-md-6"><br>
                             <?php
-                            $get_query = "SELECT * FROM tbl_documento_identidad ORDER BY id_docide DESC";     //aqui era la tlb desc_evento - id_descevento
+                            $get_query = "SELECT * FROM tbl_enfermedades ORDER BY id_enfermedades DESC";
                             $get_run = mysqli_query($con, $get_query);
                             if (mysqli_num_rows($get_run) > 0) {
 
@@ -160,7 +161,7 @@ if (isset($_POST['update'])) {
                                     <thead>
                                         <tr>
                                             <th>Número</th>
-                                            <th>Nombre del Documento de Identidad</th>
+                                            <th>Nombre de la Enfermedad</th>
                                             <th>Editar</th>
                                             <th>Eliminar</th>
                                         </tr>
@@ -168,21 +169,21 @@ if (isset($_POST['update'])) {
                                     <tbody>
                                         <?php
                                         while ($get_row = mysqli_fetch_array($get_run)) {
-                                            $documento_id = $get_row['id_docide'];
-                                            $documento_name = $get_row['detalle'];
+                                            $alimento_id = $get_row['id_enfermedades'];
+                                            $detalleali_name = $get_row['detalle'];
                                             ?>
                                             <tr>
-                                                <td><?php echo $documento_id; ?></td>
-                                                <td><?php echo ucfirst($documento_name); ?></td>
-                                                <td><a href="prodocumentoidentificacion.php?edit=<?php echo $documento_id; ?>"><i class="far fa-edit"></i></a></td>
-                                                <td><a href="prodocumentoidentificacion.php?del=<?php echo $documento_id; ?>"><i class="fas fa-trash-alt"></i></a></td>
+                                                <td><?php echo $alimento_id; ?></td>
+                                                <td><?php echo ucfirst($detalleali_name); ?></td>
+                                                <td><a href="proenfermedades.php?edit=<?php echo $alimento_id; ?>"><i class="far fa-edit"></i></a></td>
+                                                <td><a href="proenfermedades.php?del=<?php echo $alimento_id; ?>"><i class="fas fa-trash-alt"></i></a></td>
                                             </tr>
                                         <?php } ?>
                                     </tbody>
                                 </table>
                                 <?php
                             } else {
-                                echo "<center><h3>No se encontraron documentos de identidad</h3></center>";
+                                echo "<center><h3>No se encontraton alimentos</h3></center>";
                             }
                             ?>
                         </div>
