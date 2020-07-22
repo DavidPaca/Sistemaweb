@@ -57,9 +57,51 @@ require_once('inc/header.php');
                       <i class="fa fa-certificate" aria-hidden="true"></i> Alergias
                     </a>
                     
+                    <a href="promedicamentos.php" class="list-group-item">
+                      <i class="fa fa-medkit" aria-hidden="true"></i> Medicamentos
+                    </a>
+
+                    <a href="proaccidentes.php" class="list-group-item">
+                      <i class="fa fa-plus-square" aria-hidden="true"></i> Accidentes
+                    </a>
+
+                    <a href="prohabitos.php" class="list-group-item">
+                      <i class="fa fa-h-square" aria-hidden="true"></i> Hábitos
+                    </a>
+
+                    <a href="provocalbulario.php" class="list-group-item">
+                      <i class="fa fa-file" aria-hidden="true"></i> Vocabulario
+                    </a>
+                    
+                    <a href="projuegos.php" class="list-group-item">
+                      <i class="fa fa-futbol" aria-hidden="true"></i> Juegos
+                    </a>
+
+                    <a href="promascotas.php" class="list-group-item">
+                      <i class="fa fa-paw" aria-hidden="true"></i> Mascotas
+                    </a>
+
+                    <a href="protipovivienda.php" class="list-group-item">
+                      <i class="fas fa-home" aria-hidden="true"></i> Tipo de Vivienda
+                    </a>
+
+                    <a href="protipopared.php" class="list-group-item">
+                      <i class="fas fa-th" aria-hidden="true"></i> Tipo de Pared
+                    </a>
+
+                    <a href="protipopiso.php" class="list-group-item">
+                      <i class="fab fa-schlix" aria-hidden="true"></i> Tipo de Piso
+                    </a>
+
+                    <a href="protipotecho.php" class="list-group-item">
+                      <i class="fab fa-houzz" aria-hidden="true"></i> Tipo de Techo
+                    </a>
+
+                    <a href="proserviciosbasicos.php" class="list-group-item">
+                      <i class="fas fa-phone-square" aria-hidden="true"></i> Servicios Básicos
+                    </a>
 
                     
-
                         
                 </div>
         </div>

@@ -106,8 +106,9 @@ if (isset($_POST['checkboxes'])) {
                                 echo "<span style='color:green;' class='pull-right'>$msg</span>";
                             }
                             ?>
-                            <?php $fechaActual = date('Y-m-d'); 
-                                echo $fechaActual;
+                            <?php $fechaActual = date('Y-m-d'); ?>
+                            <i class="fa fa-medkit" aria-hidden="true"></i> Medicamentos
+                                <?php     echo $fechaActual;
                             ?>
                             <table class="table table-bordered table-striped table-hover">
                                 <thead>

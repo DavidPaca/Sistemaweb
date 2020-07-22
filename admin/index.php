@@ -53,9 +53,9 @@ require_once('inc/header.php');
                                     </div>
                                 </div>
                                 <a href="menuprincipaldatosninio.php">
-                                    <div class="panel-footer">
+                                    <div class="panel-footer letrasmenuficha">
                                         <span class="pull-left">DATOS PERSONALES DEL NIÑO/A</span>
-                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                        <span class="pull-right "><i class="fa fa-arrow-circle-right"></i></span>
                                         <div class="clearfix"></div>
                                     </div>
                                 </a>
@@ -77,7 +77,7 @@ require_once('inc/header.php');
                                     </div>
                                 </div>
                                 <a href="ing_entrevista_i.php">
-                                    <div class="panel-footer">
+                                    <div class="panel-footer letrasmenuficha">
                                         <span class="pull-left">ENTREVISTA INICIAL<br><br></span>
                                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                         <div class="clearfix"></div>
@@ -100,7 +100,7 @@ require_once('inc/header.php');
                                     </div>
                                 </div>
                                         <a href="ing_socio_eco.php">
-                                            <div class="panel-footer">
+                                            <div class="panel-footer letrasmenuficha">
                                                 <span class="pull-left">SOCIO ECONÓMICO <br><br></span>
                                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                                 <div class="clearfix"></div>
@@ -128,7 +128,7 @@ require_once('inc/header.php');
                                     </div>   
                                  </div>   
                                  <a href="menuprincipalprocesos.php">
-                                    <div class="panel-footer">
+                                    <div class="panel-footer letrasmenuficha">
                                         <span class="pull-left"> PROCESOS <br></span>
                                         <span class="pull-right"><br><br><br><i class="fa fa-arrow-circle-right"></i></span>                                        <div class="clearfix"></div>
                                     </div> 

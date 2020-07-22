@@ -41,13 +41,19 @@ $details = $row['direccion_dom'];
                         <li class="active"><i class="fa fa-user"></i> Perfil</li>
                     </ol>
 
+                    
+
                     <div class="row">
+                    
                         <div class="col-xs-12">
+                        
                             <center><img src="img/<?php echo $image; ?>" width="200px" class="img-circle img-thumbnail" id="profile-image"></center><br>
                             <a href="edit-profile.php?edit=<?php echo $id; ?>" class="btn btn-primary pull-right">Editar Perfil</a><br><br>
                             <center>
                                 <h3>Información</h3>
                             </center>
+
+                            
                             <br>
                             <table class="table table-bordered">
                                 <tr>

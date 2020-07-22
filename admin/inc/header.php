@@ -25,7 +25,7 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
     <div class="container-fluid">
         <div class="navbar-header">
             <!--***************************LOGO ADMIN *****************************-->
-         <a class="navbar-brand" href="#"><img src="img/logoescudoGADM.png" class="img-responsive" style="width: 170px; height: 45px; margin-top: -10px"></a> <!--para el logo de la empresa-->
+         <a class="navbar-brand" href="index.php"><img src="img/logoescudoGADM.png" class="img-responsive" style="width: 170px; height: 45px; margin-top: -10px"></a> <!--para el logo de la empresa-->
         </div>
         <div class="navbar-collapse collapse" id="navbar">
             <ul class="nav navbar-nav">
