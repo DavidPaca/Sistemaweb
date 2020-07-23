@@ -50,20 +50,24 @@ require_once('inc/header.php');
                     </a>
 
                     <a href="prointervensionesquirur.php" class="list-group-item">
-                      <i class="fa fa-user-md"></i> Intervensiones Quirúrgicas
+                      <i class="fas fa-heartbeat"></i> Intervensiones Quirúrgicas        
+                    </a>
+
+                    <a href="protipodiscapacidad.php" class="list-group-item">     
+                      <i class="fas fa-wheelchair"></i> Tipo de Discapacidad
                     </a>
 
                     <a href="proalergias.php" class="list-group-item">
-                      <i class="fa fa-certificate" aria-hidden="true"></i> Alergias
+                      <i class="fas fa-allergies" aria-hidden="true"></i> Alergias            
                     </a>
                     
                     <a href="promedicamentos.php" class="list-group-item">
-                      <i class="fa fa-medkit" aria-hidden="true"></i> Medicamentos
+                      <i class="fas fa-pills" aria-hidden="true"></i> Medicamentos      
                     </a>
 
                     <a href="proaccidentes.php" class="list-group-item">
-                      <i class="fa fa-plus-square" aria-hidden="true"></i> Accidentes
-                    </a>
+                      <i class="fa fa-plus-square" aria-hidden="true"></i> Accidentes                
+                    </a>                                                                               
 
                     <a href="prohabitos.php" class="list-group-item">
                       <i class="fa fa-h-square" aria-hidden="true"></i> Hábitos
@@ -101,6 +105,19 @@ require_once('inc/header.php');
                       <i class="fas fa-phone-square" aria-hidden="true"></i> Servicios Básicos
                     </a>
 
+                    <a href="proestadocivil.php" class="list-group-item">
+                      <i class="fas fa-user-tie" aria-hidden="true"></i> Estado Civil
+                    </a>
+
+                    <a href="proetnia.php" class="list-group-item">
+                      <i class="fas fa-id-card-alt" aria-hidden="true"></i> Etnia
+                    </a>
+
+                    <a href="progenero.php" class="list-group-item">
+                      <i class="fas fa-venus-mars" aria-hidden="true"></i> Género
+                    </a>
+
+                    
                     
                         
                 </div>

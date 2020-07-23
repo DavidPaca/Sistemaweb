@@ -60,7 +60,7 @@ if (isset($_POST['update'])) {
             if (mysqli_query($con, $update_query)) {
                 $up_msg = "Tipo de vivienda ha sido modificada";
             } else {
-                $up_error = "Vocabulario no ha sido modificada";
+                $up_error = "Tipo de vivienda no ha sido modificada";
             }
         }
     }

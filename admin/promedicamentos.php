@@ -77,7 +77,7 @@ if (isset($_POST['update'])) {
                     <?php require_once('inc/sidebar.php'); ?>
                 </div>
                 <div class="col-md-9">
-                    <h1><i class="fa fa-medkit"></i> Medicamentos </h1><hr>
+                    <h1><i class="fas fa-pills"></i> Medicamentos </h1><hr>
                     <ol class="breadcrumb">
                         <li><a href="index.php"><i class="fas fa-home"></i> Menú</a></li>
                         <li><a href="menuprincipalprocesos.php"><i class="fa fa-list-ul"></i> Lista de Procesos</a></li>

@@ -15,11 +15,11 @@ if (isset($_GET['del'])) {
 
     echo($_SESSION['roleSS']);
     if ( $_SESSION['roleSS'] == 'Coordinador') {
-        $del_query = "DELETE FROM tbl_alergias WHERE id_alergias = '$del_id'";
+        $del_query = "DELETE FROM tbl_tipos_discapacidad WHERE id_tipo_discapacidad = '$del_id'";
         if (mysqli_query($con, $del_query)) {
-            $del_msg = "Alergia ha sido eliminada";
+            $del_msg = "Tipo de discapacidad ha sido eliminada";
         } else {
-            $del_error = "Alergia no ha sido eliminada";
+            $del_error = "Tipo de discapacidad no ha sido eliminada";
         }
     }
 }
@@ -30,16 +30,16 @@ if (isset($_POST['submit'])) {
     if (empty($cat_name)) {
         $error = "Debe llenar el campo";
     } else {
-        $check_query = "SELECT * FROM tbl_alergias WHERE detalle = '$cat_name'";
+        $check_query = "SELECT * FROM tbl_tipos_discapacidad WHERE detalle = '$cat_name'";
         $check_run = mysqli_query($con, $check_query);
         if (mysqli_num_rows($check_run) > 0) {
-            $error = "Alergia ya existe";
+            $error = "Tipo de discapacidad ya existe";
         } else {
-            $insert_query = "INSERT INTO tbl_alergias (detalle) VALUES ('$cat_name')";
+            $insert_query = "INSERT INTO tbl_tipos_discapacidad (detalle) VALUES ('$cat_name')";
             if (mysqli_query($con, $insert_query)) {
-                $msg = "Alergia ha sido agregada";
+                $msg = "Tipo de discapacidad ha sido agregada";
             } else {
-                $error = "Alergia no ha sido agregada";
+                $error = "Tipo de discapacidad no ha sido agregada";
             }
         }
     }
@@ -49,18 +49,18 @@ if (isset($_POST['update'])) {
     $cat_name = mysqli_real_escape_string($con, strtolower($_POST['cat-name']));
 
     if (empty($cat_name)) {
-        $up_error = "Debe llenar el campo";
+        $up_error = "Debe llenar este campo";
     } else {
-        $check_query = "SELECT * FROM tbl_alergias WHERE detalle = '$cat_name'";
+        $check_query = "SELECT * FROM tbl_tipos_discapacidad WHERE detalle = '$cat_name'";
         $check_run = mysqli_query($con, $check_query);
         if (mysqli_num_rows($check_run) > 0) {
-            $up_error = "Alergia ya existe";
+            $up_error = "Tipo de discapacidad ya existe";
         } else {
-            $update_query = "UPDATE `tbl_alergias` SET `detalle` = '$cat_name' WHERE `tbl_alergias`.`id_alergias` = $edit_id";
+            $update_query = "UPDATE `tbl_tipos_discapacidad` SET `detalle` = '$cat_name' WHERE `tbl_tipos_discapacidad`.`id_tipo_discapacidad` = $edit_id";
             if (mysqli_query($con, $update_query)) {
-                $up_msg = "Alergia ha sido agregada";
+                $up_msg = "Tipo de discapacidad ha sido modificada";
             } else {
-                $up_error = "Alergia no ha sido agregada";
+                $up_error = "Tipo de discapacidad no ha sido modificada";
             }
         }
     }
@@ -77,7 +77,7 @@ if (isset($_POST['update'])) {
                     <?php require_once('inc/sidebar.php'); ?>
                 </div>
                 <div class="col-md-9">
-                    <h1><i class="fas fa-allergies"></i> Alergias </h1><hr>
+                    <h1><i class="fas fa-wheelchair"></i> Tipo de discapacidad </h1><hr>
                     <ol class="breadcrumb">
                         <li><a href="index.php"><i class="fas fa-home"></i> Menú</a></li>
                         <li><a href="menuprincipalprocesos.php"><i class="fa fa-list-ul"></i> Lista de Procesos</a></li>
@@ -88,7 +88,7 @@ if (isset($_POST['update'])) {
                         <div class="col-md-6">
                             <form action="" method="post">
                                 <div class="form-group">
-                                    <label for="detalle">Nombre de la Alergia:</label>
+                                    <label for="detalle">Nombre del tipo de discapacidad:</label>
                                     <?php
                                     if (isset($msg)) {
                                         echo "<span class='pull-right' style='color:green;'>$msg</span>";
@@ -96,7 +96,7 @@ if (isset($_POST['update'])) {
                                         echo "<span class='pull-right' style='color:red;'>$error</span>";
                                     }
                                     ?>
-                                    <input type="text" placeholder="Nombre de la Alergia" class="form-control" name="cat-name">
+                                    <input type="text" placeholder="Nombre del tipo de discapacidad" class="form-control" name="cat-name">
                                 </div>
                                 <input type="submit" value="Agregar" name="submit" class="btn btn-primary">
                                 <a href="menuprincipalprocesos.php">
@@ -106,7 +106,7 @@ if (isset($_POST['update'])) {
                             </form>
                             <?php
                             if (isset($_GET['edit'])) {
-                                $edit_check_query = "SELECT * FROM tbl_alergias WHERE id_alergias = $edit_id";
+                                $edit_check_query = "SELECT * FROM tbl_tipos_discapacidad WHERE id_tipo_discapacidad = $edit_id";
                                 $edit_check_run = mysqli_query($con, $edit_check_query);
                                 if (mysqli_num_rows($edit_check_run) > 0) {
 
@@ -117,7 +117,7 @@ if (isset($_POST['update'])) {
 
                                     <form action="" method="post">
                                         <div class="form-group">
-                                            <label for="tbl_alergias">Actualizar Nombre de la Alergia:</label>
+                                            <label for="tbl_tipos_discapacidad">Actualizar nombre del tipo de discapacidad:</label>
                                             <?php
                                             if (isset($up_msg)) {
                                                 echo "<span class='pull-right' style='color:green;'>$up_msg</span>";
@@ -125,15 +125,15 @@ if (isset($_POST['update'])) {
                                                 echo "<span class='pull-right' style='color:red;'>$up_error</span>";
                                             }
                                             ?>
-                                            <input type="text" value="<?php echo $up_category; ?>" placeholder="Nombre de la Alergia" class="form-control" name="cat-name">
+                                            <input type="text" value="<?php echo $up_category; ?>" placeholder="Nombre del tipo de discapacidad" class="form-control" name="cat-name">
                                         </div>
                                         <input type="submit" value="Actualizar" name="update" class="btn btn-primary">
                                        
-                                        <a href="proalergias.php">
+                                        <a href="protipodiscapacidad.php">
                                         <button type="button" class="btn btn-primary">Cerrar</button>
                                         </a>
 
-                                        <a href="proalergias.php">
+                                        <a href="protipodiscapacidad.php">
                                         <button type="button" class="btn btn-primary">Cancelar</button>
                                         </a>
                                     </form>
@@ -145,7 +145,7 @@ if (isset($_POST['update'])) {
                         </div>
                         <div class="col-md-6"><br>
                             <?php
-                            $get_query = "SELECT * FROM tbl_alergias ORDER BY id_alergias DESC";
+                            $get_query = "SELECT * FROM tbl_tipos_discapacidad ORDER BY id_tipo_discapacidad DESC";
                             $get_run = mysqli_query($con, $get_query);
                             if (mysqli_num_rows($get_run) > 0) {
 
@@ -161,7 +161,7 @@ if (isset($_POST['update'])) {
                                     <thead>
                                         <tr>
                                             <th>Número</th>
-                                            <th>Nombre de Alergia</th>
+                                            <th>Nombre del tipo de discapacidad</th>
                                             <th>Editar</th>
                                             <th>Eliminar</th>
                                         </tr>
@@ -169,21 +169,21 @@ if (isset($_POST['update'])) {
                                     <tbody>
                                         <?php
                                         while ($get_row = mysqli_fetch_array($get_run)) {
-                                            $alergias_id = $get_row['id_alergias'];
-                                            $detallealergia_name = $get_row['detalle'];
+                                            $tdiscapacidad_id = $get_row['id_tipo_discapacidad'];
+                                            $detalltdiscapacidad_name = $get_row['detalle'];
                                             ?>
                                             <tr>
-                                                <td><?php echo $alergias_id; ?></td>
-                                                <td><?php echo ucfirst($detallealergia_name); ?></td>
-                                                <td><a href="proalergias.php?edit=<?php echo $alergias_id; ?>"><i class="far fa-edit"></i></a></td>
-                                                <td><a href="proalergias.php?del=<?php echo $alergias_id; ?>"><i class="fas fa-trash-alt"></i></a></td>
+                                                <td><?php echo $tdiscapacidad_id; ?></td>
+                                                <td><?php echo ucfirst($detalltdiscapacidad_name); ?></td>
+                                                <td><a href="protipodiscapacidad.php?edit=<?php echo $tdiscapacidad_id; ?>"><i class="far fa-edit"></i></a></td>
+                                                <td><a href="protipodiscapacidad.php?del=<?php echo $tdiscapacidad_id; ?>"><i class="fas fa-trash-alt"></i></a></td>
                                             </tr>
                                         <?php } ?>
                                     </tbody>
                                 </table>
                                 <?php
                             } else {
-                                echo "<center><h3>No se encontró lista de alergias</h3></center>";
+                                echo "<center><h3>No se encontró lista de discapacidades</h3></center>";
                             }
                             ?>
                         </div>
