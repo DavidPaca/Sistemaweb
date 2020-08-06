@@ -263,6 +263,69 @@ $get_comment_run = mysqli_query($con, $get_comment);
 
 
 
+<!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX MENU COORDINADOR GENERAL XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
+
+<div class="list-group rojo"  >
+      <?php
+       if ($session_role1 == 'Coordinador General') {
+      ?>
+      <a href="index.php" class="list-group-item active" style="background-color:#595757">
+        <i class="fas fa-home"></i>  Menu principal
+      </a>
+    
+        <!--<a href="comments.php" class="list-group-item">
+            <?php
+              if ($num_of_rows > 0) {
+                echo "<span class='badge'>$num_of_rows</span>";
+              }
+            ?>
+              <i class="fa fa-comment"></i> Comentarios Realizados
+               </a>-->
+       
+              <a href="add-user.php" class="list-group-item">
+                <i class="fa fa-users"></i> Agregar Coordinador
+              </a>
+
+              <a href="../superadmin/users.php" class="list-group-item">
+                  <i class="fa fa-users"></i> Coordinadores Registrados
+              </a>
+
+                           
+              <div class="list-group-item">
+                      <div class="card-header quitarespaciosidebar" id="headingTwo">
+                        <h5 class="letrasmenuficha">
+                        <i class="fas fa-university"></i>
+                          <button class="btn collapsed" style="color:#555555" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                            Centros de desarrollo Infantil
+                          </button>
+                        </h5>
+                      </div>
+                          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                            <div class="card-body">
+                              <a href="menu_cdi1.php" class="list-group-item">
+                                <i class="fa fa-folder-open"></i> CDI 1
+                              </a>
+                              <a href="nientrevistaregistrada.php" class="list-group-item">
+                                <i class="fa fa-folder-open"></i> CDI 2
+                              </a>
+                              <a href="nientrevistaregistrada.php" class="list-group-item">
+                                <i class="fa fa-folder-open"></i> CDI 3
+                              </a>
+                              <a href="nientrevistaregistrada.php" class="list-group-item">
+                                <i class="fa fa-folder-open"></i> CDI 4
+                              </a>
+                              <a href="nientrevistaregistrada.php" class="list-group-item">
+                                <i class="fa fa-folder-open"></i> CDI 5
+                              </a>
+                              <a href="nientrevistaregistrada.php" class="list-group-item">
+                                <i class="fa fa-folder-open"></i> CDI 6
+                              </a>
+                            </div>
+                          </div>
+                    </div>
+ 
+        <?php } ?>
+</div>
 
 
 

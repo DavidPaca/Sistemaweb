@@ -9,7 +9,8 @@ if (isset($_POST['submit'])) {//if hicieron clic en submit
     $ci = mysqli_real_escape_string($con, strtolower($_POST['username']));//ATRAPAMOS USER NAME Y PASSWOR
     $password = mysqli_real_escape_string($con, $_POST['password']);
     $cdia = mysqli_real_escape_string($con, $_POST['cdi']);
-    echo($cdia);
+
+    //echo($cdia);
 
     
 
@@ -32,11 +33,25 @@ if (isset($_POST['submit'])) {//if hicieron clic en submit
         /*echo($ci);
         echo($password);
         echo("p/db");
-        echo($db_ci );       
-        echo($db_password);*/
+        echo($db_ci );   */    
+        //echo($db_tipo_role);
+        
+        if ($ci == $db_ci && $password == $db_password && $cdia == $db_tipo_cdi && $db_tipo_role == "Coordinador General") {
+            ("estoy adentro");
+ 
+            header('Location: ../superadmin/inicio_cg.php');//enviar a la pagina q deseas
+             $_SESSION['username'] = $db_ci;
+             $_SESSION['roleSS'] = $db_tipo_role;
+             $_SESSION['tipo_cdi'] = $db_tipo_cdi;
+             
+            // $_SESSION['author_image'] = $db_author_image;
+         } 
+             
+         else {
+
         
         if ($ci == $db_ci && $password == $db_password && $cdia == $db_tipo_cdi ) {
-            ("estoy adentro");
+           ("estoy adentro");
 
             header('Location: index.php');//enviar a la pagina q deseas
             $_SESSION['username'] = $db_ci;
@@ -47,9 +62,11 @@ if (isset($_POST['submit'])) {//if hicieron clic en submit
         } else {
             $error = "Usuario o clave incorrectas";
         }
-    } else {
+    } 
+}
+    else {
         $error = "Usuario o clave incorrectas";
-    }
+    } 
 }
 
 /*Mostrar cdis*/
