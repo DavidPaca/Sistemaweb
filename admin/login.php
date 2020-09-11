@@ -39,7 +39,7 @@ if (isset($_POST['submit'])) {//if hicieron clic en submit
         if ($ci == $db_ci && $password == $db_password && $cdia == $db_tipo_cdi && $db_tipo_role == "Coordinador General") {
             ("estoy adentro");
  
-            header('Location: ../superadmin/inicio_cg.php');//enviar a la pagina q deseas
+            header('Location: admin/index.php');//enviar a la pagina q deseas
              $_SESSION['username'] = $db_ci;
              $_SESSION['roleSS'] = $db_tipo_role;
              $_SESSION['tipo_cdi'] = $db_tipo_cdi;
@@ -73,9 +73,6 @@ if (isset($_POST['submit'])) {//if hicieron clic en submit
     
 ?>
     
-
-
-
 
 
 <!DOCTYPE html>

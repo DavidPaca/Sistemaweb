@@ -137,6 +137,10 @@ require_once('inc/header.php');
                       <i class="fas fa-qrcode" aria-hidden="true"></i> Parroquia
                     </a>
 
+                    <a href="pronivelninio.php" class="list-group-item">
+                      <i class="fas fa-qrcode" aria-hidden="true"></i> Niveles
+                    </a>
+
                     
                     
                         

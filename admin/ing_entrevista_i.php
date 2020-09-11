@@ -90,7 +90,7 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                     ?>
 
 <!--------------------------------------------------Tamaño cajones------------------------------------------------------------>
-<div class="row">
+                    <div class="row">
                         <div class="col-md-8">
                             <form action="" method="post" enctype="multipart/form-data">     
 
@@ -105,7 +105,7 @@ while ($consultadatos = mysqli_fetch_array ($consultadatos)){
 ?>
  
 <!--------------------------------------------------id Ninio------------------------------------------------------------>
-                                    <div class="form-group">
+                                <div class="form-group">
                                     <label for="role">Niño:</label>
                                     <select class="form-control" name="nombreninio" id="categories">
                                         <?php
@@ -129,255 +129,93 @@ while ($consultadatos = mysqli_fetch_array ($consultadatos)){
                                         ?>
                                     </select>
                                 </div>
-           
+<!--*********************************************** DESDE AQUI **************************************************** --> 
+
+<!--*********************************************** TITULO ALIMENTOS **************************************************** -->                                             
+<label for="n_establec_dis" style="font-size:1.5rem">ALIMENTOS</label>
+
+
+
 <!--------------------------------------------------Ha tenido alergias------------------------------------------------------------>                   
                                 
-                     <!--           <div class="form-group">
-                                   <label for="alergiaali">¿Tiene alergia a algún tipo de alimento? </label><br>
-                                    <select name="alergiaali" id="role" >
-                                        <option value="Si">Si</option>
-                                        <option value="No">No</option>
-                                    </select> <br>
-                                    <label for="alergiaali">¿Especifíque? </label>-->
-                                    <?php
-                                /*    if (isset($error)) {
-                                        echo "<span class='pull-right' style='color:red;'>$error</span>";
-                                    } else if (isset($msg)) {
-                                        echo "<span class='pull-right' style='color:green;'>$msg</span>";
-                                    }*/
-                                    ?>
-                                  <!--  <input type="text" id="first-name" name="alergiaali" class="form-control" value="<?php
-                                   // if (isset($first_name)) {
-                                     //   echo $first_name;
-                                  //  }
-                                    ?>" placeholder="">
-                                </div>-->
-
-                                <div class="form-group">
-                                    <label for="alergiaali">¿Tiene alergia a algún tipo de alimento? (De ser la respuesta afirmativa "Especifique") </label>
-                                    <input type="text" id="last-name" name="alergiaali" class="form-control" value="<?php
-                                    if (isset($last_name)) {
-                                        echo $last_name;
-                                    }
-                                    ?>" placeholder="">
-                                </div>
-
- <!--------------------------------------------------Enfermedades Graves------------------------------------------------------------>
-                                <div class="form-group">
-                                    <label for="enfergraves">¿Ha sufrido alguna enfermedad grave? (De ser la respuesta afirmativa "Especifique") </label>
-                                    <input type="text" id="last-name" name="enfergraves" class="form-control" value="<?php
-                                    if (isset($last_name)) {
-                                        echo $last_name;
-                                    }
-                                    ?>" placeholder="">
-                                </div>
-
-<!--------------------------------------------------Accidentes------------------------------------------------------------>
-                                <div class="form-group">
-                                    <label for="akidentes">¿Ha sufrido accidentes?(De ser la respuesta afirmativa "Especifique")</label>
-                                    <input type="text" id="username" name="akidentes" class="form-control" value="" placeholder="">
-                                </div>
-
-<!--------------------------------------------------Es alergico------------------------------------------------------------>
-                                <div class="form-group">
-                                    <label for="tienealer">¿ES alérgico?(De ser la respuesta afirmativa "Especifique")</label>
-                                    <input type="text" id="username" name="tienealer" class="form-control" value="" placeholder="">
-                                </div>
-
-<!--------------------------------------------------Come Solo------------------------------------------------------------>
-<div class="form-group">
-                                    <label for="comesolo">¿Come solo?</label>
-                                    <input type="text" id="username" name="comesolo" class="form-control" value="" placeholder="">
-                                </div>
-
-<!--------------------------------------------------Vocabulario----------------------------------------------------------->
-                               <div class="form-group">
-                                    <label for="vocabular">¿Como es su vocavulario?</label>
-                                    <select name="vocabular" id="role" class="form-control">
-                                        <option value="No habla">No habla</option>
-                                        <option value="Habla Poco">Habla Poco</option>
-                                        <option value="Entendible">Entendible</option>
-                                        
-                                    </select>
-                                </div>
-
-
-<!--<div class="form-group">
-                                   <label for="vocabular">¿ES alérgico?(De ser la respuesta afirmativa "Especifique")</label>
-                                    <input type="text" id="username" name="vocabular" class="form-control" value="" placeholder="">
-                                </div> -->
-<!--------------------------------------------------Persoan con quien tiene mas relacion------------------------------------------------------------>
-<div class="form-group">
-                                    <label for="masrelacion">¿Con qué persona de su familia tiene mas relación?</label>
-                                    <input type="text" id="username" name="masrelacion" class="form-control" value="" placeholder="">
-                                </div>
-
-<!--------------------------------------------------Actitud negativa------------------------------------------------------------>
-<div class="form-group">
-                                    <label for="actinegativa">¿Presenta alguna actitud negativa?(De ser la respuesta afirmativa "Especifique")</label>
-                                    <input type="text" id="username" name="actinegativa" class="form-control" value="" placeholder="">
-                                </div>
-
-<!--------------------------------------------------Tiene dependencia adultos------------------------------------------------------------>
-<div class="form-group">
-                                    <label for="dependeadultos">¿Tiene dependencia de un adulto?(De ser la respuesta afirmativa "Especifique")</label>
-                                    <input type="text" id="username" name="dependeadultos" class="form-control" value="" placeholder="">
-                                </div>    
-
-<!--------------------------------------------------Tipos de juegos le gusta jugar------------------------------------------------------------>
-<div class="form-group">
-                                    <label for="legustajugar">¿Qué tipos de juegos le gusta juegar?</label>
-                                    <input type="text" id="username" name="legustajugar" class="form-control" value="" placeholder="">
-                                </div>   
-
-<!--------------------------------------------------Tiene mascota----------------------------------------------------------->
-<div class="form-group">
-                                    <label for="mascotas">¿Tiene mascota?(De ser la respuesta afirmativa "Especifique")</label>
-                                    <input type="text" id="username" name="mascotas" class="form-control" value="" placeholder="">
-                                </div>   
-
-<!--------------------------------------------------Nombre de la mascota------------------------------------------------------------>
-<div class="form-group">
-                                    <label for="nombremascota">¿Cuál es el ombre de la mascota?</label>
-                                    <input type="text" id="username" name="nombremascota" class="form-control" value="" placeholder="">
-                                </div>   
-
-<!--------------------------------------------------Llora facilidad------------------------------------------------------------>
-<div class="form-group">
-                                    <label for="llorafacil">¿Llora con facilidad?(De ser la respuesta afirmativa "Especifique")</label>
-                                    <input type="text" id="username" name="llorafacil" class="form-control" value="" placeholder="">
-                                </div>   
-
-<!--------------------------------------------------Mira tv------------------------------------------------------------>
-<div class="form-group">
-                                    <label for="miratv">¿Mira la televisión?(De ser la respuesta afirmativa "Especifique")</label>
-                                    <input type="text" id="username" name="miratv" class="form-control" value="" placeholder="">
-                                </div>   
-                                
-<!--------------------------------------------------Escucha musica------------------------------------------------------------>
-<div class="form-group">
-                                    <label for="escuchamusic">¿Le gusta escuchar música?(De ser la respuesta afirmativa "Especifique")</label>
-                                    <input type="text" id="username" name="escuchamusic" class="form-control" value="" placeholder="">
-                                </div>   
-
-<!--------------------------------------------------Le gusta bailar------------------------------------------------------------>
-<div class="form-group">
-                                    <label for="gustabailar">¿Le gusta bailar?(De ser la respuesta afirmativa "Especifique")</label>
-                                    <input type="text" id="username" name="gustabailar" class="form-control" value="" placeholder="">
-                                </div>   
-
-<!--------------------------------------------------Tiene dependencia adultos------------------------------------------------------------>
-<div class="form-group">
-                                    <label for="tienemiedo">¿Tiene miedo?(De ser la respuesta afirmativa "Especifique")</label>
-                                    <input type="text" id="username" name="tienemiedo" class="form-control" value="" placeholder="">
-                                </div>         
-
-<!--------------------------------------------------Referencia de CDI------------------------------------------------------------>
-
-<div class="form-group">
-                                    <label for="role">¿Cuál fue el motivo que le inscribe a su niño en en nuestro CDI?</label>
-                                    <select class="form-control" name="refercdi" id="categories">
-                            <?php
-                            $sql_cdi = "select * from tbl_referencia_cdi";
-                            $ejecutar = mysqli_query($con, $sql_cdi);//ejecutar consulta
+                    <script type="text/javascript">
+                        function mostrar_nombre_alergias(a) {
+                            if (a== "No_tiene_alergia") {
+                                $("#No_tiene_alergia").show();
+                                $("#Si_tiene_alergia").hide();
                             
-                            if (mysqli_num_rows($ejecutar) > 0) {
-                                while ($row2 = mysqli_fetch_array($ejecutar)) {
-                                    
-                                    $cdi1 = $row2['detalle'];
-                                    $idcdi1 = $row2['id_ref_cdi'];
-                                    echo "<option value='" . $idcdi1. "' " .  ">" . ucfirst($cdi1) . "</option>";
-                                }
-                            } else {
-                               // echo "<center><h6>Categoría no disponible</h6></center>";
                             }
-                            ?>
-                        </select>
-                                </div>
 
-                    
-                                <input type="submit" value="Agregar Datos Personales" name="submit" class="btn btn-primary">
-                            </form>
+                            if (a == "Si_tiene_alergia") {
+                                $("#No_tiene_alergia").hide();
+                                $("#Si_tiene_alergia").show();
+                            }                 
+                        }    
+                    </script>    
 
-<!--<div class="form-group">
-                                    <label for="refercdi">¿Cuál fue el motivo que le inscribe a su niño en en nuestro CDI?(De ser la respuesta afirmativa "Especifique")</label>
-                                    <input type="text" id="username" name="refercdi" class="form-control" value="" placeholder="">
-                                </div>      -->                                                       
-
-                            <!--    <div class="form-group">
-                                    <label for="role">¿Come solo?</label>
-                                    <select name="role" id="role" class="form-control">
-                                        <option value="Parvulario">Si</option>
-                                        <option value="Coordinador">No</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="email">¿Cómo es el vocavulario del niño?</label>
-                                    <input type="text" id="email" name="email" class="form-control" value="<?php
-                                   // if (isset($email)) {
-                                   //     echo $email;
-                                  //  }
-                                    ?>" placeholder="">
-                                </div> -->
-
-                             <!--   <div class="form-group">
-                                    <label for="telef">¿Con quién se relaciona mas el niño(a) con el papá, mamá u otro?</label> <!--maxlength="10"
-                                    <input type="text" id="telef" name="telef" class="form-control"  value="<?php
-                                    
-                                    ?>" placeholder="">
-                                </div>
-                                <div class="form-group">
-                                <label for="dir">¿Es sociable o presenta alguna actitud negativa?</label>
-                                    <input type="text" id="dir" name="dir" class="form-control" value="<?php
-                                    
-                                    ?>" placeholder="">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="role">CDI :*</label>  
-                                    <select class="form-control" name="cdi" id="categories"> -->
-                            <?php
-                        /*    $sql_cdi = "select * from tbl_cdi";   
-                            $ejecutar = mysqli_query($con, $sql_cdi);//ejecutar consulta*/
-                            
-                       /*     if (mysqli_num_rows($ejecutar) > 0) {
-                                while ($row2 = mysqli_fetch_array($ejecutar)) {
-                                    
-                                    $cdi = $row2['nombre'];
-                                    $idcdi = $row2['id'];
-                                    echo "<option value='" . $idcdi. "' " .  ">" . ucfirst($cdi) . "</option>";
-                                }
-                            } else {
-                               // echo "<center><h6>Categoría no disponible</h6></center>";
-                            }
-                            ?>
-                        </select>
-                                </div>
+                    <div class="form-group">
+                      <label for="n_establec_dis">¿Tiene alérgia a algún(os) alimento(s)?</label> 
+                        <div class="row">
+                            <div class="col-md-3">
+                                <select class="form-control" id="n_establec_dis" name="n_establec_dis" onChange="mostrar_nombre_alergias(this.value);">
+                                    <option value="seleccione">Seleccione</option>
+                                    <option value="Si_tiene_alergia">Si</option>
+                                    <option value="No_tiene_alergia">No</option>
                                 
-
-                                
-
- <!--***************************************************insertar imagen***************************-->                               
-
-                          <!--      <div class="form-group">
-                                    <label for="image">Foto de perfil :*</label>
-                                    <input type="file" id="image" name="image">
-                                </div>
-
-                                <input type="submit" value="Agregar Usuario" name="submit" class="btn btn-primary">
-                            </form>
-                        </div>-->
-                       <!-- <div class="col-md-4">-->
-                            <?php /*
-                            if (isset($check_image)) {
-                                echo "<img src='img/$check_image' width='50%'>";
-                            }*/
-                            ?>
+                                </select>
+                            </div>
+                           
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
+                            
+                    
+                    <div id="No_tiene_alergia" style="display: none;">                        
+                        <div class="form-group">
+                         <label for="n_establec_dis">***************Sin alergias***************</label>                             
+                        </div>
+                    </div>
+                    
+                    <div id="Si_tiene_alergia" style="display: none;">
+                        <div class="form-group">
+                        <label class = "col-md-1" style="padding-top: 1%;padding-right: 10%" for="role">Especifíque:</label>  
+                            <div class="row" >                          
+                                <div class="col-md-8">
+                                    <select class="form-control" name="ninio_nivel" id="ninio_nivel">
+                                      <option value="seleccione">Seleccione</option>
+                                        <?php
+                                        $sql_nivel_ninio = "select * from tbl_alimentos";
+                                        $ejecutar = mysqli_query($con, $sql_nivel_ninio);//ejecutar consulta
+                                        
+                                        if (mysqli_num_rows($ejecutar) > 0) {
+                                            while ($row2 = mysqli_fetch_array($ejecutar)) {  
+                                                
+                                                $detalle_nivel = $row2['detalle'];
 
-        <?php //require_once('inc/footer.php'); ?>
+                                                $id_nivel = $row2['id_alimentos'];
+                                                echo "<option value='" . $id_nivel. "' " .  ">" . ($detalle_nivel) . "</option>";
+                                            }
+                                        } 
+                                        ?>
+                                    </select>
+                                    
+                                </div>
+                                <button type="button" class="btn btn-primary">Agregar</button>
+                                
+                            </div> 
+                        </div> 
+                    </div>        
+                </form>
+                    </div> 
+                    </div>
+
+                    </div>
+                    </div>
+                    </div>
+                      
+
+
+
+
+        
+
+        <?php require_once('inc/footer.php'); ?>

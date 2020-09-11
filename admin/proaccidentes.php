@@ -25,7 +25,7 @@ if (isset($_GET['del'])) {
 }
 
 if (isset($_POST['submit'])) {
-    $cat_name = mysqli_real_escape_string($con, strtolower($_POST['cat-name']));
+    $cat_name = mysqli_real_escape_string ($con,($_POST['cat-name']));
 
     if (empty($cat_name)) {
         $error = "Debe llenar el campo";
@@ -46,7 +46,7 @@ if (isset($_POST['submit'])) {
 }
 
 if (isset($_POST['update'])) {
-    $cat_name = mysqli_real_escape_string($con, strtolower($_POST['cat-name']));
+    $cat_name = mysqli_real_escape_string($con, ($_POST['cat-name']));
 
     if (empty($cat_name)) {
         $up_error = "Debe llenar este campo";
@@ -176,7 +176,7 @@ if (isset($_POST['update'])) {
                                                 <td><?php echo $medica_id; ?></td>
                                                 <td><?php echo ucfirst($detallemedic_name); ?></td>
                                                 <td><a href="proaccidentes.php?edit=<?php echo $medica_id; ?>"><i class="far fa-edit"></i></a></td>
-                                                <td><a href="proaccidentes.php?del=<?php echo $medica_id; ?>"><i class="fas fa-trash-alt"></i></a></td>
+                                                <td><a href="proaccidentes.php?del=<?php echo $medica_id; ?>" onclick="return confirm('¿Desea Borrar?');  "><i class="fas fa-trash-alt"></i></a></td>
                                             </tr>
                                         <?php } ?>
                                     </tbody>

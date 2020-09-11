@@ -28,17 +28,17 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                     if (isset($_POST['submit'])) {
                         //$date = time();
                         
-                        $tipo_docide = mysqli_real_escape_string($con, $_POST['tipo_docid']);
-                        $username = mysqli_real_escape_string($con, $_POST['ci']);
-                        $first_name = mysqli_real_escape_string($con, $_POST['first-name']);     /*first name es el nombre del cajon*/
-                        $last_name = mysqli_real_escape_string($con, $_POST['last-name']);
-                        $fecha_ingreso = mysqli_real_escape_string($con, $_POST['fecha_ing']);                                                                       //username
+                        $tipo_docide = ($_POST['tipo_docid']);
+                        $username =($_POST['ci']);
+                        $first_name = ($_POST['first-name']);     /*first name es el nombre del cajon*/
+                        $last_name = ($_POST['last-name']);
+                        $fecha_ingreso = ($_POST['fecha_ing']);                                                                       //username
                         $role = $_POST['role'];
-                        $dir = mysqli_real_escape_string($con, strtolower($_POST['dir']));
-                        $telef = mysqli_real_escape_string($con, strtolower($_POST['telef']));
-                        $email = mysqli_real_escape_string($con, strtolower($_POST['email']));
-                        $password = mysqli_real_escape_string($con, $_POST['password']);
-                        $cdi = mysqli_real_escape_string($con, strtolower($_POST['cdi']));
+                        $dir = ($_POST['dir']);
+                        $telef = ($_POST['telef']);
+                        $email = ($_POST['email']);
+                        $password =($_POST['password']);
+                        $cdi = ($_POST['cdi']);
                         $image = $_FILES['image']['name'];
                         $image_temp = $_FILES['image']['tmp_name'];
 
@@ -51,7 +51,7 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                         if (empty($first_name) or empty($last_name) or empty($username) or empty($email) or empty($password)) {   //username
                             $error = "Todos los (*) Campos son requeridos";
                         } else {
-                            $insert_query = "INSERT INTO tbl_usuario (id_docide,ci,apellidos,nombres,fecha_ingreso,tipo,direccion_dom,telefono,correo_e,contrasenia,id_cdi,imagen_usuario) values('$tipo_docide','$username','$Last_name','$first_name','$fecha_ingreso','$role','$dir','$telef','$email','$password','$cdi','$image')";
+                            $insert_query = "INSERT INTO `tbl_usuario` ( `id_usuario`,`id_docide`,`ci`,`apellidos`,`nombres`,`fecha_ingreso`,`tipo`,`direccion_dom`,`telefono`,`correo_e`,`contrasenia`,`id_cdi`,`imagen_usuario`) values('id_usuario','$tipo_docide','$username','$last_name','$first_name','$fecha_ingreso','$role','$dir','$telef','$email','$password','$cdi','$image')";
                             if (mysqli_query($con, $insert_query)) {
                                 $msg = "Usuario ingresado";
                                 $path="img/$image";
@@ -91,7 +91,7 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                                     
                                     $detalledoc = $row2['detalle'];
                                     $iddoc = $row2['id_docide'];
-                                    echo "<option value='" . $iddoc. "' " .  ">" . ucfirst($detalledoc) . "</option>";
+                                    echo "<option value='" . $iddoc. "' " .  ">" . ($detalledoc) . "</option>";
                                 }
                             } else {
                                // echo "<center><h6>Categoría no disponible</h6></center>";
@@ -106,34 +106,25 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                                     <input type="text" id="username" name="ci" class="form-control" maxlength="10" value="" placeholder="Número de Documento de Identidad">    <!--username-->
                                 </div>
 
+                             <!--   <div class="form-group">
+                                    <label for="apellidos_us">Apellidos:</label>
+                                    <input type="text" id="apellidos_us" name="apellidos_us" class="form-control" value="<?php
+                                    
+                                    ?>" placeholder="Apellidos">
+                                </div>-->
+
+                                <div class="form-group">
+                                    <label >Apellidos:</label>
+                                    <input name="last-name" class="form-control" value="<?php
+                                    ?>" placeholder="NomApellidos2bres">
+                                </div>
 
                                 <div class="form-group">
                                     <label for="first-name">Nombres:</label>
-                                    <?php
-                                    if (isset($error)) {
-                                        echo "<span class='pull-right' style='color:red;'>$error</span>";
-                                    } else if (isset($msg)) {
-                                        echo "<span class='pull-right' style='color:green;'>$msg</span>";
-                                    }
-                                    ?>
                                     <input type="text" id="first-name" name="first-name" class="form-control" value="<?php
-                                    if (isset($first_name)) {
-                                        echo $first_name;
-                                    }
                                     ?>" placeholder="Nombres">
                                 </div>
-
-
-                                <div class="form-group">
-                                    <label for="last-name">Apellidos:</label>
-                                    <input type="text" id="last-name" name="last-name" class="form-control" value="<?php
-                                    if (isset($last_name)) {
-                                        echo $last_name;
-                                    }
-                                    ?>" placeholder="Apellidos">
-                                </div>
-
-                                
+                       
                                 <div class="form-group">
                                     <label for="date">Fecha de Ingreso :</label>  
                                     <input type="date"  name="fecha_ing" class="form-control">

@@ -223,7 +223,7 @@ require_once('inc/header.php');
                                         </div>
                                     </div>
                                 </div>
-                                <a href="ing_entrevista_i.php">
+                                <a href="niniosregistrados_ci.php">
                                     <div class="panel-footer letrasmenuficha">
                                         <span class="pull-left">ENTREVISTA INICIAL<br><br></span>
                                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
