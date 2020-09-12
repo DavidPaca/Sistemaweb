@@ -25,7 +25,7 @@ if (isset($_GET['del'])) {
 }
 
 if (isset($_POST['submit'])) {
-    $cat_name = mysqli_real_escape_string($con, ($_POST['cat-name']));
+    $cat_name = ($_POST['cat-name']);
 
     if (empty($cat_name)) {
         $error = "Debe llenar el campo";
@@ -46,7 +46,7 @@ if (isset($_POST['submit'])) {
 }
 
 if (isset($_POST['update'])) {
-    $cat_name = mysqli_real_escape_string($con, ($_POST['cat-name']));
+    $cat_name =  ($_POST['cat-name']);
 
     if (empty($cat_name)) {
         $up_error = "Debe llenar el campo";
@@ -174,7 +174,7 @@ if (isset($_POST['update'])) {
                                             ?>
                                             <tr>
                                                 <td><?php echo $alergias_id; ?></td>
-                                                <td><?php echo ucfirst($detallealergia_name); ?></td>
+                                                <td><?php echo ($detallealergia_name); ?></td>
                                                 <td><a href="proalergias.php?edit=<?php echo $alergias_id; ?>"><i class="far fa-edit"></i></a></td>
                                                 <td><a href="proalergias.php?del=<?php echo $alergias_id; ?>" onclick="return confirm('¿Desea Borrar?');  "><i class="fas fa-trash-alt"></i></a></td>
                                             </tr>

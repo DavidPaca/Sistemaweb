@@ -19,6 +19,9 @@ require_once('../inc/db.php');
         <link href="//fonts.googleapis.com/css?family=Federo" rel="stylesheet">
         <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
 
+
+        
+
         <link href="img/iconescudoderiobamba.jpg" rel="icon">
         <!--        <link href="css/font-awesome.css" rel="stylesheet">-->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
@@ -31,7 +34,11 @@ require_once('../inc/db.php');
 
         <!--para las tablas de busqueda-->
 
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
+        <!--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>-->
+
+        <!--desde aqui-->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+  
 
         <!--para las tablas de busqueda-->
         <!--

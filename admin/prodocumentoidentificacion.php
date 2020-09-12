@@ -25,7 +25,7 @@ if (isset($_GET['del'])) {
 }
 
 if (isset($_POST['submit'])) {
-    $doc_name = mysqli_real_escape_string($con, ($_POST['cat-name']));
+    $doc_name = ($_POST['cat-name']);
      echo $doc_name;
     if (empty($doc_name)) {
         $error = "Debe llenar el campo";
@@ -46,7 +46,7 @@ if (isset($_POST['submit'])) {
 }
 
 if (isset($_POST['update'])) {
-    $doc_name = mysqli_real_escape_string($con, ($_POST['cat-name']));
+    $doc_name =  ($_POST['cat-name']);
 
     if (empty($doc_name)) {
         $up_error = "Debe llenar este campo";
@@ -173,7 +173,7 @@ if (isset($_POST['update'])) {
                                             ?>
                                             <tr>
                                                 <td><?php echo $documento_id; ?></td>
-                                                <td><?php echo ucfirst($documento_name); ?></td>
+                                                <td><?php echo ($documento_name); ?></td>
                                                 <td><a href="prodocumentoidentificacion.php?edit=<?php echo $documento_id; ?>"><i class="far fa-edit"></i></a></td>
                                                 <td><a href="prodocumentoidentificacion.php?del=<?php echo $documento_id; ?>" onclick="return confirm('¿Desea Borrar?');  "><i class="fas fa-trash-alt"></i></a></td>
                                                

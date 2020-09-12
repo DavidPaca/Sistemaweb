@@ -25,9 +25,9 @@ if (isset($_GET['del'])) {
 }
 
 if (isset($_POST['submit'])) {
-    $cat_name = mysqli_real_escape_string($con, strtolower($_POST['cat-name']));
-    $cat_dir = mysqli_real_escape_string($con, strtolower($_POST['cat-dir']));
-    $cat_telef = mysqli_real_escape_string($con, strtolower($_POST['cat-telef']));
+    $cat_name = ($_POST['cat-name']);
+    $cat_dir = ($_POST['cat-dir']);
+    $cat_telef = ($_POST['cat-telef']);
     
 
     if (empty($cat_name)) {
@@ -49,9 +49,9 @@ if (isset($_POST['submit'])) {
 }
 
 if (isset($_POST['update'])) {
-    $cat_name = mysqli_real_escape_string($con, strtolower($_POST['cat-name']));
-    $cat_dir = mysqli_real_escape_string($con, strtolower($_POST['cat-dir']));
-    $cat_telef = mysqli_real_escape_string($con, strtolower($_POST['cat-telef']));
+    $cat_name = mysqli_real_escape_string($con, ($_POST['cat-name']));
+    $cat_dir = mysqli_real_escape_string($con, ($_POST['cat-dir']));
+    $cat_telef = mysqli_real_escape_string($con, ($_POST['cat-telef']));
     
 
     if (empty($cat_name)) {
@@ -219,7 +219,7 @@ if (isset($_POST['update'])) {
                                                 <td><?php echo ucfirst($direc_cdi); ?></td>
                                                 <td><?php echo ucfirst($telefono_cdi); ?></td>
                                                 <td><a href="procdi.php?edit=<?php echo $cdi_id; ?>"><i class="far fa-edit"></i></a></td>
-                                                <td><a href="procdi.php?del=<?php echo $cdi_id; ?>"><i class="fas fa-trash-alt"></i></a></td>
+                                                <td><a href="procdi.php?del=<?php echo $cdi_id; ?>" onclick="return confirm('¿Desea Borrar?');"><i class="fas fa-trash-alt"></i></a></td>
                                             </tr>
                                         <?php } ?>
                                     </tbody>

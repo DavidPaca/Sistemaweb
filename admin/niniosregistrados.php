@@ -6,15 +6,18 @@ if (!isset($_SESSION['username'])) {
 
 if (isset($_GET['del'])) {
     $del_id = $_GET['del'];
-    //$del_check_query = "SELECT * FROM users WHERE id = $del_id";
+   // $del_check_query = "SELECT * FROM tbl_datos_personales_ninio ORDER BY id_ninio DESC";
     //$del_check_run = mysqli_query($con, $del_check_query);
    // if (mysqli_num_rows($del_check_run) > 0) {
         $del_query = "UPDATE tbl_datos_personales_ninio SET estado='Inactivo' WHERE id_ninio= $del_id";
         $query_documento_identidad = "SELECT detalle FROM tbl_documento_identidad WHERE id = $idTipodocumento ";
         //if (isset($_SESSION['username']) && $_SESSION['role'] == 'admin') {
             if (mysqli_query($con, $del_query)) {
-                header('Location: niniosregistrados.php');
-            } 
+                //header('Location: niniosregistrados.php');
+                $error = "Esatdo civil ha sido eliminado";
+            } else {
+                $msg = "Estado civil no ha sido eliminado";
+            }
         //}
      
 }
@@ -55,7 +58,7 @@ if (isset($_GET['del'])) {
                         <li class="active"><i class="fa fa-users"></i> Datos Personales del Niño(a)</li>
                     </ol>
                     <?php
-                    $query = "SELECT * FROM tbl_datos_personales_ninio WHERE estado='Activo'  ";
+                    $query = "SELECT * FROM tbl_datos_personales_ninio WHERE estado='Activo'";
                     $run = mysqli_query($con, $query);
                     if (mysqli_num_rows($run) > 0) {
                         ?>
@@ -81,19 +84,38 @@ if (isset($_GET['del'])) {
                                     </div>
                                 </div>
                             </div>
-                            <?php
+                            <?php 
+                           /* $get_query = "SELECT * FROM tbl_datos_personales_ninio ORDER BY id_ninio DESC";
+                            $run = mysqli_query($con, $get_query);
                             if (isset($error)) {
                                 echo "<span style='color:red;' class='pull-right'>$error</span>";
                             } else if (isset($msg)) {
                                 echo "<span style='color:green;' class='pull-right'>$msg</span>";
+                            }*/
+                            ?>
+
+                            <?php
+                           $get_query = "SELECT * FROM tbl_datos_personales_ninio ORDER BY id_ninio DESC";
+                            $run = mysqli_query($con, $get_query);
+                            if (mysqli_num_rows($run) > 0) {
+
+                                if (isset($error)) {
+                                    echo "<span style='color:red;' class='pull-right'>$error</span>";
+                                    // echo "<span class='pull-right' style='color:green;'>$del_msg</span>";
+                                } else if (isset($msg)) {
+                                    echo "<span style='color:green;' class='pull-right'>$msg</span>";
+                                    //echo "<span class='pull-right' style='color:red;'>$del_error</span>";
+                                }
                             }
                             ?>
-                            <table class="table table-bordered table-striped table-hover">
+
+
+                            <table class="table table-bordered table-striped table-hover" id="example" >
                                 <thead>
                                     <tr>
                                         <th><input type="checkbox" id="selectallboxes"></th>
                                         <th>Número</th>
-                                        <th>Tipo de Documento</th>
+                                       <!-- <th>Tipo de Documento</th> -->
                                         <th>Cedula de Identidad</th>
                                         <th>Apellidos/Nombre</th>                               
                                         <th>Fecha de Nacimiento</th>
@@ -124,8 +146,9 @@ if (isset($_GET['del'])) {
                                 <tbody>
                                 
                                     <?php
+                                    $cont=0;
                                     while ($row = mysqli_fetch_array($run)) {
-                                        
+                                        $cont++;
                                         $idninio = $row['id_ninio'];
                                         $idTipodocumento = $row['id_docide'];
                                         $c_i = $row['numero_docide'];
@@ -161,8 +184,8 @@ if (isset($_GET['del'])) {
                                         
                                         <tr>
                                             <td><input type="checkbox" class="checkboxes" name="checkboxes[]" value="<?php echo $idninio; ?>"></td>
-                                            <td><?php echo $idninio; ?></td>
-                                            <td><?php echo $idTipodocumento; ?></td>
+                                            <td><?php echo $cont; ?></td>
+                                           <!-- <td><?php // echo $idTipodocumento; ?></td> -->
                                             <td><?php echo $c_i; ?></td>
                                             <td><?php echo "$last_name $first_name "; ?></td>
                                             <td><?php echo $fecha_nac; ?></td>
@@ -190,76 +213,7 @@ if (isset($_GET['del'])) {
                                             <td><a href="niniosregistrados.php?del=<?php echo $idninio; ?>" onclick="return confirm('¿Desea Borrar?');"><i class="fas fa-trash-alt"></i></a></td>
                                         
                                         
-                                            <?php
-          switch ($idTipodocumento){
-            case 9:
-                $idTipodocumento = 'Cedula de Identidad';   
-            break;
-             case 10:
-                $idTipodocumento = 'Pasaporte';
-             break;
-             default:
-            break;
-          }
-
-
-          switch ($idgenero_n){
-            case 1:
-                $idgenero_n = 'Masculino';   
-            break;
-             case 2:
-                $idgenero_n = 'Femenino';
-             break;
-             default:
-            break;
-          }
-
-
-          switch ($idetnia_n){
-            case 1:
-                $idetnia_n = 'Mestizo';   
-            break;
-             case 2:
-                $idetnia_n = 'Indigena';
-             break;
-             case 3:
-                $idetnia_n = 'Mulato';
-             break;
-             case 4:
-                $idetnia_n = 'Afroamericano';
-             break;
-             case 5:
-                $idetnia_n = 'Blanco';
-             break;
-             default:
-            break;
-          }
-
-
-          switch ($cdi){
-            case 1:
-                $cdi = 'CDI 1';   
-            break;
-             case 4:
-                $cdi = 'CDI 2';
-             break;
-             case 5:
-                $cdi = 'CDI 3';
-             break;
-             case 6:
-                $cdi = 'CDI 4';
-             break;
-             case 7:
-                $cdi = 'CDI 5';
-             break;
-             case 8:
-                $cdi = 'CDI 6';
-             break;
-             default:
-            break;
-          }
-
-          ?>                            
+                                      
                                         </tr>
                                     <?php } ?>
                                 </tbody>
@@ -276,9 +230,9 @@ if (isset($_GET['del'])) {
         </div>
 
 
-
+        
 
     <?php require_once('inc/footer.php'); ?>
 
-                    
+                     
    

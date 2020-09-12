@@ -25,7 +25,7 @@ if (isset($_GET['del'])) {
 }
 
 if (isset($_POST['submit'])) {
-    $cat_name = mysqli_real_escape_string($con, strtolower($_POST['cat-name']));
+    $cat_name =($_POST['cat-name']);
 
     if (empty($cat_name)) {
         $error = "Debe llenar el campo";
@@ -46,7 +46,7 @@ if (isset($_POST['submit'])) {
 }
 
 if (isset($_POST['update'])) {
-    $cat_name = mysqli_real_escape_string($con, strtolower($_POST['cat-name']));
+    $cat_name = ($_POST['cat-name']);
 
     if (empty($cat_name)) {
         $up_error = "Debe llenar este campo";
@@ -145,7 +145,7 @@ if (isset($_POST['update'])) {
                         </div>
                         <div class="col-md-6"><br>
                             <?php
-                            $get_query = "SELECT * FROM tbl_mascotas ORDER BY id_mascota DESC";
+                            $get_query = "SELECT * FROM tbl_mascotas ORDER BY id_mascota ASC";
                             $get_run = mysqli_query($con, $get_query);
                             if (mysqli_num_rows($get_run) > 0) {
 
@@ -168,15 +168,17 @@ if (isset($_POST['update'])) {
                                     </thead>
                                     <tbody>
                                         <?php
+                                         $cont=0;
                                         while ($get_row = mysqli_fetch_array($get_run)) {
+                                            $cont++;
                                             $mascota_id = $get_row['id_mascota'];
                                             $detallemasco_name = $get_row['detalle'];
                                             ?>
                                             <tr>
-                                                <td><?php echo $mascota_id; ?></td>
-                                                <td><?php echo ucfirst($detallemasco_name); ?></td>
+                                                <td><?php echo $cont; ?></td>
+                                                <td><?php echo ($detallemasco_name); ?></td>
                                                 <td><a href="promascotas.php?edit=<?php echo $mascota_id; ?>"><i class="far fa-edit"></i></a></td>
-                                                <td><a href="promascotas.php?del=<?php echo $mascota_id; ?>"><i class="fas fa-trash-alt"></i></a></td>
+                                                <td><a href="promascotas.php?del=<?php echo $mascota_id; ?>" onclick="return confirm('¿Desea Borrar?');"><i class="fas fa-trash-alt"></i></a></td>
                                             </tr>
                                         <?php } ?>
                                     </tbody>

@@ -236,7 +236,7 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
 <!--............................................Documento Identidad........................................................-->
                             <div class="row">
                                 <div class="col-md-8">
-                                    <div class="form-group">
+                                    <div class="form-group ">
                                     <label for="ti_docide">Tipo de Documento de Identificación :</label>
                                     <select class="form-control" name="ti_docide" id="ti_docide">
                                     <option value="seleccione">Seleccione</option>
@@ -709,7 +709,7 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                                     <label for="role">CDI :*</label>
                                     <select class="form-control" name="cdi" id="categories">
                                         <?php
-                                        $sql_cdi = "select * from tbl_cdi";
+                                        $sql_cdi = "SELECT * FROM `tbl_cdi` WHERE id != 7";
                                         $ejecutar = mysqli_query($con, $sql_cdi);//ejecutar consulta
                                         
                                         if (mysqli_num_rows($ejecutar) > 0) {

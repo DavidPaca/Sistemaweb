@@ -90,7 +90,7 @@ if (isset($_POST['checkboxes'])) {
                                 echo "<span style='color:green;' class='pull-right'>$msg</span>";
                             }
                             ?>
-                            <table class="table table-bordered table-striped table-hover">
+                            <table class="table table-bordered table-striped table-hover" id="example">
                                 <thead>
                                     <tr>
                                         <th><input type="checkbox" id="selectallboxes"></th>

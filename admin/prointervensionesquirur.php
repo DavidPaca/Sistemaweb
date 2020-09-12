@@ -25,7 +25,7 @@ if (isset($_GET['del'])) {
 }
 
 if (isset($_POST['submit'])) {
-    $cat_name = mysqli_real_escape_string($con, strtolower($_POST['cat-name']));
+    $cat_name =($_POST['cat-name']);
 
     if (empty($cat_name)) {
         $error = "Debe llenar el campo";
@@ -46,7 +46,7 @@ if (isset($_POST['submit'])) {
 }
 
 if (isset($_POST['update'])) {
-    $cat_name = mysqli_real_escape_string($con, strtolower($_POST['cat-name']));
+    $cat_name = ($_POST['cat-name']);
 
     if (empty($cat_name)) {
         $up_error = "Debe llenar este campo";
@@ -145,7 +145,7 @@ if (isset($_POST['update'])) {
                         </div>
                         <div class="col-md-6"><br>
                             <?php
-                            $get_query = "SELECT * FROM tbl_intervensionesq ORDER BY id_intervensionesq DESC";
+                            $get_query = "SELECT * FROM tbl_intervensionesq ORDER BY id_intervensionesq ASC";
                             $get_run = mysqli_query($con, $get_query);
                             if (mysqli_num_rows($get_run) > 0) {
 
@@ -168,15 +168,17 @@ if (isset($_POST['update'])) {
                                     </thead>
                                     <tbody>
                                         <?php
+                                        $cont=0;
                                         while ($get_row = mysqli_fetch_array($get_run)) {
+                                            $cont++;
                                             $intervensionesq_id = $get_row['id_intervensionesq'];
                                             $detalleinterq_name = $get_row['detalle'];
                                             ?>
                                             <tr>
-                                                <td><?php echo $intervensionesq_id; ?></td>
-                                                <td><?php echo ucfirst($detalleinterq_name); ?></td>
+                                                <td><?php echo $cont; ?></td>
+                                                <td><?php echo ($detalleinterq_name); ?></td>
                                                 <td><a href="prointervensionesquirur.php?edit=<?php echo $intervensionesq_id; ?>"><i class="far fa-edit"></i></a></td>
-                                                <td><a href="prointervensionesquirur.php?del=<?php echo $intervensionesq_id; ?>"><i class="fas fa-trash-alt"></i></a></td>
+                                                <td><a href="prointervensionesquirur.php?del=<?php echo $intervensionesq_id; ?>" onclick="return confirm('¿Desea Borrar?');"><i class="fas fa-trash-alt"></i></a></td>
                                             </tr>
                                         <?php } ?>
                                     </tbody>

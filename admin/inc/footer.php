@@ -11,12 +11,46 @@
 <!--<script src="js/busquedaDinamicaTablas.js"></script>-->
 
 <!--para las tablas dinamicas-->
-<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
-<script src="js/dataTables.bootstrap.min.js"></script>
-<script src="js/datatable.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+
+
 <!--para las tablas dinamicas-->
 
 
+<script>
+    $(document).ready( function () {
+    $('#example').DataTable({
+
+        "language":{
+            "info":"TOTAL Usuarios",
+            "search":"Buscar",
+            "paginate":{
+                "next":"Siguiente",
+                "previous":"Anterior",
+            },
+            "lengthMenu":'Mostrar<select>'+
+                            '<option value="10">10</option>'+
+                            '<option value="25">25</option>'+
+                            '<option value="50">50</option>'+
+                            '<option value="-1">Todo</option>'+
+                            '</select> Registros',
+            "loadingRecords": "Cargando Datos...",
+            "processing":     "Procesando...",
+            "emptyTable":     "No existen Datos",
+            "zeroRecords":    "No se encontraron Coincidencias",
+            "infoEmpty":      "",
+            "infoFiltered":   "",
+
+
+
+
+
+
+        }
+    });
+} );
+
+</script>
 
 
 

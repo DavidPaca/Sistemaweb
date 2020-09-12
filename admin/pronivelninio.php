@@ -25,7 +25,7 @@ if (isset($_GET['del'])) {
 }
 
 if (isset($_POST['submit'])) {
-    $nivel_ninio = mysqli_real_escape_string($con, ($_POST['cat-name']));
+    $nivel_ninio = ($_POST['cat-name']);
 
     if (empty($nivel_ninio)) {
         $error = "Debe llenar el campo";
@@ -46,7 +46,7 @@ if (isset($_POST['submit'])) {
 }
 
 if (isset($_POST['update'])) {
-    $nivel_ninio = mysqli_real_escape_string($con, ($_POST['cat-name']));
+    $nivel_ninio = ($_POST['cat-name']);
 
     if (empty($nivel_ninio)) {
         $up_error = "Debe llenar este campo";
@@ -145,7 +145,7 @@ if (isset($_POST['update'])) {
                         </div>
                         <div class="col-md-6"><br>
                             <?php
-                            $get_query = "SELECT * FROM tbl_niveles_estudio_ninio ORDER BY id_niveles_ninio DESC";
+                            $get_query = "SELECT * FROM tbl_niveles_estudio_ninio ORDER BY id_niveles_ninio ASC";
                             $get_run = mysqli_query($con, $get_query);
                             if (mysqli_num_rows($get_run) > 0) {
 
@@ -168,15 +168,17 @@ if (isset($_POST['update'])) {
                                     </thead>
                                     <tbody>
                                         <?php
+                                        $cont=0;
                                         while ($get_row = mysqli_fetch_array($get_run)) {
+                                            $cont++;
                                             $nivel_id = $get_row['id_niveles_ninio'];
                                             $detallnivel_name = $get_row['detalle'];
                                             ?>
                                             <tr>
-                                                <td><?php echo $nivel_id; ?></td>
-                                                <td><?php echo ucfirst($detallnivel_name); ?></td>
+                                                <td><?php echo $cont; ?></td>
+                                                <td><?php echo ($detallnivel_name); ?></td>
                                                 <td><a href="pronivelninio.php?edit=<?php echo $nivel_id; ?>"><i class="far fa-edit"></i></a></td>
-                                                <td><a href="pronivelninio.php?del=<?php echo $nivel_id; ?>"><i class="fas fa-trash-alt"></i></a></td>
+                                                <td><a href="pronivelninio.php?del=<?php echo $nivel_id; ?>" onclick="return confirm('¿Desea Borrar?');"><i class="fas fa-trash-alt"></i></a></td>
                                             </tr>
                                         <?php } ?>
                                     </tbody>
