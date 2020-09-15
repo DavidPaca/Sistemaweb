@@ -82,23 +82,23 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                             <div class="form-group">
                                     <label for="role">Tipo de Documento de Identidad:</label>
                                     <select class="form-control" name="tipo_docid" id="categories">
-                            <?php
-                            $sql_tdocu = "select * from tbl_documento_identidad";
-                            $ejecutar = mysqli_query($con, $sql_tdocu);//ejecutar consulta
-                            
-                            if (mysqli_num_rows($ejecutar) > 0) {
-                                while ($row2 = mysqli_fetch_array($ejecutar)) {
-                                    
-                                    $detalledoc = $row2['detalle'];
-                                    $iddoc = $row2['id_docide'];
-                                    echo "<option value='" . $iddoc. "' " .  ">" . ($detalledoc) . "</option>";
-                                }
-                            } else {
-                               // echo "<center><h6>Categoría no disponible</h6></center>";
-                            }
-                            ?>
-                        </select>
-                                </div>
+                                      <?php
+                                        $sql_tdocu = "select * from tbl_documento_identidad";
+                                        $ejecutar = mysqli_query($con, $sql_tdocu);//ejecutar consulta
+                                        
+                                        if (mysqli_num_rows($ejecutar) > 0) {
+                                            while ($row2 = mysqli_fetch_array($ejecutar)) {
+                                                
+                                                $detalledoc = $row2['detalle'];
+                                                $iddoc = $row2['id_docide'];
+                                                echo "<option value='" . $iddoc. "' " .  ">" . ($detalledoc) . "</option>";
+                                            }
+                                        } else {
+                                        // echo "<center><h6>Categoría no disponible</h6></center>";
+                                        }
+                                       ?>
+                                    </select>
+                            </div>
 
 
                                 <div class="form-group">
@@ -134,7 +134,7 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                                 <div class="form-group">
                                     <label for="role">Tipo de Ususario:</label>
                                     <select name="role" id="role" class="form-control">
-                                        <option value="Coordinador">Coordinador</option>
+                                        <!--<option value="Coordinador">Coordinador</option> -->
                                         <option value="Parvulario">Parvulario</option>
                                     </select>
                                 </div>

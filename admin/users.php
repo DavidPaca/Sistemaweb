@@ -28,10 +28,10 @@ if (isset($_POST['checkboxes'])) {
             $bulk_del_query = "DELETE FROM `tbl_usuario` WHERE `id_usuario` = $id_ni";
             mysqli_query($con, $bulk_del_query);
         } else if ($bulk_option == 'author') {
-            $bulk_author_query = "UPDATE `users` SET `role` = 'author' WHERE `users`.`id` = $user_id";
+            $bulk_author_query = "UPDATE `tbl_usuario` SET `tipo` = 'Coordinador' WHERE `tbl_usuario`.`id_usuario` = $id_ni";
             mysqli_query($con, $bulk_author_query);
         } else if ($bulk_option == 'admin') {
-            $bulk_admin_query = "UPDATE `users` SET `role` = 'admin' WHERE `users`.`id` = $user_id";
+            $bulk_admin_query = "UPDATE `tbl_usuario` SET `tipo` = 'Parvulario' WHERE `tbl_usuario`.`id_usuario` = $id_ni";
             mysqli_query($con, $bulk_admin_query);
         }
     }
@@ -56,7 +56,7 @@ if (isset($_POST['checkboxes'])) {
                         <li class="active"><i class="fa fa-users"></i> Usuarios</li>
                     </ol>
                     <?php
-                    $query = "SELECT * FROM tbl_usuario ORDER BY id_usuario DESC";
+                    $query = "SELECT * FROM tbl_usuario ORDER BY id_usuario ASC";
                     $run = mysqli_query($con, $query);
                     if (mysqli_num_rows($run) > 0) {
                         ?>
@@ -70,9 +70,8 @@ if (isset($_POST['checkboxes'])) {
                                                     
                                                     <option value="">Seleccionar</option>
                                                     <option value="delete">Eliminar</option>
-                                                    <option value="author">Exportar</option>
-                                                    <option value="admin">Eli</option>
-                                                    <option href="user.php">Editar</option>
+                                                    <option value="Coordinador">Editar</option>
+                                                    <option href="user.php">Exportar</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -95,7 +94,6 @@ if (isset($_POST['checkboxes'])) {
                                     <tr>
                                         <th><input type="checkbox" id="selectallboxes"></th>
                                         <th>Número</th>
-                                        <th>Tipo de Documento</th>
                                         <th>Número de cédula de identidad</th>
                                         <th>Apellidos/Nombre</th>
                                         <th>Fecha de Ingreso</th>
@@ -111,7 +109,9 @@ if (isset($_POST['checkboxes'])) {
                                 </thead>
                                 <tbody>
                                     <?php
+                                    $cont=0;
                                     while ($row = mysqli_fetch_array($run)) {
+                                        $cont++;
                                         $id_ni = $row['id_usuario'];
                                         $tipo_docum = $row['id_docide'];
                                         $ci_us = $row['ci'];
@@ -129,8 +129,8 @@ if (isset($_POST['checkboxes'])) {
                                         <tr>
                                         
                                             <td><input type="checkbox" class="checkboxes" name="checkboxes[]" value="<?php echo $id_ni; ?>"></td>
-                                            <td><?php echo $id_ni; ?></td>
-                                            <td><?php echo $tipo_docum; ?></td>
+                                            <td><?php echo $cont; ?></td>
+                                           <!-- <td><?php// echo $tipo_docum; ?></td>  -->
                                             <td><?php echo $ci_us; ?></td>
                                             <td><?php echo "$last_name $first_name"; ?></td>
                                             <td><?php echo $fecha_ing; ?></td>
