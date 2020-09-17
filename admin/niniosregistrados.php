@@ -10,13 +10,14 @@ if (isset($_GET['del'])) {
     //$del_check_run = mysqli_query($con, $del_check_query);
    // if (mysqli_num_rows($del_check_run) > 0) {
         $del_query = "UPDATE tbl_datos_personales_ninio SET estado='Inactivo' WHERE id_ninio= $del_id";
-        $query_documento_identidad = "SELECT detalle FROM tbl_documento_identidad WHERE id = $idTipodocumento ";
+
+   //     $query_documento_identidad = "SELECT detalle FROM tbl_documento_identidad WHERE id = $idTipodocumento ";
         //if (isset($_SESSION['username']) && $_SESSION['role'] == 'admin') {
             if (mysqli_query($con, $del_query)) {
                 //header('Location: niniosregistrados.php');
-                $error = "Esatdo civil ha sido eliminado";
+                $msg = "Registro eliminado";
             } else {
-                $msg = "Estado civil no ha sido eliminado";
+                $error = "Registro no eliminado";
             }
         //}
      
@@ -84,29 +85,19 @@ if (isset($_GET['del'])) {
                                     </div>
                                 </div>
                             </div>
-                            <?php 
-                           /* $get_query = "SELECT * FROM tbl_datos_personales_ninio ORDER BY id_ninio DESC";
-                            $run = mysqli_query($con, $get_query);
-                            if (isset($error)) {
-                                echo "<span style='color:red;' class='pull-right'>$error</span>";
-                            } else if (isset($msg)) {
-                                echo "<span style='color:green;' class='pull-right'>$msg</span>";
-                            }*/
-                            ?>
+                            
 
                             <?php
-                           $get_query = "SELECT * FROM tbl_datos_personales_ninio ORDER BY id_ninio DESC";
-                            $run = mysqli_query($con, $get_query);
-                            if (mysqli_num_rows($run) > 0) {
-
+                          
+                            
                                 if (isset($error)) {
                                     echo "<span style='color:red;' class='pull-right'>$error</span>";
-                                    // echo "<span class='pull-right' style='color:green;'>$del_msg</span>";
+                                    
                                 } else if (isset($msg)) {
                                     echo "<span style='color:green;' class='pull-right'>$msg</span>";
-                                    //echo "<span class='pull-right' style='color:red;'>$del_error</span>";
+                                    
                                 }
-                            }
+                            
                             ?>
 
 

@@ -124,22 +124,6 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
 
 
                                 <div class="form-group">
-                                    <label for="first-name">Nombres:</label>
-                                    <?php
-                                    if (isset($error)) {
-                                        echo "<span class='pull-right' style='color:red;'>$error</span>";
-                                    } else if (isset($msg)) {
-                                        echo "<span class='pull-right' style='color:green;'>$msg</span>";
-                                    }
-                                    ?>
-                                    <input type="text" id="first-name" name="first-name" class="form-control" value="<?php echo($nombre);   
-                                    if (isset($first_name)) {
-                                        echo $first_name;
-                                    }
-                                    ?>">
-                                </div>
-
-                                <div class="form-group">
                                     <label for="last-name">Apellidos:</label>
                                     <input type="text" id="last-name" name="last-name" class="form-control" value="<?php echo($apellidos);
                                     if (isset($last_name)) {
@@ -148,93 +132,105 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                     ?>" >
                                 </div>
 
+
+                                <div class="form-group">
+                                    <label for="first-name">Nombres:</label>
+                                    
+                                    <input type="text" id="first-name" name="first-name" class="form-control" value="<?php echo($nombre);   
+                                    if (isset($first_name)) {
+                                        echo $first_name;
+                                    }
+                                    ?>">
+                                </div>
+
+                                
+
                                 
                                 <div class="form-group">
                                     <label for="date">Fecha de Ingreso :</label>  
                                     <input type="date"  name="fecha_ing" class="form-control" value="<?php echo($fecha_ing);?>">
                                 </div>
-
-
-                                <div class="form-group">
-                                    <label for="Password">Password:</label>
-                                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" value="<?php echo($contrasenia);?>"> 
-                                </div>
+                                
 
                                 <div class="form-group">
-                                    <label for="role">Rol:</label>
+                                    <label for="role">Tipo de Ususario:</label>
                                     <select name="role" id="role" class="form-control" value="<?php echo($tipo); ?>" >
+                                        <option value="Coordinador">Coordinador</option>
                                         <option value="Parvulario">Parvulario</option>
                                         
                                     </select>
                                 </div>
 
+
                                 <div class="form-group">
-                                    <label for="email">Email :*</label>
+                                    <label for="dir">Dirección:</label>
+                                    <input type="text" id="dir" name="dir" class="form-control" value="<?php echo($direccion);?>" >
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="telef">Teléfono:</label>
+                                    <input type="text" id="telef" name="telef" maxlength="10" class="form-control" value="<?php echo($telefono);?>"  placeholder="Teléfono">
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="email">Correo Electrónico:</label>
                                     <input type="text" id="email" name="email" class="form-control" value="<?php echo($correo);?>"
                                     <?php  if (isset($email)) {
                                         echo $email;
                                     }
-                                    ?> placeholder="Email">
+                                    ?> >
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="telef">Teléfono:*</label>
-                                    <input type="text" id="telef" name="telef" maxlength="10" class="form-control" value="<?php echo($telefono);?>"  placeholder="Teléfono">
-                                </div>
-                                <div class="form-group">
-                                    <label for="dir">Dirección:*</label>
-                                    <input type="text" id="dir" name="dir" class="form-control" value="<?php echo($direccion);?>"
-                                    
-                                     placeholder="Dirección">
+                                    <label for="Password">Contraseña:</label>
+                                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" value="<?php echo($contrasenia);?>"> 
                                 </div>
 
-                                
+
                                 <div class="form-group">
-                                    <label for="role">CDI :*</label>
+                                    <label for="role">Centro de Desarrollo Infantil:</label>
                                     <select class="form-control" name="cdi" id="categories">
-
-  
-   
-
-
-                            <?php
-                            $sql_cdi = "select * from tbl_cdi";
-                            $ejecutar = mysqli_query($con, $sql_cdi);//ejecutar consulta
-                            
-                            if (mysqli_num_rows($ejecutar) > 0) {
-                                while ($row2 = mysqli_fetch_array($ejecutar)) {
-                                    
-                                    $cdi = $row2['nombre'];
-                                    $idcdi = $row2['id'];
-                                    echo "<option value='" . $idcdi. "' " .  ">" . ($cdi) . "</option>";
-                                }
-                            } else {
-                                echo "<center><h6>Categoría no disponible</h6></center>";
-                            }
-                            ?>
-                        </select>
+                                        <?php
+                                            $sql_cdi = "SELECT * FROM `tbl_cdi` WHERE id != 7";
+                                            $ejecutar = mysqli_query($con, $sql_cdi);//ejecutar consulta
+                                            $sql_llenarcdi = "SELECT tbl_usuario.id_cdi,tbl_cdi.nombre FROM tbl_usuario INNER JOIN tbl_cdi ON tbl_usuario.id_cdi = tbl_cdi.id Where id_usuario = $edit_id";
+                                            $ejecutarllenarcdi = mysqli_query($con, $sql_llenarcdi);
+                                            $row3 = mysqli_fetch_array($ejecutarllenarcdi);
+                                                 $idllcdic=$row3['id'];
+                                                 $detallellcdi=$row3['nombre'];
+                                                echo "<option value='" . $idllcdic. "' " .  " selected>" . ($detallellcdi) . "</option>";
+                                           
+                                                if (mysqli_num_rows($ejecutar) > 0) {
+                                                while ($row2 = mysqli_fetch_array($ejecutar)) {
+                                                    
+                                                    $cdi = $row2['nombre'];
+                                                    $idcdi = $row2['id'];
+                                                    echo "<option value='" . $idcdi. "' " .  ">" . ($cdi) . "</option>";
+                                                }
+                                            } else {
+                                                echo "<center><h6>Categoría no disponible</h6></center>";
+                                            }
+                                        ?>
+                                    </select>
                                 </div>
                                 
 
-                                
-
-                                
-
-                                <!--<div class="form-group">
-                                    <label for="image">Foto de perfil :*</label>
+                                <div class="form-group">
+                                    <label for="image">Fotografía:</label>
                                     <input type="file" id="image" name="image">
-                                </div>-->
+                                </div>
 
                                 <input type="submit" value="Terminar Edición" name="submit" class="btn btn-primary">
                             </form>
                         </div>
-                        <div class="col-md-4">
-                            <?php
-                            if (isset($check_image)) {
-                                echo "<img src='img/$check_image' width='50%'>";
-                            }
-                            ?>
-                        </div>
+                                <div class="col-md-4">
+                                    <?php
+                                    if (isset($check_image)) {
+                                        echo "<img src='img/$check_image' width='50%'>";
+                                    }
+                                    ?>
+                                </div>
                     </div>
                 </div>
             </div>

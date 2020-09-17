@@ -79,26 +79,26 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                             <form action="" method="post" enctype="multipart/form-data">
 
 
-                            <div class="form-group">
-                                    <label for="role">Tipo de Documento de Identidad:</label>
-                                    <select class="form-control" name="tipo_docid" id="categories">
-                                      <?php
-                                        $sql_tdocu = "select * from tbl_documento_identidad";
-                                        $ejecutar = mysqli_query($con, $sql_tdocu);//ejecutar consulta
-                                        
-                                        if (mysqli_num_rows($ejecutar) > 0) {
-                                            while ($row2 = mysqli_fetch_array($ejecutar)) {
-                                                
-                                                $detalledoc = $row2['detalle'];
-                                                $iddoc = $row2['id_docide'];
-                                                echo "<option value='" . $iddoc. "' " .  ">" . ($detalledoc) . "</option>";
+                                <div class="form-group">
+                                        <label for="role">Tipo de Documento de Identidad:</label>
+                                        <select class="form-control" name="tipo_docid" id="categories">
+                                        <?php
+                                            $sql_tdocu = "select * from tbl_documento_identidad";
+                                            $ejecutar = mysqli_query($con, $sql_tdocu);//ejecutar consulta
+                                            
+                                            if (mysqli_num_rows($ejecutar) > 0) {
+                                                while ($row2 = mysqli_fetch_array($ejecutar)) {
+                                                    
+                                                    $detalledoc = $row2['detalle'];
+                                                    $iddoc = $row2['id_docide'];
+                                                    echo "<option value='" . $iddoc. "' " .  ">" . ($detalledoc) . "</option>";
+                                                }
+                                            } else {
+                                            // echo "<center><h6>Categoría no disponible</h6></center>";
                                             }
-                                        } else {
-                                        // echo "<center><h6>Categoría no disponible</h6></center>";
-                                        }
-                                       ?>
-                                    </select>
-                            </div>
+                                        ?>
+                                        </select>
+                                </div>
 
 
                                 <div class="form-group">
@@ -116,7 +116,7 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                                 <div class="form-group">
                                     <label >Apellidos:</label>
                                     <input name="last-name" class="form-control" value="<?php
-                                    ?>" placeholder="NomApellidos2bres">
+                                    ?>" placeholder="Apellidos">
                                 </div>
 
                                 <div class="form-group">
@@ -134,7 +134,7 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                                 <div class="form-group">
                                     <label for="role">Tipo de Ususario:</label>
                                     <select name="role" id="role" class="form-control">
-                                        <!--<option value="Coordinador">Coordinador</option> -->
+                                        <option value="Coordinador">Coordinador</option> 
                                         <option value="Parvulario">Parvulario</option>
                                     </select>
                                 </div>
@@ -172,40 +172,40 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                                 <div class="form-group">
                                     <label for="role">Centro de Desarrollo Infantil:</label>
                                     <select class="form-control" name="cdi" id="categories">
-                            <?php
-                            $sql_cdi = "select * from tbl_cdi";
-                            $ejecutar = mysqli_query($con, $sql_cdi);//ejecutar consulta
-                            
-                            if (mysqli_num_rows($ejecutar) > 0) {
-                                while ($row2 = mysqli_fetch_array($ejecutar)) {
-                                    
-                                    $cdi = $row2['nombre'];
-                                    $idcdi = $row2['id'];
-                                    echo "<option value='" . $idcdi. "' " .  ">" . ucfirst($cdi) . "</option>";
-                                }
-                            } else {
-                               // echo "<center><h6>Categoría no disponible</h6></center>";
-                            }
-                            ?>
-                        </select>
+                                        <?php
+                                            $sql_cdi = "SELECT * FROM `tbl_cdi` WHERE id != 7";
+                                            $ejecutar = mysqli_query($con, $sql_cdi);//ejecutar consulta
+                                            
+                                            if (mysqli_num_rows($ejecutar) > 0) {
+                                                while ($row2 = mysqli_fetch_array($ejecutar)) {
+                                                    
+                                                    $cdi = $row2['nombre'];
+                                                    $idcdi = $row2['id'];
+                                                    echo "<option value='" . $idcdi. "' " .  ">" . ($cdi) . "</option>";
+                                                }
+                                            } else {
+                                            // echo "<center><h6>Categoría no disponible</h6></center>";
+                                            }
+                                        ?>
+                                    </select>
                                 </div>
                                 
 
                                 <div class="form-group">
-                                    <label for="image">Foto de perfil:</label>
+                                    <label for="image">Fotografía:</label>
                                     <input type="file" id="image" name="image">
                                 </div>
 
                                 <input type="submit" value="Agregar Usuario" name="submit" class="btn btn-primary">
                             </form>
                         </div>
-                        <div class="col-md-4">
-                            <?php
-                            if (isset($check_image)) {
-                                echo "<img src='img/$check_image' width='50%'>";
-                            }
-                            ?>
-                        </div>
+                            <div class="col-md-4">
+                                <?php
+                                if (isset($check_image)) {
+                                    echo "<img src='img/$check_image' width='50%'>";
+                                }
+                                ?>
+                            </div>
                     </div>
                 </div>
             </div>

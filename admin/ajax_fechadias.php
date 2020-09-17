@@ -9,7 +9,7 @@ $hoy = $time->format('Y-m-d');//imprimimos la fecha actual
 
 
 $datos = calcularTiempo($fecha,$hoy);
-echo "<input type='text' class='form-control'  value='$datos[2]' name='dia_n'>";
+echo "<input type='text' class='form-control'  value='$datos[2]' name='dia_n' disabled>";
 echo "<span class='input-group-addon' disabled>Día(s)</span> ";
 /*
 echo "<hr>";

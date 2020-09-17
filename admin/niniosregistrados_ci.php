@@ -68,7 +68,7 @@ if (isset($_GET['del'])) {
                                 echo "<span style='color:green;' class='pull-right'>$msg</span>";
                             }
                             ?>
-                            <table class="table table-bordered table-striped table-hover">
+                            <table class="table table-bordered table-striped table-hover" id="example">
                                 <thead>
                                     <tr>
                                        <th><input type="checkbox" id="selectallboxes"></th> 
@@ -108,7 +108,7 @@ if (isset($_GET['del'])) {
                                     while ($row = mysqli_fetch_array($run)) {
                                         
                                         $idninio = $row['id_ninio'];
-                                       // $idTipodocumento = $row['id_docide'];
+                                        $idTipodocumento = $row['id_docide'];
                                         $c_i = $row['numero_docide'];
                                         $last_name = ($row['apellidos']);
                                         $first_name = ($row['nombres']);
@@ -149,7 +149,7 @@ if (isset($_GET['del'])) {
                                             <td><?php echo $first_name; ?></td>
                                           
                                             <td><a href="ing_entrevista_i.php?edit=<?php echo $idninio; ?>"><i class="far fa-file-alt"></i></a></td>
-                                       <!--     <td><a href="niniosregistrados.php?del=<?php// echo $idninio; ?>"><i class="fas fa-trash-alt"></i></a></td> -->
+                                            <td><a href="niniosregistrados.php?del=<?php echo $idninio; ?>"><i class="fas fa-trash-alt"></i></a></td> 
                                             
                                                         
                                         </tr>

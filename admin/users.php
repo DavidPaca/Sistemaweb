@@ -102,6 +102,7 @@ if (isset($_POST['checkboxes'])) {
                                         <th>Teléfono</th>
                                         <th>Correo electrónico</th>
                                         <th>CDI</th>
+                                        <th>Detalle</th>
                                         <th>Modificar</th>
                                         <th>Eliminar</th>
                                         
@@ -139,7 +140,7 @@ if (isset($_POST['checkboxes'])) {
                                             <td><?php echo $tlf; ?></td>
                                             <td><?php echo $email; ?></td>
                                             <td><?php echo $cdi;  ?></td>
-                                            
+                                            <td><a href="profile_users.php?edit=<?php echo $id_ni; ?>"><i class="far fa-file-alt"></i></a></td>
                                             <td><a href="edit-user.php?edit=<?php echo $id_ni; ?>"><i class="far fa-edit"></i></a></td>
                                             <td><a href="users.php?del=<?php echo $id_ni; ?>" onclick="return confirm('¿Desea Borrar?');" ><i class="fas fa-trash-alt"></i></a></td>
                                         </tr>

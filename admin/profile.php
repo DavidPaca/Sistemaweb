@@ -13,16 +13,19 @@ $row = mysqli_fetch_array($run);
 
 $image = $row['imagen_usuario'];
 $id = $row['id_usuario'];
-//$date = getdate($row['date']);
-//$day = $date['mday'];
-//$month = substr($date['month'], 0, 3);
-//$year = $date['year'];
-$first_name = $row['nombres'];
-$last_name = $row['apellidos'];
+$tipo_docum = $row['id_docide'];
 $username = $row['ci'];
-$email = $row['correo_e'];
+$last_name = $row['apellidos'];
+$first_name = $row['nombres'];
+$fecha_ing = $row['fecha_ingreso'];
 $role = $row['tipo'];
-$details = $row['direccion_dom'];
+$dir = $row['direccion_dom'];
+$tlf = $row['telefono'];
+$email = $row['correo_e'];
+$cdi = $row['id_cdi'];
+
+
+
 ?>
 </head>
 <body id="profile">
@@ -47,8 +50,8 @@ $details = $row['direccion_dom'];
                     
                         <div class="col-xs-12">
                         
-                            <center><img src="img/<?php echo $image; ?>" width="200px" class="img-circle img-thumbnail" id="profile-image"></center><br>
-                            <a href="edit-profile.php?edit=<?php echo $id; ?>" class="btn btn-primary pull-right">Editar Perfil</a><br><br>
+                            <center><img src="img/<?php echo $image; ?>" width="150px" class="rounded" id="profile-image"></center>
+                            <a href="edit-profile.php?edit=<?php echo $id; ?>" class="btn btn-primary pull-right">Editar Perfil</a><br>
                             <center>
                                 <h3>Información</h3>
                             </center>
@@ -56,29 +59,41 @@ $details = $row['direccion_dom'];
                             
                             <br>
                             <table class="table table-bordered">
+                                                       
                                 <tr>
-                                    <td width="20%"><b>ID:</b></td>
-                                    <td width="30%"><?php echo $id; ?></td>
-                                    <td width="20%"><b>Fecha de Ingreso:</b></td>
-                                    <td width="30%"><?php //echo "$day $month $year"; ?></td>
-                                </tr>
+                                    <td width="20%"><b>Número:</b></td>
+                                    <td width="30%"><?php echo $id; ?></td> 
+                                </tr>    
                                 <tr>
-                                    <td width="20%"><b>Nombre:</b></td>
-                                    <td width="30%"><?php echo $first_name; ?></td>
-                                    <td width="20%"><b>Apellido:</b></td>
-                                    <td width="30%"><?php echo $last_name; ?></td>
-                                </tr>
-                                <tr>
-                                    <td width="20%"><b>Usuario:</b></td>
+                                    <td width="20%"><b>Tipo de documento:</b></td>
+                                    <td width="30%"><?php echo $tipo_docum; ?></td>
+                                    <td width="20%"><b>Número de documento de identificación:</b></td>
                                     <td width="30%"><?php echo $username; ?></td>
+                                </tr>
+                                <tr>
+                                    <td width="20%"><b>Apellidos:</b></td>
+                                    <td width="30%"><?php echo $last_name; ?></td>
+                                    <td width="20%"><b>Nombres:</b></td>
+                                    <td width="30%"><?php echo $first_name; ?></td>
+                                </tr>
+                                <tr>
+                                    <td width="20%"><b>Fecha de ingreso:</b></td>
+                                    <td width="30%"><?php echo $fecha_ing; ?></td>
+                                    <td width="20%"><b>Tipo de usuario:</b></td>
+                                    <td width="30%"><?php echo $role; ?></td>
+                                </tr>
+                                <tr>
+                                    <td width="20%"><b><b>Dirección:</b></b></td>
+                                    <td width="30%"><?php echo $dir; ?></td>
+                                    <td width="20%"><b>Teléfono:</b></td>
+                                    <td width="30%"><?php echo $tlf; ?></td>
+                                    
+                                </tr>
+                                <tr>
                                     <td width="20%"><b>Email:</b></td>
                                     <td width="30%"><?php echo $email; ?></td>
-                                </tr>
-                                <tr>
-                                    <td width="20%"><b>Rol:</b></td>
-                                    <td width="30%"><?php echo $role; ?></td>
-                                    <td width="20%"><b><b>Dirección:</b></b></td>
-                                    <td width="30%"><?php echo $details; ?></td>
+                                    <td width="20%"><b>Centro de Desarrollo Infantil:</b></td>
+                                    <td width="30%"><?php echo $cdi; ?></td>
                                 </tr>
                             </table>
                            

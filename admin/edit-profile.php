@@ -5,8 +5,8 @@ require_once('inc/top.php');
 }*/
 
 $session_username = $_SESSION['username'];
-echo("hola");
-echo($session_username);
+//echo("hola");
+//echo($session_username);
 
 $sql = "SELECT * FROM tbl_usuario WHERE ci = $session_username";
 $run = mysqli_query($con, $sql);
@@ -59,12 +59,14 @@ echo($edit_id);
                     </ol>
                     <?php
                     if (isset($_POST['submit'])) {
-                        $first_name = mysqli_real_escape_string($con, $_POST['first-name']);     /*first name es el nombre del cajon*/
-                        $last_name = mysqli_real_escape_string($con, $_POST['last-name']);
-                        $password = mysqli_real_escape_string($con, $_POST['password']);
-                        $email = mysqli_real_escape_string($con, strtolower($_POST['email']));
-                        $telef = mysqli_real_escape_string($con, strtolower($_POST['telef']));
-                        $dir = mysqli_real_escape_string($con, strtolower($_POST['dir']));
+                        $tipo_docide = ($_POST['tipo_docid']);
+                        $username = ( $_POST['ci']);
+                        $first_name = ( $_POST['first-name']);     /*first name es el nombre del cajon*/
+                        $last_name = ( $_POST['last-name']);
+                        $password = ( $_POST['password']);
+                        $email =  ($_POST['email']);
+                        $telef = ($_POST['telef']);
+                        $dir = ($_POST['dir']);
                         $image = $_FILES['image']['name'];
                         $image_temp = $_FILES['image']['tmp_name'];
 
@@ -77,7 +79,7 @@ echo($edit_id);
                         if (empty($first_name) or empty($last_name)  or empty($email) or empty($password)) {
                             $error = "Todos los (*) Campos son requeridos";
                         } else {
-                            $insert_query = "UPDATE tbl_usuario SET nombres='$first_name', apellidos='$last_name',contrasenia='$password',correo_e='$email',telefono='$telef',direccion_dom='$dir',imagen_usuario='$image' where id_usuario = '$edit_id'";
+                            $insert_query = "UPDATE tbl_usuario SET id_docide='$tipo_docide', ci='$username' nombres='$first_name', apellidos='$last_name',contrasenia='$password',correo_e='$email',telefono='$telef',direccion_dom='$dir',imagen_usuario='$image' where id_usuario = '$edit_id'";
                             if (mysqli_query($con, $insert_query)) {
                                 //$msg = "Usuario ingresado";
                                 //$path="img/$image";
@@ -102,8 +104,57 @@ echo($edit_id);
                     <div class="row">
                         <div class="col-md-8">
                         <form action="" method="POST" enctype="multipart/form-data">
+
+                                
+                                        <div class="form-group">
+                                            <label for="role">Tipo de Documento de Identidad:</label>
+                                            <select class="form-control" name="tipo_docid" id="categories">
+                                            
+                                                <?php 
+                                                    $sql_tdocu = "select * from tbl_documento_identidad ";
+                                                    $ejecutar = mysqli_query($con, $sql_tdocu);//ejecutar consulta
+                                                    $sql_llenartdocumento = "SELECT tbl_usuario.id_docide,tbl_documento_identidad.detalle FROM tbl_usuario INNER JOIN tbl_documento_identidad ON tbl_usuario.id_docide = tbl_documento_identidad.id_docide Where id_usuario = $edit_id";
+                                                    $ejecutar2 = mysqli_query($con, $sql_llenartdocumento);
+                                                    $row3 = mysqli_fetch_array($ejecutar2);
+                                                    $idlltdoc=$row3['id_docide'];
+                                                        $detallelltdoc=$row3['detalle'];
+                                                        echo "<option value='" . $idlltdoc. "' " .  " selected>" . ($detallelltdoc) . "</option>";
+
+                                                    if (mysqli_num_rows($ejecutar) > 0) {
+                                                        while ($row2 = mysqli_fetch_array($ejecutar)) {
+                                                            
+                                                            $detalledoc = $row2['detalle'];
+                                                            $iddoc = $row2['id_docide'];
+                                                            echo "<option value='" . $iddoc. "' " .  ">" . ($detalledoc) . "</option>";
+                                                            
+                                                        }
+                                                        
+                                                    } else {
+                                                    // echo "<center><h6>Categoría no disponible</h6></center>";
+                                                    }
+                                                ?>
+                                            </select>
+                                        </div>
+
+
+
+                                        <div class="form-group">
+                                            <label for="ci  ">Número de documento de identidad:</label>
+                                            <input type="text" id="ci" name="ci" class="form-control" value="<?php echo($row["ci"])
+                                            
+                                            ?>" >
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label for="last-name">Apellidos:</label>
+                                            <input type="text" id="last-name" name="last-name" class="form-control" value="<?php echo($row["apellidos"]) ?>" placeholder="Apellidos">
+                                        </div>
+
+
+
                                 <div class="form-group">
-                                    <label for="first-name">Nombre :*</label>
+                                    <label for="first-name">Nombres:</label>
                                     <?php
                                     if (isset($error)) {
                                         echo "<span class='pull-right' style='color:red;'>$error</span>";
@@ -114,10 +165,7 @@ echo($edit_id);
                                     <input type="text" id="first-name" name="first-name" class="form-control" value="<?php echo($row["nombres"])       ?>" placeholder="Nombres">
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="last-name">Apellido :*</label>
-                                    <input type="text" id="last-name" name="last-name" class="form-control" value="<?php echo($row["apellidos"]) ?>" placeholder="Apellidos">
-                                </div>
+                                
 
                                 <!--<div class="form-group">
                                     <label for="username">CI:*</label>

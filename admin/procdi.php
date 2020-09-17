@@ -182,7 +182,7 @@ if (isset($_POST['update'])) {
                         </div>
                         <div class="col-md-6"><br>
                             <?php
-                            $get_query = "SELECT * FROM tbl_cdi ORDER BY id DESC";
+                            $get_query = "SELECT * FROM tbl_cdi ORDER BY id ASC";
                             $get_run = mysqli_query($con, $get_query);
                             if (mysqli_num_rows($get_run) > 0) {
 
@@ -207,17 +207,19 @@ if (isset($_POST['update'])) {
                                     </thead>
                                     <tbody>
                                         <?php
+                                        $cont=0;
                                         while ($get_row = mysqli_fetch_array($get_run)) {
+                                            $cont++;
                                             $cdi_id = $get_row['id'];
                                             $nombre_cdi = $get_row['nombre'];
                                             $direc_cdi = $get_row['direccion'];
                                             $telefono_cdi = $get_row['telefono'];
                                             ?>
                                             <tr>
-                                                <td><?php echo $cdi_id; ?></td>
-                                                <td><?php echo ucfirst($nombre_cdi); ?></td>
-                                                <td><?php echo ucfirst($direc_cdi); ?></td>
-                                                <td><?php echo ucfirst($telefono_cdi); ?></td>
+                                                <td><?php echo $cont; ?></td>
+                                                <td><?php echo ($nombre_cdi); ?></td>
+                                                <td><?php echo ($direc_cdi); ?></td>
+                                                <td><?php echo ($telefono_cdi); ?></td>
                                                 <td><a href="procdi.php?edit=<?php echo $cdi_id; ?>"><i class="far fa-edit"></i></a></td>
                                                 <td><a href="procdi.php?del=<?php echo $cdi_id; ?>" onclick="return confirm('¿Desea Borrar?');"><i class="fas fa-trash-alt"></i></a></td>
                                             </tr>

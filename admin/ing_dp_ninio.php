@@ -62,7 +62,7 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
         $(document).ready(function(e){
         $("#fecha_nac").blur(function(){
             var parametros ="fecha="+$("#fecha_nac").val();
-           //alert(parametros)
+          // alert(parametros)
             $.ajax({
                 data:parametros,
                 url: 'ajax_fechaedad.php',
@@ -170,7 +170,7 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                         $n_mes = ( $_POST['mes_n']);
                         $n_dia = ( $_POST['dia_n']);
                         $n_pais = ( $_POST['pais_nom']);                                             
-                        $n_ciudad = ( $_POST['ciudad_n']);
+                        //$n_ciudad = ( $_POST['ciudad_n']);
                         $provincianac= ( $_POST['provincia_n']);
                         $cantonnac= ( $_POST['canton_no']);
                         $parroquia_n= ( $_POST['parroquia_ni']);
@@ -209,7 +209,7 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
    //echo ($last_name+$first_name+$docide_n+$ci+$fechanaci+$lugarnac+$genero_ni+$grupoetnico_n+$nombre_ma+$nombre_pa+$direccion_domic+$discapacidad_n+$pocentajedisc+$carnetcon+$sobrenombre+$cdi);
                             
                             
-                $insert_query = "  INSERT INTO tbl_datos_personales_ninio(apellidos, nombres, id_docide, numero_docide, fecha_nac, anio, mes, dia , pais, ciudad, id_provincia, id_canton, id_parroquia, direccion_dom, referencia_ubicacion, id_genero, id_etnia, discapacidad, porcentaje, carnet_conadis, id_tipo_discapacidad, asiste_estableci_personas_discapacidad, nombre_establecimiento, peso, talla, id_niveles_ninio, como_lo_llaman, id_cdi, estado, imagen_ninio) VALUES ('$n_apellidos','$n_nombres','$tipo_docide','$ci','$fechanaci','$n_anio','$n_mes','$n_dia','$n_pais','$n_ciudad','$provincianac','$cantonnac','$parroquia_n','$direccion_domic','$referencia_dom','$genero_ni','$getnico_n','$n_discapacidad','$porcentaje_n','$c_conadis_n','$t_discapa_n','$establec_disca','$nombre_establec','$peso_n','$talla_n','$nivel_ninio','$sobrenombre','$cdi','$n_estado','$image')";
+                $insert_query = "  INSERT INTO tbl_datos_personales_ninio(apellidos, nombres, id_docide, numero_docide, fecha_nac, anio, mes, dia , pais, id_provincia, id_canton, id_parroquia, direccion_dom, referencia_ubicacion, id_genero, id_etnia, discapacidad, porcentaje, carnet_conadis, id_tipo_discapacidad, asiste_estableci_personas_discapacidad, nombre_establecimiento, peso, talla, id_niveles_ninio, como_lo_llaman, id_cdi, estado, imagen_ninio) VALUES ('$n_apellidos','$n_nombres','$tipo_docide','$ci','$fechanaci','$n_anio','$n_mes','$n_dia','$n_pais','$provincianac','$cantonnac','$parroquia_n','$direccion_domic','$referencia_dom','$genero_ni','$getnico_n','$n_discapacidad','$porcentaje_n','$c_conadis_n','$t_discapa_n','$establec_disca','$nombre_establec','$peso_n','$talla_n','$nivel_ninio','$sobrenombre','$cdi','$n_estado','$image')";
                             if (mysqli_query($con, $insert_query)) {
                                $msg = "Datos ingresados";
                              //  $path="img/$image";
@@ -218,25 +218,35 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                                 move_uploaded_file($image_temp, "img/$image"); /** Mueve un archivo subido a una nueva ubicación */
                               //  move_uploaded_file($image_tmp, $path);
                               // copy($path,"../$path");
-                              $msg = "Datos ingresados";
+                              $msg = "Datos personales ingresados";
                               $first_name = "";
                                 $last_name = "";
                                 $ci  = "";
-                                $username = "";
+                                
                           // header("Location: niniosregistrados.php"); /*para poder volver al blog o login*/
                             } else {
-                                $error = "Datos no ingresados";
+                                $error = "Datos personales no ingresados";
                             }
                         }
                     }
                     ?>
 
+                                   
+
 <form action="" method="post" enctype="multipart/form-data">
 
+
 <!--............................................Documento Identidad........................................................-->
-                            <div class="row">
+                            <div class="row">                             
                                 <div class="col-md-8">
                                     <div class="form-group ">
+                                    <?php
+                                if (isset($error)) {
+                                    echo "<span style='color:red;' class='pull-right'>$error</span>";
+                                } else if (isset($msg)) {
+                                    echo "<span style='color:green;' class='pull-right'>$msg</span>";
+                                }
+                            ?>
                                     <label for="ti_docide">Tipo de Documento de Identificación :</label>
                                     <select class="form-control" name="ti_docide" id="ti_docide">
                                     <option value="seleccione">Seleccione</option>
@@ -250,7 +260,7 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                                                 $detalledocu = $row2['detalle'];
 
                                                 $iddocu = $row2['id_docide'];
-                                                echo "<option value='" . $iddocu. "' " .  ">" . ucfirst($detalledocu) . "</option>";
+                                                echo "<option value='" . $iddocu. "' " .  ">" . ($detalledocu) . "</option>";
                                             }
                                         } else {
                                         // echo "<center><h6>Categoría no disponible</h6></center>";
@@ -288,7 +298,7 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                                 <div class="form-group">
                                     <label for="fecha_nac">Fecha de Nacimiento :</label>  
                                    <!-- <input  class="form-control" placeholder="Fecha de Nacimiento">-->
-                                    <input type="date"  name="fecha_nac" class="form-control" id="fecha_nac">
+                                    <input type="date"  name="fecha_nac" class="form-control" id="fecha_nac" required>
                                 </div>
 
 
@@ -296,17 +306,17 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                            <!-- <label for="porcentaje_d">Peso:</label> -->
                                 <div class="row">
                                     <div class="col-md-3">
-                                            <div class="input-group" id="calculafecha">
+                                            <div class="input-group" id="calculafecha" required>
                                                                                           
                                             </div>
                                     </div>
                                     <div class="col-md-3">
-                                            <div class="input-group" id="calculames">
+                                            <div class="input-group" id="calculames" required>
                                                                                           
                                             </div>
                                     </div>
                                     <div class="col-md-3">
-                                            <div class="input-group" id="calculadias">
+                                            <div class="input-group" id="calculadias" required>
                                                                                           
                                             </div>
                                     </div>
@@ -314,13 +324,7 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                                 </div>
                                 
                                 </div> 
-                                                          <!--  <div class="form-group">
-                                                                    <div>
-                                                                    <input type="date" class="form-control"name="naci" id="fecha" >
-                                                                    <label id="calculafecha"></label>
-                                                                    </div>
-                                                            </div>  -->
-
+                                                          
 
 <!--............................................Lugar de Nacimiento........................................................-->
 
@@ -364,13 +368,32 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                         
                         </select>
                     
-                    <div id="otro" style="display: none;">
+                    <div id="otro" style="display: none;"> <br>
                         
-                        <div class="form-group">
-                         <label for="pais_n">País:</label> 
-                            <input type="text" name="pais_nom" class="form-control">  
-                            <label for="ciudad_n">Ciudad:</label> 
-                            <input type="text" name="ciudad_n" class="form-control">
+                        <div class="form-group" >
+                        <label class = "col-md-3" style= padding-top: 1%;padding-right: 10% for="role">Seleccione el país:</label>  
+                            <div class="row" >                          
+                                <div class="col-md-8">                     
+                                 
+                                    <select class="form-control" name="pais_nom" id="pais_nom">
+                                                <option value="seleccione">Seleccione</option>
+                                                <?php
+                                                    $sql_genero = "select * from tbl_pais";
+                                                    $ejecutar = mysqli_query($con, $sql_genero);//ejecutar consulta
+                                                    
+                                                    if (mysqli_num_rows($ejecutar) > 0) {
+                                                        while ($row2 = mysqli_fetch_array($ejecutar)) {  
+                                                            
+                                                            $genero_n = $row2['detalle'];
+
+                                                            $id_genero = $row2['id_pais'];
+                                                            echo "<option value='" . $id_genero. "' " .  ">" . ucfirst($genero_n) . "</option>";
+                                                        }
+                                                    } 
+                                                ?>
+                                    </select>
+                                    </div>  
+                                    </div>
                         </div>
                     </div>
                     
@@ -718,7 +741,7 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                                                 $cdi = $row2['nombre'];
 
                                                 $idcdi = $row2['id'];
-                                                echo "<option value='" . $idcdi. "' " .  ">" . ucfirst($cdi) . "</option>";
+                                                echo "<option value='" . $idcdi. "' " .  ">" . ($cdi) . "</option>";
                                             }
                                         } 
                                         ?>
