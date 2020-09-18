@@ -9,7 +9,8 @@ $hoy = $time->format('Y-m-d');//imprimimos la fecha actual
 
 
 $datos = calcularTiempo($fecha,$hoy);
-echo "<input type='text' class='form-control'  value='$datos[1]' name='mes_n' disabled>";
+echo "<input type='text' class='form-control'  value='$datos[1]' name='mostrar_mes' disabled>";
+echo "<input type='hidden' class='form-control'  value='$datos[1]' name='mes_n' >";
 echo "<span class='input-group-addon' disabled>Mes(es)</span> ";
 /*
 echo "<hr>";

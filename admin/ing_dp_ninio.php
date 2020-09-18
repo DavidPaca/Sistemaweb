@@ -170,6 +170,15 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                         $n_mes = ( $_POST['mes_n']);
                         $n_dia = ( $_POST['dia_n']);
                         $n_pais = ( $_POST['pais_nom']);                                             
+
+                        if($_POST['pais_nom'] == 'seleccione'){
+                            $n_pais = '1';                                             
+
+                        }else{
+                            $n_pais = ( $_POST['pais_nom']);                                             
+
+                        }
+
                         //$n_ciudad = ( $_POST['ciudad_n']);
                         $provincianac= ( $_POST['provincia_n']);
                         $cantonnac= ( $_POST['canton_no']);
@@ -255,10 +264,8 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                                         $ejecutar = mysqli_query($con, $sql_cdi);//ejecutar consulta
                                         
                                         if (mysqli_num_rows($ejecutar) > 0) {
-                                            while ($row2 = mysqli_fetch_array($ejecutar)) {  
-                                                
+                                            while ($row2 = mysqli_fetch_array($ejecutar)) {                                                  
                                                 $detalledocu = $row2['detalle'];
-
                                                 $iddocu = $row2['id_docide'];
                                                 echo "<option value='" . $iddocu. "' " .  ">" . ($detalledocu) . "</option>";
                                             }
@@ -277,11 +284,7 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
 <!--............................................Apellidos........................................................-->
                                 <div class="form-group">
                                     <label for="apellidos_n">Apellidos:</label>
-                                    <input type="text" id="apellidos_n" name="apellidos_n" class="form-control" value= "<?php
-                                    if (isset($last_name)) {
-                                        echo $last_name;
-                                    }
-                                    ?>" placeholder="Apellidos">
+                                    <input type="text" id="apellidos_n" name="apellidos_n" class="form-control" value= "" placeholder="Apellidos">
                                 </div>
 
 <!--............................................Nombre........................................................-->                    
@@ -341,7 +344,7 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                             
                             }
 
-                            if (a == "Ecuador") {
+                            if (a == "1") {
                                 $("#otro").hide();
                                 $("#Ecuador").show();
                         
@@ -361,12 +364,12 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                         </select>
                     </div>  -->
                     
-                    <select  class="form-control" onChange="mostrar(this.value);" >
+                    <select  class="form-control" onChange="mostrar(this.value); " name="pais_nom" >
                             <option value="seleccione">Seleccione</option>
-                            <option name="pais_nom" value="Ecuador">Ecuador</option>
+                            <option name="pais_nom" value="1">Ecuador</option>
                             <option value="otro">Otro</option>
                         
-                        </select>
+                    </select>
                     
                     <div id="otro" style="display: none;"> <br>
                         
@@ -396,6 +399,8 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                                     </div>
                         </div>
                     </div>
+
+                    
                     
                     
                         <div id="Ecuador" style="display: none;" >
@@ -536,13 +541,13 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
 
                     <script type="text/javascript">
                         function mostrar_discapacidad(a) {
-                            if (a== "no_discap") {
+                            if (a== "No") {
                                 $("#no_discap").show();
                                 $("#si_discap").hide();
-                            
+                                
                             }
 
-                            if (a == "si_discap") {
+                            if (a == "Si") {
                                 $("#no_discap").hide();
                                 $("#si_discap").show();
                             }                 
@@ -554,9 +559,8 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                         <div class="row">
                             <div class="col-md-3">
                                 <select class="form-control" id="n_discap" name="n_discap" onChange="mostrar_discapacidad(this.value);">
-                                    <option value="seleccione">Seleccione</option>
-                                    <option value="si_discap">Si</option>
-                                    <option value="no_discap">No</option>
+                                    <option value="Si">Si</option>
+                                    <option value="No" selected>No</option>
                                 
                                 </select>
                             </div>
@@ -573,7 +577,7 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                     
                         <div id="si_discap" style="display: none;">
                           <label for="n_tipo_disca">Especifíque:</label> 
-                            <select name="n_tipo_disca" class="form-control">
+                            <select name="n_tipo_disca" class="form-control" id="especificar">
                               <option value="seleccione">Seleccione</option>  
                                 <?php
                                     $sql_tdiscap = "select * from tbl_tipos_discapacidad";
@@ -609,9 +613,8 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                                     <div class="row">
                                             <div class="col-md-3">
                                                     <select name="n_conadis" id="n_conadis" class="form-control">
-                                                        <option value="seleccione">Seleccione</option>
                                                         <option value="Si">Si</option>
-                                                        <option value="No">No</option>
+                                                        <option value="No" selected>No</option>
                                                     </select>
                                             </div>
                                     </div>
@@ -620,13 +623,13 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
 
                                 <script type="text/javascript">
                         function mostrar_establecimiento_discapacidad(a) {
-                            if (a== "no_establecimiento") {
+                            if (a== "No") {
                                 $("#no_establecimiento").show();
                                 $("#si_establecimiento").hide();
                             
                             }
 
-                            if (a == "si_establecimiento") {
+                            if (a == "Si") {
                                 $("#no_establecimiento").hide();
                                 $("#si_establecimiento").show();
                             }                 
@@ -638,9 +641,8 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                         <div class="row">
                             <div class="col-md-3">
                                 <select class="form-control" id="n_establec_dis" name="n_establec_dis" onChange="mostrar_establecimiento_discapacidad(this.value);">
-                                    <option value="seleccione">Seleccione</option>
-                                    <option value="si_establecimiento">Si</option>
-                                    <option value="no_establecimiento">No</option>
+                                    <option value="Si">Si</option>
+                                    <option value="No" Selected>No</option>
                                 
                                 </select>
                             </div>

@@ -145,7 +145,7 @@ if (isset($_POST['update'])) {
                         </div>
                         <div class="col-md-6"><br>
                             <?php
-                            $get_query = "SELECT * FROM tbl_enfermedades ORDER BY id_enfermedades DESC";
+                            $get_query = "SELECT * FROM tbl_enfermedades ORDER BY id_enfermedades ASC";
                             $get_run = mysqli_query($con, $get_query);
                             if (mysqli_num_rows($get_run) > 0) {
 
@@ -168,12 +168,14 @@ if (isset($_POST['update'])) {
                                     </thead>
                                     <tbody>
                                         <?php
+                                        $cont=0;
                                         while ($get_row = mysqli_fetch_array($get_run)) {
+                                            $cont++;
                                             $alimento_id = $get_row['id_enfermedades'];
                                             $detalleali_name = $get_row['detalle'];
                                             ?>
                                             <tr>
-                                                <td><?php echo $alimento_id; ?></td>
+                                                <td><?php echo $cont; ?></td>
                                                 <td><?php echo ($detalleali_name); ?></td>
                                                 <td><a href="proenfermedades.php?edit=<?php echo $alimento_id; ?>"><i class="far fa-edit"></i></a></td>
                                                 <td><a href="proenfermedades.php?del=<?php echo $alimento_id; ?>"  onclick="return confirm('¿Desea Borrar?');  "><i class="fas fa-trash-alt"></i></a></td>
