@@ -722,7 +722,7 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
 <!--............................................Sobrenombre........................................................-->
 
                                 <div class="form-group">
-                                    <label for="sobrenombre_n">Como lo llaman en casa:</label>
+                                    <label for="sobrenombre_n">¿Como lo llaman en casa?</label>
                                     <input type="text" id="sobrenombre_n" name="sobrenombre_n" class="form-control" value="<?php
                                     
                                     ?>" placeholder="Sobrenombre">

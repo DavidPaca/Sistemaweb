@@ -8,36 +8,40 @@ if (!isset($_SESSION['username'])) {
 
 if (isset($_GET['edit'])) {//si esque hay la variable edit
     $edit_id = $_GET['edit'];//get y post sirven para atrapar datos.
-    echo($edit_id);
+    //echo($edit_id);
     $edit_query = "SELECT * FROM tbl_datos_personales_ninio WHERE id_ninio = $edit_id";
     $edit_query_run = mysqli_query($con, $edit_query);
    // if (mysqli_num_rows($edit_query_run) > 0) {/*if numero de filas es mayor q 0*/
         $edit_row = mysqli_fetch_array($edit_query_run);//fetch array sirve para que tu atrapestoda la fila de una table... fetch assoc.
         //$row = mysqli_fetch_array($run)
-      /*  $ci=$edit_row['ci'];
-        $apellidos=$edit_row['apellidos'];
-        $nombre = $edit_row['nombres'];
-        $tipo = $edit_row['tipo'];
-        $direccion = $edit_row['direccion_dom'];
-        $correo = $edit_row ['correo_e'];
-        $telefono = $edit_row['telefono'];
-        $contrasenia = $edit_row['contrasenia'];
-        $id_cdi = $edit_row['id_cdi'];*/
+      
         
         $idninio = $edit_row['id_ninio'];
-        $tipo_docum = $edit_row['id_docide'];
-        $first_name = $edit_row['nombres'];
-        $last_name = $edit_row['apellidos'];
         $idTipodocumento = $edit_row['id_docide'];
-        $c_i = $edit_row['ci'];
+        $c_i = $edit_row['numero_docide'];
+        $last_name = $edit_row['apellidos'];
+        $first_name = $edit_row['nombres'];
         $fecha_nac = $edit_row['fecha_nac'];
-        $lugar_nac = $edit_row['lugar_nac'];
-        $dir = $edit_row['direrccion_dom'];
+        $anio_ninio = $edit_row['anio'];
+        $mes_ninio = $edit_row['mes'];
+        $dia_ninio = $edit_row['dia'];
+        $pais_nac = $edit_row['pais'];
+        $provincia_nac = $edit_row['id_provincia'];
+        $canton_nac = $edit_row['id_canton'];
+        $parroquia_nac = $edit_row['id_parroquia'];
+        $dir = $edit_row['direccion_dom'];
+        $Referencia_dom = $edit_row['referencia_ubicacion'];
         $idgenero_n = $edit_row['id_genero'];
         $idetnia_n = $edit_row['id_etnia'];
-        $nombre_padre_n = $edit_row['nombre_padre'];
-        $nombre_madre_n = $edit_row['nombre_madre'];
-        $discapacidad_n = $edit_row['discapacidad'];
+        $ni_discapacidad = $edit_row['discapacidad'];
+        $ni_porcentaje = $edit_row['porcentaje'];
+        $carnet_conadis = $edit_row['carnet_conadis'];
+        $tip_discapacidad_n = $edit_row['id_tipo_discapacidad'];
+        $estable_discap = $edit_row['asiste_estableci_personas_discapacidad'];
+        $nombre_estable = $edit_row['nombre_establecimiento'];
+        $n_peso = $edit_row['peso'];
+        $n_talla = $edit_row['talla'];
+        $n_nivel = $edit_row['id_niveles_ninio'];
         $sobrenombre = $edit_row['como_lo_llaman'];
         $cdi = $edit_row['id_cdi'];
         $imagen_n = $edit_row['imagen_ninio'];
@@ -68,21 +72,33 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                     <?php
                     if (isset($_POST['submit'])) {//si se ha presionado el boton subbmit
                         //$date = time();
-                        $idninio = ( $_POST['id_ninio']);
-                        $tipo_docide = ($_POST['tipo_docid']);
-                        $first_name = ( $_POST['nombres']);
-                        $last_name = ( $_POST['apellidos']);
-                        $idTipodocumento = ( $_POST['ci']);
-                        $c_i = ( $_POST['id_docide']);
-                        //$fecha_nac = $_POST['role'];
-                        $fecha_nac = ($_POST['fecha_nac']);
-                        $lugar_nac = ($_POST['lugar_nac']);
-                        $dir = ($_POST['direrccion_dom']);
-                        $idgenero_n = ($_POST['id_genero']);
-                        $idetnia_n = ($_POST['id_etnia']);
-                        $discapacidad_n = ($_POST['discapacidad']);
-                        $sobrenombre = ($_POST['como_lo_llaman']);
-                        $cdi = ($_POST['cdi']);
+                        $tipo_docide = ( $_POST['ti_docide']);
+                        $ci = ( $_POST['ci_ninio']);
+                        $n_apellidos = ( $_POST['apellidos_n']);
+                        $n_nombres = ( $_POST['nombres_n']);
+                        $fechanaci = ($_POST['fecha_naci']);
+                        $n_anio = ($_POST['anio_n']);
+                        $n_mes = ($_POST['mes_n']);
+                        $n_dia = ($_POST['dia_n']);
+                        $n_pais = ($_POST['pais_nom']);
+                        $provincianac = ($_POST['provincia_n']);
+                        $cantonnac = ($_POST['canton_no']);
+                        $parroquia_n = ($_POST['parroquia_ni']);
+                        $direccion_domic = ($_POST['direcion_do']);
+                        $referencia_domic = ($_POST['referencia_domi']);
+                        $genero_ni = ($_POST['genero_n']);
+                        $getnico_n = ($_POST['grupoetnico']);
+                        $n_discapacidad = ($_POST['n_discap']);
+                        $porcentaje_n = ($_POST['n_porcentaje']);
+                        $c_conadis_n = ($_POST['n_conadis']);
+                        $t_discapa_n = ($_POST['n_tipo_disca']);
+                        $establec_disca = ($_POST['n_establec_dis']);
+                        $nombre_estableci = ($_POST['nom_establec']);
+                        $peso_n = ($_POST['n_peso']);
+                        $talla_n = ($_POST['n_talla']);
+                        $nivel_ninio = ($_POST['ninio_nivel']);
+                        $sobrenombre_ninio = ($_POST['sobrenombre_n']);
+                        $cdi_ninio = ($_POST['cdi_n']);
                         $imagen_n = ($_POST['imagen_ninio']);
 
                                              
@@ -90,9 +106,15 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                         //echo($first_name.$last_name.$username.$password.$role.$role.$email.$telef.$dir.$cdi);
 
 
-                        $consulta="update tbl_usuario set id_docide='$tipo_docide', ci='$username',apellidos='$last_name',nombres='$first_name', tipo='$role',correo_e='$email',direccion_dom='$dir',telefono='$telef',contrasenia='$password',id_cdi='$cdi' where id_usuario = '$edit_id'";
+                        $consulta="update tbl_datos_personales_ninio set id_docide='$tipo_docide', numero_docide ='$ci',apellidos='$n_apellidos',nombres='$n_nombres', fecha_nac='$fechanaci',anio='$anio_n',mes='$n_mes',dia='$n_dia',pais='$n_pais',id_provincia='$provincianac', id_canton='$cantonnac',id_parroquia='$parroquia_n',
+                        direccion_dom='$direccion_domic', referencia_ubicacion='$referencia_domic', id_genero='$genero_ni', id_etnia='$getnico_n',discapacidad='$n_discapacidad', porcentaje='$porcentaje_n', carnet_conadis='$c_conadis_n',id_tipo_discapacidad='$t_discapa_n', asiste_estableci_personas_discapacidad='$establec_disca',
+                        nombre_establecimiento='$nombre_estableci', peso='$peso_n', talla='$talla_n', id_niveles_ninio='$nivel_ninio', como_lo_llaman='$sobrenombre_ninio', id_cdi='$cdi_ninio' where id_ninio = '$edit_id'";
                         $ejecutar = mysqli_query($con, $consulta);//ejecutar consulta
-                        header("location: users.php");
+                        if (mysqli_query($con, $del_query)) {
+                            $msg = "Registro modificado";
+                        } else {
+                            $error = "Registro no modificado";
+                        }
                         
                         
                         //$password = crypt($password, $salt);
@@ -100,95 +122,88 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                        
                     }
                     ?>
-        <div class="row">
-            <div class="col-md-8">
+       
                 <form action="" method="post" enctype="multipart/form-data">
 
+
 <!--............................................Tipo Documento........................................................-->
-                       <div class="form-group">
-                                    <label for="role">Tipo de Documento de Identidad:</label>
-                                    <select class="form-control" name="tipo_docid" id="categories">
-                                    
-                                      <?php
-                                        
-
-                                        $sql_tdocu = "select * from tbl_documento_identidad ";
-                                        $ejecutar = mysqli_query($con, $sql_tdocu);//ejecutar consulta
-                                        $sql_llenartdocumento = "SELECT tbl_datos_personales_ninio.id_docide,tbl_documento_identidad.detalle FROM tbl_datos_personales_ninio INNER JOIN tbl_documento_identidad ON tbl_datos_personales_ninio.id_docide = tbl_documento_identidad.id_docide Where id_ninio = $edit_id";
-                                        $ejecutar2 = mysqli_query($con, $sql_llenartdocumento);
-                                        $row3 = mysqli_fetch_array($ejecutar2);
-                                        $idlltdoc=$row3['id_docide'];
-                                            $detallelltdoc=$row3['detalle'];
-                                            echo "<option value='" . $idlltdoc. "' " .  " selected>" . ($detallelltdoc) . "</option>";
-
-                                        if (mysqli_num_rows($ejecutar) > 0) {
-                                            while ($row2 = mysqli_fetch_array($ejecutar)) {
-                                                
-                                                $detalledoc = $row2['detalle'];
-                                                $iddoc = $row2['id_docide'];
-                                                echo "<option value='" . $iddoc. "' " .  ">" . ($detalledoc) . "</option>";
-                                                
+<div class="row">
+            <div class="col-md-8">
+                                <div class="form-group">
+                      
+                                        <?php
+                                            if (isset($error)) {
+                                                echo "<span style='color:red;' class='pull-right'>$error</span>";
+                                            } else if (isset($msg)) {
+                                                echo "<span style='color:green;' class='pull-right'>$msg</span>";
                                             }
-                                            
-                                        } else {
-                                        // echo "<center><h6>Categoría no disponible</h6></center>";
-                                        }
-                                       ?>
-                                    </select>
-                            </div>         
+                                        ?>
+                                    <label for="ti_docide">Tipo de Documento de Identidad:</label>
+                                    <select class="form-control" name="ti_docide" id="categories">
+                                        <?php
+                                            $sql_tdocu = "select * from tbl_documento_identidad ";
+                                            $ejecutar = mysqli_query($con, $sql_tdocu);//ejecutar consulta
+                                            $sql_llenartdocumento = "SELECT tbl_datos_personales_ninio.id_docide,tbl_documento_identidad.detalle FROM tbl_datos_personales_ninio INNER JOIN tbl_documento_identidad ON tbl_datos_personales_ninio.id_docide = tbl_documento_identidad.id_docide Where id_ninio = $edit_id";
+                                            $ejecutar2 = mysqli_query($con, $sql_llenartdocumento);
+                                            $row3 = mysqli_fetch_array($ejecutar2);
+                                            $idlltdoc=$row3['id_docide'];
+                                                $detallelltdoc=$row3['detalle'];
+                                                echo "<option value='" . $idlltdoc. "' " .  " selected>" . ($detallelltdoc) . "</option>";
 
+                                            if (mysqli_num_rows($ejecutar) > 0) {
+                                                while ($row2 = mysqli_fetch_array($ejecutar)) {
+                                                    
+                                                    $detalledoc = $row2['detalle'];
+                                                    $iddoc = $row2['id_docide'];
+                                                    echo "<option value='" . $iddoc. "' " .  ">" . ($detalledoc) . "</option>";
+                                                    
+                                                }
+                                                
+                                            } else {
+                                            // echo "<center><h6>Categoría no disponible</h6></center>";
+                                            }
+                                        ?>
+                                    </select>
+                                </div>         
+
+<!--............................................CI........................................................-->
+                                <div class="form-group">
+                                    <label for="ci_ninio">Número de Documento de Identificación:</label>
+                                    <input type="text" id="ci_ninio" name="ci_ninio" class="form-control" maxlength="10" value="<?php echo($c_i); ?>" >
+                                </div>
+
+<!--............................................Apellidos........................................................-->
+<div class="form-group">
+                                    <label for="last-name">Apellidos:</label>
+                                    <input type="text" id="last-name" name="last-name" class="form-control" value= "<?php
+                                    
+                                        echo $last_name;
+                                
+                                    ?>">
+                                </div>                                
 <!--............................................Nombre........................................................-->                    
                                                  
                                 <div class="form-group">
                                     <label for="first-name">Nombres :</label>
-                                    <?php
-                                        if (isset($error)) {
-                                            echo "<span class='pull-right' style='color:red;'>$error</span>";
-                                        } else if (isset($msg)) {
-                                            echo "<span class='pull-right' style='color:green;'>$msg</span>";
-                                        }
-                                    ?>
                                     <input type="text" id="first-name" name="first-name" class="form-control" value= "<?php
-                                        if (isset($first_name)) {
+                                        
                                             echo $first_name;
-                                        }
+                                        
                                         ?>">
                                 </div>
                             
-<!--............................................Apellidos........................................................-->
-                                <div class="form-group">
-                                    <label for="last-name">Apellidos:</label>
-                                    <input type="text" id="last-name" name="last-name" class="form-control" value= "<?php
-                                    if (isset($last_name)) {
-                                        echo $last_name;
-                                    }
-                                    ?>">
-                                </div>
-
-                                
-<!--............................................CI........................................................-->
-                                <div class="form-group">
-                                    <label for="ci">CI:</label>
-                                    <input type="text" id="username" name="ci" class="form-control" value="" placeholder="CI">
-                                </div>
-
 <!--............................................Fecha nacimiento........................................................-->
                                 <div class="form-group">
-                                    <label for="date">Fecha de Nacimiento :*</label>
+                                    <label for="fecha_naci">Fecha de Nacimiento :</label>  
                                    <!-- <input  class="form-control" placeholder="Fecha de Nacimiento">-->
-                                    <input type="date"  name="fecha_nac" class="form-control">
-                                </div>
+                                    <input type="date"  name="fecha_naci" class="form-control" id="fecha_naci" value="<?php echo($fecha_nac); ?>" >>
+                                </div>                                
 
-<!--............................................Lugar de Nacimiento........................................................-->
-                                <div class="form-group">
-                                    <label for="lugar_n">Lugar de Nacimiento:</label>
-                                    <input type="text" id="last-name" name="lugar_n" class="form-control" value= "<?php
-                                    if (isset($last_name)) {
-                                        echo $last_name;
-                                    }
-                                    ?>" placeholder="Lugar de Nacimiento">
-                                </div>
-         
+
+                                <input type='text' class='form-control'  value='$datos[2]' name='mostrar_mes' disabled>";
+<input type='hidden' class='form-control'  value='$datos[2]' name='dia_n' >";
+<span class='input-group-addon' disabled>Día(s)</span> ";
+
 <!--............................................Genero........................................................-->
                                 <div class="form-group">
                                     <label for="genero_n">Género :*</label>

@@ -59,39 +59,7 @@ if (isset($_GET['del'])) {
                         <li class="active"><i class="fa fa-users"></i> Datos Personales del Niño(a)</li>
                     </ol>
                     <?php
-                    $query = "SELECT  tbl_datos_personales_ninio.id_ninio, tbl_datos_personales_ninio.numero_docide, tbl_datos_personales_ninio.apellidos, tbl_datos_personales_ninio.nombres,tbl_datos_personales_ninio.fecha_nac, tbl_datos_personales_ninio.anio, tbl_datos_personales_ninio.mes, tbl_datos_personales_ninio.dia, tbl_datos_personales_ninio.direccion_dom, tbl_datos_personales_ninio.referencia_ubicacion, tbl_datos_personales_ninio.discapacidad, tbl_datos_personales_ninio.porcentaje, tbl_datos_personales_ninio.carnet_conadis, tbl_datos_personales_ninio.asiste_estableci_personas_discapacidad, tbl_datos_personales_ninio.nombre_establecimiento, tbl_datos_personales_ninio.peso, tbl_datos_personales_ninio.talla, tbl_datos_personales_ninio.como_lo_llaman, tbl_datos_personales_ninio.imagen_ninio, 
-                    tbl_datos_personales_ninio.id_docide,tbl_documento_identidad.detalle AS detalle_di, 
-                    tbl_datos_personales_ninio.pais, tbl_pais.detalle AS detalle_pais, 
-                    tbl_datos_personales_ninio.id_provincia, tbl_provincia.detalle AS detalle_provincia, 
-                    tbl_datos_personales_ninio.id_canton, tbl_canton.detalle AS detalle_canton, 
-                    tbl_datos_personales_ninio.id_parroquia, tbl_parroquia.detalle AS detalle_parroquia, 
-                    tbl_datos_personales_ninio.id_genero, tbl_genero.detalle AS detalle_genero, 
-                    tbl_datos_personales_ninio.id_etnia, tbl_etnia.detalle AS detalle_etnia, 
-                    tbl_datos_personales_ninio.id_tipo_discapacidad, tbl_tipos_discapacidad.detalle AS detalle_tdicapacidad, 
-                    tbl_datos_personales_ninio.id_niveles_ninio, tbl_niveles_estudio_ninio.detalle AS detalle_nivel_ninio, 
-                    tbl_datos_personales_ninio.id_cdi, tbl_cdi.nombre AS detalle_cdi
-                                        FROM tbl_datos_personales_ninio 
-                                        INNER JOIN tbl_documento_identidad 
-                                        ON tbl_datos_personales_ninio.id_docide = tbl_documento_identidad.id_docide 
-                                        INNER JOIN tbl_pais 
-                                        ON tbl_datos_personales_ninio.pais = tbl_pais.id_pais 
-                                        INNER JOIN tbl_provincia 
-                                        ON tbl_datos_personales_ninio.id_provincia = tbl_provincia.id_provincia
-                                        INNER JOIN tbl_canton
-                                        ON tbl_datos_personales_ninio.id_canton = tbl_canton.id_canton
-                                        INNER JOIN tbl_parroquia
-                                        ON tbl_datos_personales_ninio.id_parroquia = tbl_parroquia.id_parroquia
-                                        INNER JOIN tbl_genero
-                                        ON tbl_datos_personales_ninio.id_genero = tbl_genero.id_genero
-                                        INNER JOIN tbl_etnia
-                                        ON tbl_datos_personales_ninio.id_etnia = tbl_etnia.id_etnia
-                                        INNER JOIN tbl_tipos_discapacidad
-                                        ON tbl_datos_personales_ninio.id_tipo_discapacidad = tbl_tipos_discapacidad.id_tipo_discapacidad
-                                        INNER JOIN tbl_niveles_estudio_ninio
-                                        ON tbl_datos_personales_ninio.id_niveles_ninio = tbl_niveles_estudio_ninio.id_niveles_ninio
-                                        INNER JOIN tbl_cdi
-                                        ON tbl_datos_personales_ninio.id_cdi = tbl_cdi.id
-                                        Where estado='Activo'";
+                    $query = "SELECT * FROM tbl_datos_personales_ninio Where estado='Activo'";
                     $run = mysqli_query($con, $query);
                     if (mysqli_num_rows($run) > 0) {
                         ?>
@@ -138,29 +106,10 @@ if (isset($_GET['del'])) {
                                     <tr>
                                         <th><input type="checkbox" id="selectallboxes"></th>
                                         <th>Número</th>
-                                        <th>Tipo de Documento</th> 
                                         <th>Cedula de Identidad</th>
-                                        <th>Apellidos/Nombre</th>                               
-                                        <th>Fecha de Nacimiento</th>
-                                        <th style = "width: 200px">Edad (Año, mes, días)</th>
-                                        <th>Nacionalidad</th>
-                                        <th>Lugar de Nacimiento</th>
-                                        <th>Dirección Domiciliaria</th>
-                                        <th>Referencia Domiciliaria</th>
-                                        <th>Género</th>
-                                        <th>Grupo Étnico</th>
-                                        <th>Discapacidad</th>
-                                        <th>Porcentaje</th>
-                                        <th>Carnet del CONADIS</th>
-                                        <th>Tipo de Discapacidad</th>                                       
-                                        <th>Asiste a algún establecimiento de Educación Especial</th>
-                                        <th>Nombre establecimiento de Educación Especial</th>
-                                        <th>Peso</th>
-                                        <th>Talla</th>
-                                        <th>Nivel</th>
-                                        <th>Sobrenombre</th>
-                                        <th>CDI</th>
-                                        <th>Fotografía</th>
+                                        <th>Apellidos</th>                               
+                                        <th>Nombres</th>
+                                        <th>Detalle</th>
                                         <th>Modificar</th>
                                         <th>Eliminar</th>
                                         
@@ -173,65 +122,60 @@ if (isset($_GET['del'])) {
                                     while ($row = mysqli_fetch_array($run)) {
                                         $cont++;
                                         $idninio = $row['id_ninio'];
-                                        $idTipodocumento = $row['detalle_di'];
+                                       // $idTipodocumento = $row['detalle_di'];
                                         $c_i = $row['numero_docide'];
                                         $last_name = ($row['apellidos']);
                                         $first_name = ($row['nombres']);
-                                        $fecha_nac = $row['fecha_nac'];
-                                        $anio_ninio = $row['anio'];
-                                        $mes_ninio = $row['mes'];
-                                        $dia_ninio = $row['dia'];
-                                        $pais_nac = $row['detalle_pais'];
-                                        //$ciudad_nac = $row['ciudad'];
-                                        $provincia_nac = $row['detalle_provincia'];
-                                        $canton_nac = $row['detalle_canton'];
-                                        $parroquia_nac = $row['detalle_parroquia'];
-                                        $dir = $row['direccion_dom'];
-                                        $Referencia_dom = $row['referencia_ubicacion'];
-                                        $idgenero_n = $row['detalle_genero'];
-                                        $idetnia_n = $row['detalle_etnia'];
-                                        $ni_discapacidad = $row['discapacidad'];
-                                        $ni_porcentaje = $row['porcentaje'];
-                                        $carnet_conadis = $row['carnet_conadis'];
-                                        $tip_discapacidad_n = $row['detalle_tdicapacidad'];
-                                        $estable_discap = $row['asiste_estableci_personas_discapacidad'];
-                                        $nombre_estable = $row['nombre_establecimiento'];
-                                        $n_peso = $row['peso'];
-                                        $n_talla = $row['talla'];
-                                        $n_nivel = $row['detalle_nivel_ninio'];                               
-                                        $sobrenombre = $row['como_lo_llaman'];
-                                        $cdi = $row['detalle_cdi'];
-                                        $imagen_n = $row['imagen_ninio'];                          
+                                        //$fecha_nac = $row['fecha_nac'];
+                                       // $anio_ninio = $row['anio'];
+                                       // $mes_ninio = $row['mes'];
+                                       // $dia_ninio = $row['dia'];
+                                        //$pais_nac = $row['detalle_pais'];
+                                        //$provincia_nac = $row['detalle_provincia'];
+                                        //$canton_nac = $row['detalle_canton'];
+                                        //$parroquia_nac = $row['detalle_parroquia'];
+                                       // $dir = $row['direccion_dom'];
+                                       // $Referencia_dom = $row['referencia_ubicacion'];
+                                        //$idgenero_n = $row['detalle_genero'];
+                                        //$idetnia_n = $row['detalle_etnia'];
+                                       // $ni_discapacidad = $row['discapacidad'];
+                                       // $ni_porcentaje = $row['porcentaje'];
+                                        //$carnet_conadis = $row['carnet_conadis'];
+                                        //$tip_discapacidad_n = $row['detalle_tdicapacidad'];
+                                        //$estable_discap = $row['asiste_estableci_personas_discapacidad'];
+                                        //$nombre_estable = $row['nombre_establecimiento'];
+                                        //$n_peso = $row['peso'];
+                                        //$n_talla = $row['talla'];
+                                        //$n_nivel = $row['detalle_nivel_ninio'];                               
+                                        //$sobrenombre = $row['como_lo_llaman'];
+                                        //$cdi = $row['detalle_cdi'];
+                                        //$imagen_n = $row['imagen_ninio'];                          
                                     ?>
                                         
                                         
                                         <tr>
                                             <td><input type="checkbox" class="checkboxes" name="checkboxes[]" value="<?php echo $idninio; ?>"></td>
                                             <td><?php echo $cont; ?></td>
-                                            <td><?php  echo $idTipodocumento; ?></td> 
+                                            <!--<td><?php // echo $idTipodocumento; ?></td> -->
                                             <td><?php echo $c_i; ?></td>
-                                            <td><?php echo "$last_name $first_name "; ?></td>
-                                            <td><?php echo $fecha_nac; ?></td>
-                                            <td><?php echo "$anio_ninio Año(s), $mes_ninio Mes(es), $dia_ninio Días"; ?></td>
-                                            <td><?php echo $pais_nac ; ?></td>
-                                            <td><?php echo "$provincia_nac, $canton_nac, $parroquia_nac"; ?></td>
-                                            <td><?php echo $dir; ?></td>
-                                            <td><?php echo $Referencia_dom; ?></td>
-                                            <td><?php echo $idgenero_n; ?></td>
-                                            <td><?php echo $idetnia_n; ?></td>
-                                            <td><?php echo $ni_discapacidad; ?></td>
-                                            <td><?php echo $ni_porcentaje; ?></td>
-                                            <td><?php echo $carnet_conadis; ?></td>
-                                            <td><?php echo $tip_discapacidad_n; ?></td>
-                                            <td><?php echo $estable_discap; ?></td>
-                                            <td><?php echo $nombre_estable; ?></td>
-                                            <td><?php echo "$n_peso kg."; ?></td>
-                                            <td><?php echo "$n_talla cm."; ?></td>
-                                            <td><?php echo $n_nivel; ?></td>
-                                            <td><?php echo $sobrenombre; ?></td>
-                                            <td><?php echo $cdi; ?></td>
+                                            <td><?php echo $last_name ; ?></td>
+                                            <td><?php echo $first_name; ?></td>
+                                           <!-- <td><?php //echo "$anio_ninio Año(s), $mes_ninio Mes(es), $dia_ninio Días"; ?></td> -->
+                                           
+                                          <!--  <td><?php //echo $ni_discapacidad; ?></td>
+                                            <td><?php// echo $ni_porcentaje; ?></td>
+                                            <td><?php //echo $carnet_conadis; ?></td>
+                                            <td><?php //echo $tip_discapacidad_n; ?></td>
+                                            <td><?php //echo $estable_discap; ?></td>
+                                            <td><?php //echo $nombre_estable; ?></td>
+                                            <td><?php// echo "$n_peso kg."; ?></td>
+                                            <td><?php// echo "$n_talla cm."; ?></td>
+                                            <td><?php// echo $n_nivel; ?></td>
+                                            <td><?php// echo $sobrenombre; ?></td>
+                                            <td><?php// echo $cdi; ?></td> -->
                                            <!-- <td><?php// echo $imagen_n; ?></td> -->
-                                            <td><img src="img/<?php echo $imagen_n; ?>" width="50px"></td>
+                                           <!--  <td><img src="img/<?php //echo $imagen_n; ?>" width="50px"></td>  -->
+                                           <td><a href="profile_datos_ninio.php?edit=<?php echo $idninio; ?>"><i class="far fa-file-alt"></i></a></td>
                                             <td><a href="editar_datos_ninio.php?edit=<?php echo $idninio; ?>"><i class="far fa-edit"></i></a></td>
                                             <td><a href="niniosregistrados.php?del=<?php echo $idninio; ?>" onclick="return confirm('¿Desea Borrar?');"><i class="fas fa-trash-alt"></i></a></td>
                                         
