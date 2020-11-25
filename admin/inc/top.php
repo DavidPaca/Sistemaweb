@@ -47,3 +47,7 @@ require_once('../inc/db.php');
                         $('[data-toggle="tooltip"]').tooltip();
                     });
                 </script>   -->
+
+        <!--jquery-->
+
+        <script type="text/javascript" src="js/jquery.js"></script>

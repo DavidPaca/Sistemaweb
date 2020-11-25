@@ -2,7 +2,9 @@
 require_once('inc/top.php');
 ob_start();
 require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
-
+if (!isset($_SESSION['username'])) {
+    header('Location: login.php');
+}
 
 ?>
 </head>
@@ -41,6 +43,9 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                         $cdi = ($_POST['cdi']);
                         $image = $_FILES['image']['name'];
                         $image_temp = $_FILES['image']['tmp_name'];
+                        if($image == null){
+                            $image='defecto.png';
+                        }
 
                       //  echo($first_name.$last_name.$username.$password.$role.$role.$email.$telef.$dir.$cdi);         //username
 
@@ -81,7 +86,8 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
 
                                 <div class="form-group">
                                         <label for="role">Tipo de Documento de Identidad:</label>
-                                        <select class="form-control" name="tipo_docid" id="categories">
+                                        <select class="form-control" name="tipo_docid" id="tipo_docid" required>
+                                        <option value="" >Seleccione</option>
                                         <?php
                                             $sql_tdocu = "select * from tbl_documento_identidad";
                                             $ejecutar = mysqli_query($con, $sql_tdocu);//ejecutar consulta
@@ -103,7 +109,7 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
 
                                 <div class="form-group">
                                     <label for="username">Número de Documento de Identidad:</label>    <!--username-->
-                                    <input type="text" id="username" name="ci" class="form-control" maxlength="10" value="" placeholder="Número de Documento de Identidad">    <!--username-->
+                                    <input type="number" id="username" name="ci" class="form-control" placeholder="Ej:1234567890" required>    <!--username-->
                                 </div>
 
                              <!--   <div class="form-group">
@@ -116,26 +122,27 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                                 <div class="form-group">
                                     <label >Apellidos:</label>
                                     <input name="last-name" class="form-control" value="<?php
-                                    ?>" placeholder="Apellidos">
+                                    ?>" placeholder="Apellidos" required>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="first-name">Nombres:</label>
                                     <input type="text" id="first-name" name="first-name" class="form-control" value="<?php
-                                    ?>" placeholder="Nombres">
+                                    ?>" placeholder="Nombres" required>
                                 </div>
                        
                                 <div class="form-group">
                                     <label for="date">Fecha de Ingreso :</label>  
-                                    <input type="date"  name="fecha_ing" class="form-control">
+                                    <input type="date"  name="fecha_ing" class="form-control" required>
                                 </div>
 
                                
                                 <div class="form-group">
                                     <label for="role">Tipo de Ususario:</label>
-                                    <select name="role" id="role" class="form-control">
-                                        <option value="Coordinador">Coordinador</option> 
-                                        <option value="Parvulario">Parvulario</option>
+                                    <select name="role" id="role" class="form-control" required>
+                                        <option value="" >Seleccione</option>
+                                        <!--<option value="Coordinador">Coordinador</option> -->
+                                        <option value="Parvulario">Parvulario</option> 
                                     </select>
                                 </div>
 
@@ -143,7 +150,8 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                                     <label for="dir">Dirección:</label>
                                     <input type="text" id="dir" name="dir" class="form-control" value="<?php
                                     
-                                    ?>" placeholder="Dirección">
+                                    ?>" placeholder="Dirección" required>
+                                    
                                 </div>
 
                                 <div class="form-group">
@@ -171,7 +179,8 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
 
                                 <div class="form-group">
                                     <label for="role">Centro de Desarrollo Infantil:</label>
-                                    <select class="form-control" name="cdi" id="categories">
+                                    <select class="form-control" name="cdi" id="categories" required>
+                                    <option value="" >Seleccione</option>
                                         <?php
                                             $sql_cdi = "SELECT * FROM `tbl_cdi` WHERE id != 7";
                                             $ejecutar = mysqli_query($con, $sql_cdi);//ejecutar consulta

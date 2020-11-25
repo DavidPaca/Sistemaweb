@@ -1,8 +1,9 @@
 <?php
 require_once('inc/top.php');
-/*if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['username'])) {
     header('Location: login.php');
-} else if (isset($_SESSION['username']) && $_SESSION['role'] == 'author') {
+    }
+/*} else if (isset($_SESSION['username']) && $_SESSION['role'] == 'author') {
     header('Location: index.php');
 }*/
 

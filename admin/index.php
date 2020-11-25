@@ -281,12 +281,91 @@ require_once('inc/header.php');
 
                     <?php } ?>
                     
-</div>
+
+
+<!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX MENU PRINCIPAL PARVULARIO XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->        
+<?php
+                      if ($session_role1 == 'Parvulario') {
+                    ?>
+
+                    <div class="row tag-boxes">
+                        <div class="col-md-6 col-lg-3">
+                        
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-user-circle fa-5x"></i><!-----------IMAGEN DE PRIMER CUADRO----------->
+                                        </div>
+                                        <div class="col-xs-9">
+                                            <div class="text-right huge"><?php //echo $com_rows;?></div>
+                                            <!--<div class="text-right">Comentarios Nuevos</div>-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="menuprincipaldatosninio.php">
+                                    <div class="panel-footer letrasmenuficha">
+                                        <span class="pull-left">DATOS PERSONALES DEL NIÑO/A</span>
+                                        <span class="pull-right "><i class="fa fa-arrow-circle-right"></i></span>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                        </div>
+
+                        <div class="col-md-6 col-lg-3">
+                            <div class="panel panel-red">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-comments fa-5x"></i>
+                                        </div>
+                                        <div class="col-xs-9">
+                                            <div class="text-right huge"><?php// echo// $post_rows;?></div>
+                                            <!--<div class="text-right"></div>-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="niniosregistrados_ci.php">
+                                    <div class="panel-footer letrasmenuficha">
+                                        <span class="pull-left">ENTREVISTA INICIAL<br><br></span>
+                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-3">
+                            <div class="panel panel-yellow">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-users fa-5x"></i>
+                                        </div>
+                                            <div class="col-xs-9">
+                                                <div class="text-right huge"><?php //echo $user_rows;?></div>
+                                                <!--<div class="text-right">Todos los usuarios</div>-->
+                                            </div>
+                                    </div>
+                                </div>
+                                        <a href="ing_socio_eco.php">
+                                            <div class="panel-footer letrasmenuficha">
+                                                <span class="pull-left">SOCIO ECONÓMICO <br><br></span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
+                            </div>
+                        </div>
+
+                        <?php } ?>
+
+                        </div>
                 
             </div>
             
         </div>
-
-<!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX MENU PRINCIPAL PARVULARIO XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->        
 
 <?php require_once('inc/footer.php');?>

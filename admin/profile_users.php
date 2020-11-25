@@ -4,22 +4,36 @@ if (!isset($_SESSION['username'])) {
     header('Location: login.php');
 }
 
-$session_username = $_SESSION['username'];
+if (isset($_GET['edit'])) {//si esque hay la variable edit
+    $edit_id = $_GET['edit'];//get y post sirven para atrapar datos.
+
+//$session_username = $_SESSION['username'];
 //echo($session_username);
 
-$query = "SELECT * FROM tbl_usuario WHERE ci = '$session_username'";
+$query = "SELECT   tbl_usuario.id_usuario, tbl_usuario.ci,  tbl_usuario.apellidos,  tbl_usuario.nombres,  tbl_usuario.fecha_ingreso,  tbl_usuario.tipo,  tbl_usuario.direccion_dom,  tbl_usuario.telefono,  tbl_usuario.correo_e,  tbl_usuario.contrasenia,  tbl_usuario.imagen_usuario,  tbl_usuario.id_docide, tbl_documento_identidad.detalle AS detalle_di,
+tbl_usuario.id_cdi, tbl_cdi.nombre AS detalle_cdi
+                   FROM  tbl_usuario 
+                   INNER JOIN tbl_documento_identidad 
+                   ON  tbl_usuario.id_docide = tbl_documento_identidad.id_docide 
+                   INNER JOIN tbl_cdi
+                   ON  tbl_usuario.id_cdi = tbl_cdi.id
+                   Where  tbl_usuario.id_usuario = $edit_id";
 $run = mysqli_query($con, $query);
 $row = mysqli_fetch_array($run);
 
-$image = $row['imagen_usuario'];
-$id = $row['id_usuario'];
-
-$first_name = $row['nombres'];
-$last_name = $row['apellidos'];
-$username = $row['ci'];
-$email = $row['correo_e'];
-$role = $row['tipo'];
-$details = $row['direccion_dom'];
+        $tipo_docum = $row['detalle_di'];
+        $ci=$row['ci'];
+        $apellidos=$row['apellidos'];
+        $nombre = $row['nombres'];
+        $fecha_ing = $row['fecha_ingreso'];
+        $tipo = $row['tipo'];
+        $direccion = $row['direccion_dom'];
+        $correo = $row ['correo_e'];
+        $telefono = $row['telefono'];
+        $contrasenia = $row['contrasenia'];
+        $id_cdi = $row['detalle_cdi']; 
+        $image = $row['imagen_usuario'];
+    } 
 ?>
 </head>
 <body id="profile">
@@ -45,40 +59,52 @@ $details = $row['direccion_dom'];
                         <div class="col-xs-12">
                         
                             <center><img src="img/<?php echo $image; ?>" width="200px" class="rounded" id="profile-image"></center><br>
-                            <a href="edit-profile.php?edit=<?php echo $id; ?>" class="btn btn-primary pull-right">Editar Perfil</a><br><br>
+                            
                             <center>
                                 <h3>Información</h3>
                             </center>
 
+                            <?php echo $_GET['edit']; ?>
+                            
+                            
                             
                             <br>
                             <table class="table table-bordered">
                                 <tr>
-                                    <td width="20%"><b>ID:</b></td>
-                                    <td width="30%"><?php echo $id; ?></td>
-                                    <td width="20%"><b>Fecha de Ingreso:</b></td>
-                                    <td width="30%"><?php //echo "$day $month $year"; ?></td>
+                                    <td width="20%"><b>Tipo de documento de identidad:</b></td>
+                                    <td width="30%"><?php echo $tipo_docum; ?></td>
+                                    <td width="20%"><b>Número de documento de identidad:</b></td>
+                                    <td width="30%"><?php echo $ci ?></td>
                                 </tr>
                                 <tr>
-                                    <td width="20%"><b>Nombre:</b></td>
-                                    <td width="30%"><?php echo $first_name; ?></td>
-                                    <td width="20%"><b>Apellido:</b></td>
-                                    <td width="30%"><?php echo $last_name; ?></td>
+                                    <td width="20%"><b>Apellidos:</b></td>
+                                    <td width="30%"><?php echo $apellidos; ?></td>
+                                    <td width="20%"><b>Nombres:</b></td>
+                                    <td width="30%"><?php echo $nombre; ?></td>
                                 </tr>
                                 <tr>
-                                    <td width="20%"><b>Usuario:</b></td>
-                                    <td width="30%"><?php echo $username; ?></td>
-                                    <td width="20%"><b>Email:</b></td>
-                                    <td width="30%"><?php echo $email; ?></td>
+                                    <td width="20%"><b>Fecha de ingreso:</b></td>
+                                    <td width="30%"><?php echo $fecha_ing; ?></td>
+                                    <td width="20%"><b>Tipo de usuario:</b></td>
+                                    <td width="30%"><?php echo $tipo; ?></td>
                                 </tr>
                                 <tr>
-                                    <td width="20%"><b>Rol:</b></td>
-                                    <td width="30%"><?php echo $role; ?></td>
-                                    <td width="20%"><b><b>Dirección:</b></b></td>
-                                    <td width="30%"><?php echo $details; ?></td>
+                                    <td width="20%"><b>Dirección:</b></td>
+                                    <td width="30%"><?php echo $direccion; ?></td>
+                                    <td width="20%"><b><b>Correo electrónico:</b></b></td>
+                                    <td width="30%"><?php echo $correo; ?></td>
+                                </tr>
+                                <tr>
+                                    <td width="20%"><b>Teléfono:</b></td>
+                                    <td width="30%"><?php echo $telefono; ?></td>
+                                    <td width="20%"><b><b>Nombre de CDI:</b></b></td>
+                                    <td width="30%"><?php echo $id_cdi; ?></td>
                                 </tr>
                             </table>
-                           
+                            <center> <a href="edit-user.php?edit=<?php echo $edit_id; ?>" class="btn btn-primary">Editar Perfil</a>
+                            <a href="users.php">
+                                            <button type="button" class="btn btn-primary">Regresar</button>
+                                </a></center>
                         </div>
                     </div>
                 </div>

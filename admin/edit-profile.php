@@ -1,8 +1,8 @@
 <?php
 require_once('inc/top.php');
-/*if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['username'])) {
     header('Location: login.php');
-}*/
+}
 
 $session_username = $_SESSION['username'];
 //echo("hola");
@@ -239,6 +239,13 @@ echo($edit_id);
                                 </div>
 
                                 <input type="submit" value="Actualizar Datos" name="submit" class="btn btn-primary">
+                                <a href="profile_users.php">
+                                            <button type="button" class="btn btn-primary">Cancelar</button>
+                                </a>
+                                <a href="profile_users.php">
+                                            <button type="button" class="btn btn-primary">Regresar</button>
+                                </a>
+
                             </form></form>
                         </div>
                         <div class="col-md-4">

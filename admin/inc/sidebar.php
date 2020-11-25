@@ -223,7 +223,7 @@ $get_comment_run = mysqli_query($con, $get_comment);
                       </div>
                           <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                             <div class="card-body">
-                              <a href="add-user.php" class="list-group-item">
+                              <a href="niniosregistrados_ci.php" class="list-group-item">
                                 <i class="fa fa-folder-open"></i> Ingrese Entrevista Inicial
                               </a>
                               <a href="nientrevistaregistrada.php" class="list-group-item">
@@ -286,7 +286,7 @@ $get_comment_run = mysqli_query($con, $get_comment);
                 <i class="fa fa-users"></i> Agregar Coordinador
               </a>
 
-              <a href="../superadmin/users.php" class="list-group-item">
+              <a href="users.php" class="list-group-item">
                   <i class="fa fa-users"></i> Coordinadores Registrados
               </a>
 

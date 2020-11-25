@@ -6,7 +6,7 @@ if (!isset($_SESSION['username'])) {
 
 if (isset($_GET['edit'])) {//si esque hay la variable edit
     $edit_id = $_GET['edit'];//get y post sirven para atrapar datos.
-    echo($edit_id);
+    //echo($edit_id);
    
 
 
@@ -139,8 +139,15 @@ $row = mysqli_fetch_array($run);
                                 <tr>
                                     <td width="20%"><b><b>Nacionalidad:</b></b></td>
                                     <td width="30%"><?php echo $pais_nac; ?></td>
-                                    <td width="20%"><b>Lugar de nacimiento:</b></td>
-                                    <td width="30%"><?php echo "$provincia_nac, $canton_nac, $parroquia_nac "; ?></td>
+                                    <td width="20%"><b>Provincia</b></td>
+                                    <td width="30%"><?php echo $provincia_nac; ?></td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td width="20%"><b><b>Cantón:</b></b></td>
+                                    <td width="30%"><?php echo $parroquia_nac ; ?></td>
+                                    <td width="20%"><b>Parroquia:</b></td>
+                                    <td width="30%"><?php echo $canton_nac; ?></td>
                                     
                                 </tr>
                                 <tr>

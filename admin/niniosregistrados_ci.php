@@ -6,15 +6,19 @@ if (!isset($_SESSION['username'])) {
 
 if (isset($_GET['del'])) {
     $del_id = $_GET['del'];
-    //$del_check_query = "SELECT * FROM users WHERE id = $del_id";
+   // $del_check_query = "SELECT * FROM tbl_datos_personales_ninio ORDER BY id_ninio DESC";
     //$del_check_run = mysqli_query($con, $del_check_query);
    // if (mysqli_num_rows($del_check_run) > 0) {
-        $del_query = "DELETE FROM `tbl_datos_personales_ninio` WHERE `id_ninio` = $del_id";
-        $query_documento_identidad = "SELECT detalle FROM tbl_documento_identidad WHERE id = $idTipodocumento ";
+        $del_query = "UPDATE tbl_datos_personales_ninio SET estado='Inactivo' WHERE id_ninio= $del_id";
+
+   //     $query_documento_identidad = "SELECT detalle FROM tbl_documento_identidad WHERE id = $idTipodocumento ";
         //if (isset($_SESSION['username']) && $_SESSION['role'] == 'admin') {
             if (mysqli_query($con, $del_query)) {
-                header('Location: niniosregistrados.php');
-            } 
+                //header('Location: niniosregistrados.php');
+                $msg = "Registro eliminado";
+            } else {
+                $error = "Registro no eliminado";
+            }
         //}
      
 }
@@ -55,7 +59,7 @@ if (isset($_GET['del'])) {
                         <li class="active"><i class="fa fa-users"></i> Datos Personales del Niño(a)</li>
                     </ol>
                     <?php
-                    $query = "SELECT * FROM tbl_datos_personales_ninio ORDER BY id_ninio DESC";
+                    $query = "SELECT * FROM tbl_datos_personales_ninio Where estado='Activo'";
                     $run = mysqli_query($con, $query);
                     if (mysqli_num_rows($run) > 0) {
                         ?>
@@ -77,27 +81,8 @@ if (isset($_GET['del'])) {
                                         <th>Cedula de Identidad</th>
                                         <th>Apellidos</th>
                                         <th>Nombres</th>                               
-                                       <!-- <th>Fecha de Nacimiento</th>
-                                        <th style = "width: 200px">Edad (Año, mes, días)</th>
-                                        <th>Nacionalidad</th>
-                                        <th>Lugar de Nacimiento</th>
-                                        <th>Dirección Domiciliaria</th>
-                                        <th>Referencia Domiciliaria</th>
-                                        <th>Género</th>
-                                        <th>Grupo Étnico</th>
-                                        <th>Discapacidad</th>
-                                        <th>Porcentaje</th>
-                                        <th>Carnet del CONADIS</th>
-                                        <th>Tipo de Discapacidad</th>                                       
-                                        <th>Asiste a algún establecimiento de Educación Especial</th>
-                                        <th>Nombre establecimiento de Educación Especial</th>
-                                        <th>Peso</th>
-                                        <th>Talla</th>
-                                        <th>Nivel</th>
-                                        <th>Sobrenombre</th>
-                                        <th>CDI</th>
-                                        <th>Fotografía</th> -->
                                         <th>Ingrese entrevista inicial</th>
+                                        <th>Eliminar</th>
                                        
                                         
                                     </tr>

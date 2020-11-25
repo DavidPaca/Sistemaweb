@@ -2,7 +2,9 @@
 require_once('inc/top.php');
 ob_start();
 require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
-
+if (!isset($_SESSION['username'])) {
+    header('Location: login.php');
+}
 
 ?>
 </head>

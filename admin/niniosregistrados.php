@@ -55,7 +55,8 @@ if (isset($_GET['del'])) {
                 <div class="col-md-9">
                     <h1><i class="fa fa-users"></i> Datos Personales del Niño(a) <small>Ver todos</small></h1><hr>
                     <ol class="breadcrumb">
-                       <li><a href="index.php"><i class="fas fa-home"></i> Menú</a></li>    
+                       <li><a href="index.php"><i class="fas fa-home"></i> Menú</a></li>   
+                       <li><a href="menuprincipaldatosninio.php"><i class="fas fa-chevron-left"></i> Regresar</a></li> 
                         <li class="active"><i class="fa fa-users"></i> Datos Personales del Niño(a)</li>
                     </ol>
                     <?php
@@ -190,6 +191,7 @@ if (isset($_GET['del'])) {
                             echo "<center><h2>Usuarios no disponibles por ahora</h2></center>";
                         }
                         ?>
+
                     </form>
                 </div>
             </div>

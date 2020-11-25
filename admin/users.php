@@ -21,16 +21,17 @@ if (isset($_GET['del'])) {
 if (isset($_POST['checkboxes'])) {
 
     foreach ($_POST['checkboxes'] as $id_ni) {
-
+        echo $id_ni;
         $bulk_option = $_POST['bulk-options'];
 
         if ($bulk_option == 'delete') {
             $bulk_del_query = "DELETE FROM `tbl_usuario` WHERE `id_usuario` = $id_ni";
+            
             mysqli_query($con, $bulk_del_query);
-        } else if ($bulk_option == 'author') {
+        } else if ($bulk_option == 'editar') {
             $bulk_author_query = "UPDATE `tbl_usuario` SET `tipo` = 'Coordinador' WHERE `tbl_usuario`.`id_usuario` = $id_ni";
             mysqli_query($con, $bulk_author_query);
-        } else if ($bulk_option == 'admin') {
+        } else if ($bulk_option == 'parv') {
             $bulk_admin_query = "UPDATE `tbl_usuario` SET `tipo` = 'Parvulario' WHERE `tbl_usuario`.`id_usuario` = $id_ni";
             mysqli_query($con, $bulk_admin_query);
         }
@@ -56,7 +57,7 @@ if (isset($_POST['checkboxes'])) {
                         <li class="active"><i class="fa fa-users"></i> Usuarios</li>
                     </ol>
                     <?php
-                    $query = "SELECT * FROM tbl_usuario ORDER BY id_usuario ASC";
+                    $query = "SELECT * FROM tbl_usuario WHERE tipo = 'Parvulario' ORDER BY id_usuario ASC";
                     $run = mysqli_query($con, $query);
                     if (mysqli_num_rows($run) > 0) {
                         ?>
@@ -70,8 +71,8 @@ if (isset($_POST['checkboxes'])) {
                                                     
                                                     <option value="">Seleccionar</option>
                                                     <option value="delete">Eliminar</option>
-                                                    <option value="Coordinador">Editar</option>
-                                                    <option href="user.php">Exportar</option>
+                                                    <option value="editar">Editar</option>
+                                                    <option value="parv">Exportar</option>
                                                 </select>
                                             </div>
                                         </div>

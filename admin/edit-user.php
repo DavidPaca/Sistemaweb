@@ -222,6 +222,12 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                 </div>
 
                                 <input type="submit" value="Terminar Edición" name="submit" class="btn btn-primary">
+                                <a href="users.php">
+                                            <button type="button" class="btn btn-primary">Cancelar</button>
+                                </a>
+                                <a href="profile_users.php?edit=<?php echo $edit_id; ?>">
+                                            <button type="button" class="btn btn-primary">Regresar</button>
+                                </a>
                             </form>
                         </div>
                                 <div class="col-md-4">

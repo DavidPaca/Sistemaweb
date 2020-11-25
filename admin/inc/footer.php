@@ -22,7 +22,7 @@
     $('#example').DataTable({
 
         "language":{
-            "info":"TOTAL Usuarios",
+            "info":"Total _TOTAL_ Registros",
             "search":"Buscar",
             "paginate":{
                 "next":"Siguiente",

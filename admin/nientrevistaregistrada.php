@@ -51,11 +51,12 @@ if (isset($_GET['del'])) {
                 <div class="col-md-9">
                     <h1><i class="fa fa-users"></i> Entrevista Inicial de cada Niño(a) <small>Ver todos</small></h1><hr>
                     <ol class="breadcrumb">
-                       <li><a href="index.php"><i class="fas fa-home"></i> Menú</a></li>    
+                       <li><a href="index.php"><i class="fas fa-home"></i> Menú</a></li>
+                       <li><a href="niniosregistrados_ci.php"><i class="fas fa-chevron-left"></i> Regresar</a></li>    
                         <li class="active"><i class="fa fa-users"></i> Entrevista Inicial</li>
                     </ol>
                     <?php
-                    $query = "SELECT * FROM tbl_entrevista_inicial ORDER BY id_entrevista_i DESC";
+                    $query = "SELECT * FROM tbl_entrevista_inicial ORDER BY id_entrevista_inicial DESC";
                     $run = mysqli_query($con, $query);
                     if (mysqli_num_rows($run) > 0) {
                         ?>

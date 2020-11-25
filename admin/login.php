@@ -10,7 +10,9 @@ if (isset($_POST['submit'])) {//if hicieron clic en submit
     $password = mysqli_real_escape_string($con, $_POST['password']);
     $cdia = mysqli_real_escape_string($con, $_POST['cdi']);
 
-    //echo($cdia);
+   // echo($ci);
+   // echo($password);
+   // echo($cdia);
 
     
 
@@ -27,6 +29,10 @@ if (isset($_POST['submit'])) {//if hicieron clic en submit
         $db_tipo_role = $row['tipo'];
         $db_tipo_cdi = $row['id_cdi'];
         
+        //echo $db_ci;
+        //echo $db_password;
+        //echo $db_tipo_role;
+        //echo $db_tipo_cdi;
         //$db_author_image = $row['image'];
 
         //$password = crypt($password, $db_password);//encriptar la contrasenia 
@@ -39,10 +45,12 @@ if (isset($_POST['submit'])) {//if hicieron clic en submit
         if ($ci == $db_ci && $password == $db_password && $cdia == $db_tipo_cdi && $db_tipo_role == "Coordinador General") {
             ("estoy adentro");
  
-            header('Location: admin/index.php');//enviar a la pagina q deseas
+            header('Location: index.php');//enviar a la pagina q deseas
              $_SESSION['username'] = $db_ci;
              $_SESSION['roleSS'] = $db_tipo_role;
              $_SESSION['tipo_cdi'] = $db_tipo_cdi;
+
+             
              
             // $_SESSION['author_image'] = $db_author_image;
          } 
@@ -60,12 +68,12 @@ if (isset($_POST['submit'])) {//if hicieron clic en submit
             
            // $_SESSION['author_image'] = $db_author_image;
         } else {
-            $error = "Usuario o clave incorrectas";
+            $error = "Usuario, clave o CDI incorrecto";
         }
     } 
 }
     else {
-        $error = "Usuario o clave incorrectas";
+        $error = "Usuario, clave o CDI incorrecto";
     } 
 }
 
