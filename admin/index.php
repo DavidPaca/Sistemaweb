@@ -176,6 +176,145 @@ require_once('inc/header.php');
                         
 
                     <?php } ?>
+
+
+<!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX MENU VISITADORA SOCIAL XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->                    
+<?php
+                      if ($session_role1 == 'Visitador Social') {
+                    ?>
+
+                    <div class="row tag-boxes">
+                        <div class="col-md-6 col-lg-3 text-center">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading ">
+                                    <div class="row ">  
+                                        <i class="fa fa-university fa-3x  " style="align-items:center"></i>  <!-----------IMAGEN DE PRIMER CUADRO----------->
+                                        <div class="col-xs-9">
+                                            <div class="text-right huge"><?php //echo $com_rows;?></div>
+                                            <!--<div class="text-right">Comentarios Nuevos</div>-->
+                                        </div>
+                                    </div> 
+                                </div> 
+                                <a href="../superadmin_vs/menu_cdi1_vs.php">
+                                    <div class="panel-footer letrasmenuficha">
+                                        <span class="pull-left">CENTRO DE DEARROLLO INFANTIL 1</span>
+                                        <span class="pull-right "><i class="fa fa-arrow-circle-right"></i></span>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                        </div>
+
+                        <div class="col-md-6 col-lg-3 text-center">
+                        <div class="panel panel-primary">
+                                <div class="panel-heading ">
+                                    <div class="row "> 
+                                        <i class="fa fa-university fa-3x"></i>  <!-----------IMAGEN DE PRIMER CUADRO----------->
+                                        <div class="col-xs-9">
+                                            <div class="text-right huge"><?php// echo// $post_rows;?></div>
+                                            <!--<div class="text-right"></div>-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="ing_entrevista_i.php">
+                                    <div class="panel-footer letrasmenuficha">
+                                        <span class="pull-left">CENTRO DE DEARROLLO INFANTIL 2<br></span>
+                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-3 text-center">
+                        <div class="panel panel-primary">
+                                <div class="panel-heading ">
+                                    <div class="row "> 
+                                        <i class="fa fa-university fa-3x"></i>  <!-----------IMAGEN DE PRIMER CUADRO----------->
+                                        <div class="col-xs-9">
+                                                <div class="text-right huge"><?php //echo $user_rows;?></div>
+                                                <!--<div class="text-right">Todos los usuarios</div>-->
+                                            </div>
+                                    </div>
+                                </div>
+                                        <a href="ing_socio_eco.php">
+                                            <div class="panel-footer letrasmenuficha">
+                                                <span class="pull-left">CENTRO DE DEARROLLO INFANTIL 3<br></span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-3 text-center">
+                        <div class="panel panel-primary">
+                                <div class="panel-heading ">
+                                    <div class="row "> 
+                                        <i class="fa fa-university fa-3x"></i>  <!-----------IMAGEN DE PRIMER CUADRO----------->
+                                        <div class="col-xs-9">
+                                                <div class="text-right huge"><?php //echo $user_rows;?></div>
+                                                <!--<div class="text-right">Todos los usuarios</div>-->
+                                            </div>
+                                    </div>
+                                </div>
+                                        <a href="ing_socio_eco.php">
+                                            <div class="panel-footer letrasmenuficha">
+                                                <span class="pull-left">CENTRO DE DEARROLLO INFANTIL 4<br></span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-3 text-center">
+                        <div class="panel panel-primary">
+                                <div class="panel-heading ">
+                                    <div class="row "> 
+                                        <i class="fa fa-university fa-3x"></i>  <!-----------IMAGEN DE PRIMER CUADRO----------->
+                                        <div class="col-xs-9">
+                                                <div class="text-right huge"><?php //echo $user_rows;?></div>
+                                                <!--<div class="text-right">Todos los usuarios</div>-->
+                                            </div>
+                                    </div>
+                                </div>
+                                        <a href="ing_socio_eco.php">
+                                            <div class="panel-footer letrasmenuficha">
+                                                <span class="pull-left">CENTRO DE DEARROLLO INFANTIL 5<br></span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-3 text-center">
+                        <div class="panel panel-primary">
+                                <div class="panel-heading ">
+                                    <div class="row "> 
+                                        <i class="fa fa-university fa-3x"></i>  <!-----------IMAGEN DE PRIMER CUADRO----------->
+                                        <div class="col-xs-9">
+                                                <div class="text-right huge"><?php //echo $user_rows;?></div>
+                                                <!--<div class="text-right">Todos los usuarios</div>-->
+                                            </div>
+                                    </div>
+                                </div>
+                                        <a href="ing_socio_eco.php">
+                                            <div class="panel-footer letrasmenuficha">
+                                                <span class="pull-left">CENTRO DE DEARROLLO INFANTIL 6<br></span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
+                            </div>
+                        </div>
+                    
+                           
+                        
+
+                    <?php } ?>
                     
 
 
@@ -223,7 +362,7 @@ require_once('inc/header.php');
                                         </div>
                                     </div>
                                 </div>
-                                <a href="niniosregistrados_ci.php">
+                                <a href="menuprincipal_ei.php">
                                     <div class="panel-footer letrasmenuficha">
                                         <span class="pull-left">ENTREVISTA INICIAL<br><br></span>
                                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -246,7 +385,7 @@ require_once('inc/header.php');
                                             </div>
                                     </div>
                                 </div>
-                                        <a href="ing_socio_eco.php">
+                                        <a href="menuprincipal_se.php">
                                             <div class="panel-footer letrasmenuficha">
                                                 <span class="pull-left">SOCIO ECONÓMICO <br><br></span>
                                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

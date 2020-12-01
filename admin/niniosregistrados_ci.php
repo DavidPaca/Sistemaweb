@@ -41,7 +41,7 @@ if (isset($_GET['del'])) {
         }
     }
 }*/
-?>
+?>            
 </head>
 <body>
     <div id="wrapper">
@@ -50,13 +50,14 @@ if (isset($_GET['del'])) {
         <div class="container-fluid body-section">
             <div class="row">
                 <div class="col-md-3">
-                    <?php require_once('inc/sidebar.php'); ?>
+                    <?php require_once('inc/sidebar.php'); ?>  <!-- fal fa-clipboard-user, far fa-clipboard-user,fas fa-clipboard-user        -->
                 </div>
                 <div class="col-md-9">
-                    <h1><i class="fa fa-users"></i> Datos Personales del Niño(a) <small>Ver todos</small></h1><hr>
+                    <h1><i class="fas fa-address-book"></i> Información de Entrevista Inicial <small>Ver todos</small></h1><hr>
                     <ol class="breadcrumb">
-                       <li><a href="index.php"><i class="fas fa-home"></i> Menú</a></li>    
-                        <li class="active"><i class="fa fa-users"></i> Datos Personales del Niño(a)</li>
+                       <li><a href="index.php"><i class="fas fa-home"></i> Menú</a></li>
+                       <li><a href="menuprincipal_ei.php"><i class="fas fa-chevron-left"></i> Regresar</a></li>    
+                        <li class="active"><i class="fa fa-users"></i> Información de Entrevista Inicial</li>
                     </ol>
                     <?php
                     $query = "SELECT * FROM tbl_datos_personales_ninio Where estado='Activo'";

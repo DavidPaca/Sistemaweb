@@ -668,8 +668,8 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                                 </div>
 
 
-                </div>  
-    </div>
+                                </div>  
+                    </div>
 
  <!--............................................Peso........................................................-->
                            <label for="n_peso">Peso:</label>
@@ -734,7 +734,7 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                                     <select class="form-control" name="cdi" id="cdi" required>
                                     <option value="">Seleccione</option>
                                         <?php
-                                        $sql_cdi = "SELECT * FROM `tbl_cdi` WHERE id != 7";
+                                        $sql_cdi = "SELECT * FROM `tbl_cdi` WHERE id != 100 AND id != 101";
                                         $ejecutar = mysqli_query($con, $sql_cdi);//ejecutar consulta
                                         
                                         if (mysqli_num_rows($ejecutar) > 0) {
@@ -768,13 +768,13 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                             </form>
 
                         </div>
-                        <div class="col-md-4">
-                            <?php
-                            if (isset($check_image)) {
-                                echo "<img src='img/$check_image' width='50%'>";
-                            }
-                            ?>
-                        </div>
+                                    <div class="col-md-4">
+                                        <?php
+                                        if (isset($check_image)) {
+                                            echo "<img src='img/$check_image' width='50%'>";
+                                        }
+                                        ?>
+                                    </div>
                     </div>
                 </div>
             </div>

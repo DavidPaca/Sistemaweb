@@ -98,6 +98,7 @@ $row = mysqli_fetch_array($run);
                     <h1><i class="fa fa-user"></i> Datos<small> Personales</small></h1><hr>
                     <ol class="breadcrumb">
                         <li><a href="index.php"><i class="fas fa-home"></i> Menú</a></li>
+                        <li><a href="niniosregistrados.php"><i class="fas fa-chevron-left"></i> Regresar</a></li>
                         <li class="active"><i class="fa fa-user"></i> Perfil</li>
                     </ol>
 

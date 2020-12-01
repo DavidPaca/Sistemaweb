@@ -269,7 +269,7 @@ $get_comment_run = mysqli_query($con, $get_comment);
       <?php
        if ($session_role1 == 'Coordinador General') {
       ?>
-      <a href="index.php" class="list-group-item active" style="background-color:#595757">
+      <a href="../admin/index.php" class="list-group-item active" style="background-color:#595757">
         <i class="fas fa-home"></i>  Menu principal
       </a>
     

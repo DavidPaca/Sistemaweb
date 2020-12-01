@@ -33,14 +33,14 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                 <?php
                 if ($session_role2 == 'Coordinador General') {
                     ?>
-                    <li><a href="add-user.php"><i class="fa fa-user-plus" title="Agregar Usuario"></i>Agregar Usuario</a></li>
+              <!--      <li><a href="add-user.php"><i class="fa fa-user-plus" title="Agregar Usuario"></i>Agregar Usuario</a></li>    -->
                 <?php } ?>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a><i class="fa fa-user"></i> <?php echo ucfirst($db_Apellido.' '.$db_nombre); ?></a></li>
-                <li><a><i class="far fa-user-circle fa-1x"></i> <?php echo ucfirst($session_role2); ?></a></li>
+                <li><a><i class="fa fa-user"></i> <?php echo ($db_Apellido.' '.$db_nombre); ?></a></li>
+                <li><a><i class="far fa-user-circle fa-1x"></i> <?php echo ($session_role2); ?></a></li>
 
-                <li><a><i class="far fa-user-circle fa-1x"></i> <?php echo ucfirst($db_nombre_cdi); ?></a></li>
+                <li><a><i class="far fa-user-circle fa-1x"></i> <?php echo ($db_nombre_cdi); ?></a></li>
 
                 <li><a href="profile.php"><i class="fa fa-user" title="Ver Perfil"></i>Ver Perfil</a></li>
                 <li><a href="logout.php"><i class="fas fa-sign-out-alt" title="Salir"></i></a></li>

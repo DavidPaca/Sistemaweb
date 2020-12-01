@@ -7,8 +7,21 @@ if (!isset($_SESSION['username'])) {
     header('Location: login.php');
 }
 
-$rol= $_SESSION['username'];
-echo $rol;
+if (isset($_SESSION['username'])) {//si esque hay la variable edit
+    $edt_id = $_SESSION['username'];//get y post sirven para atrapar datos.
+    //echo $edt_id;
+    $edt_query = "SELECT * FROM tbl_usuario WHERE ci = $edt_id";
+    $edt_query_run = mysqli_query($con, $edt_query);
+   // if (mysqli_num_rows($edit_query_run) > 0) {/*if numero de filas es mayor q 0*/
+        $edt_row = mysqli_fetch_array($edt_query_run);//fetch array sirve para que tu atrapestoda la fila de una table... fetch assoc.
+        //$row = mysqli_fetch_array($run)
+        $apellidos_user =$edt_row['apellidos'];
+        $nombre_users = $edt_row['nombres'];
+        $tipo_user_ei = $edt_row['tipo'];
+        
+    }
+
+   // echo($edt_id);
 
 if (isset($_GET['edit'])) {//si esque hay la variable edit
     $edit_id = $_GET['edit'];//get y post sirven para atrapar datos.
@@ -69,9 +82,10 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
 <?php
 
 /*---------------------------Guarda los datos ingresados en los cajones en las variables------------------------------------------*/
+         
                     if (isset($_POST['submit'])) {
                     
-                        $id_ninio ( $_POST['id_de_ninios_alergia']);
+                        $id_ninio_ei = ( $_POST['id_de_ninios']);
                         $tiene_alergia = ( $_POST['alergias_ninio']);     /*first name es el nombre del cajon*/
                         $rechaza_alimentos = ( $_POST['rechaza_alimentos_ninio']);     
                         $come_solo_n = ( $_POST['come_solo_ei']);     
@@ -83,8 +97,8 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                         $toma_medicamento_ni = ( $_POST['tom_medicamentos']);     
                         $presenta_alergias = ( $_POST['tiene_alergias']);     
                         $tiene_accidentes = ( $_POST['sufrio_accidentes']);     
-                        $padecio_enfer = ( $_POST['enfer_padecio']);     
-                        $lado_predomina_ni = ( $_POST['lado_predominante']);     
+                        $padecio_enfer_n = ( $_POST['enfermedad_padece_ninio']);     
+                        $lado_predominante_n = ( $_POST['lado_predominante']);     
                         $gateo_el_ni = ( $_POST['gatea_ninio']);     
                         $problem_vista_ni = ( $_POST['problema_vista']);     
                         $usa_lentes_ni = ( $_POST['usa_lentes']);     
@@ -93,20 +107,26 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                         $duerme_solo_ninio = ( $_POST['duerme_solo_ni']);
                         $hora_se_acuesta = ( $_POST['h_acostarse']);
                         $hora_se_despierta = ( $_POST['h_despertarse']);
-                        $hora_vocabulario_nin = ( $_POST['vocabulario_ninio']);
-                        $hora_expresa_nin = ( $_POST['expresa_ninio']);
-                        $hora_dependencia_nin = ( $_POST['dependencia_adultos_n']);
-                        $hora_contacto_nin = ( $_POST['contacto_con_ninios']);
+                        $vocabulario_nin = ( $_POST['vocabulario_ninio']);
+                        $expresa_nin = ( $_POST['expresa_ninio']);
+                        $dependencia_nin = ( $_POST['dependencia_adultos_n']);
+                        $contacto_nin = ( $_POST['contacto_con_ninios']);
                         $sociable_act_neg_nin = ( $_POST['sociable_act_neg']);
                         $comparte_sus_jueguetes = ( $_POST['Comparte_juguetes']);
                         $tiene_mascotas_ninio = ( $_POST['tiene_mascotas_ninio']);
                         $facilmente_llora = ( $_POST['llora_facilmente']);
-                        $miedos_q_tiene = ( $_POST['miedos_del_ninio']);
                         $quien_le_lee_cuentos = ( $_POST['leen_cuentos']);
                         $refer_de_cdi = ( $_POST['referencia_cdi_ninio']);
                         $elec_cdi_ninio = ( $_POST['eleccion_cdi']);
-
-                        echo "HOLAx";                       
+                        $acuer_contribucion_ninio = ( $_POST['acuerdos_de_contribucion']);
+                        $nombre_entrevistado_ei = ( $_POST['nombre_entrevistado_ninio']);
+                        $parentesc_entrevistado_ei = ( $_POST['parentesco_entrevistado']);
+                        $nombres_usuario_ei = ( $_POST['nombres_user']);
+                        $tipo_usuario_ei = ( $_POST['role_user']);
+                        $fecha_inscripcion_ei = ( $_POST['fecha_inscrip']);
+                        
+                        //echo $nombres_usuario_ei;
+                        //echo "Hola";                          
                                             
                        
                         //$image = $_FILES['image']['name'];
@@ -115,31 +135,30 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                       //  echo($first_name.$last_name.$username.$password.$role.$role.$email.$telef.$dir.$cdi);             
                         //$password = crypt($password, $salt);
 /*----------------------empty =vacio--------------------------*/
-                        if (empty($id_ninio)  or empty($tiene_alergia) ) { //or empty($username) or empty($email) or empty($password)) {
+                        if (empty($id_ninio_ei)  or empty($tiene_alergia) ) { //or empty($username) or empty($email) or empty($password)) {
                             $error = "Todos los (*) Campos son requeridos";
                         } else {
-                            $insert_query = " INSERT INTO `tbl_entrevista_inicial`(`id_ninio`, `tiene_alergia_alimento`, `rechaza_alimento`, `come_solo`, `usa_mamadera`, `control_esfinteres`, 
-                                            `actual_va_banio_solo`, `enfermedades_padecio`, `ha_gateado`, `problemas_vista`, `usa_lentes`, `escucha_bien`, `usa_audifonos`, `duerme_solo`, `hora_acostarse`, 
-                                            `hora_despertarse`, `Expresa_gestos_palabras`, `dependencia_adultos`, `esta_contacto_otros_ninios`, `sociable_actitud_negativa`, `comparte_juguete`, `llora_con_facilidad`,
-                                            `alguien_lee_cuentos`, `gusta_escuchar_musica`, `gusta_bailar`, `experiencia_cdi`, `acuerdo_contribucion_cdi`, `nombre_entrevistado`, `parentesco`, `nombre_entrevistador`,
-                                            `tipo_usuario`, `fecha_entrevista`) 
-                                            VALUES ($id_ninio, $tiene_alergia, $rechaza_alimentos, $come_solo_n, $usa_mamadera_n, $cont_esfinteres_n, $banio_solo_n, $tiene_enfer_graves, 
-                                            $interven_quirurgica, $toma_medicamento_ni, $presenta_alergias, $tiene_accidentes, $padecio_enfer, $lado_predomina_ni, $gateo_el_ni, $problem_vista_ni
-                                            $usa_lentes_ni, $problem_oido_ni, $usa_audifonos_ni, $duerme_solo_ninio, $hora_se_acuesta,$hora_se_despierta ";
+                            $insert_query = "INSERT INTO `tbl_entrevista_inicial` (`id_ninio`, `tiene_alergia_alimento`, `rechaza_alimento`, `come_solo`, `usa_mamadera`, 
+                            `control_esfinteres`,`actual_va_banio_solo`, `presencia_enfermedades_graves`, `intervensiones_q`, `toma_medicamentos`, `es_alergico`, 
+                            `sifrio_accidentes`, `enfermedades_padecio`, `lado_predominante_ninio`, `ha_gateado`, `problemas_vista`, `usa_lentes`, `escucha_bien`,
+                            `usa_audifonos`, `duerme_solo`, `hora_acostarse`, `hora_despertarse`, `vocabulario_ninio`, `Expresa_gestos_palabras`, `dependencia_adultos`,
+                            `esta_contacto_otros_ninios`, `sociable_actitud_negativa`, `comparte_juguete`, `tiene_mascotas`,`llora_con_facilidad`,`alguien_lee_cuentos`,
+                            `referencia_del_cdi_n`, `experiencia_cdi`, `acuerdo_contribucion_cdi`, `nombre_entrevistado`, `parentesco`, `nombre_entrevistador`,
+                            `tipo_usuario`, `fecha_entrevista`) 
+                             VALUES ('$id_ninio_ei', '$tiene_alergia', '$rechaza_alimentos', '$come_solo_n', '$usa_mamadera_n', '$cont_esfinteres_n', '$banio_solo_n',
+                             '$tiene_enfer_graves', '$interven_quirurgica', '$toma_medicamento_ni', '$presenta_alergias', '$tiene_accidentes', '$padecio_enfer_n', 
+                             '$lado_predominante_n', '$gateo_el_ni', '$problem_vista_ni', '$usa_lentes_ni', '$problem_oido_ni', '$usa_audifonos_ni',  '$duerme_solo_ninio', 
+                             '$hora_se_acuesta', '$hora_se_despierta', '$vocabulario_nin', '$expresa_nin', '$dependencia_nin', '$contacto_nin', '$sociable_act_neg_nin', 
+                             '$comparte_sus_jueguetes', '$tiene_mascotas_ninio', '$facilmente_llora', '$quien_le_lee_cuentos',  '$refer_de_cdi', '$elec_cdi_ninio', 
+                             '$acuer_contribucion_ninio', '$nombre_entrevistado_ei', '$parentesc_entrevistado_ei', '$nombres_usuario_ei', '$tipo_usuario_ei', '$fecha_inscripcion_ei') ";
 
                             if (mysqli_query($con, $insert_query)) {
                                $msg = "Entrevista actual Ingresada";
                              //   $path="img/$image";
 
                                 
-                               // move_uploaded_file($image_temp, "img/$image"); /** Mueve un archivo subido a una nueva ubicación */
-                              // move_uploaded_file($image_tmp, $path);
-                               //copy($path,"../$path");
-                              //  $msg = "Entrevista actual ingresada";
-                                /*$first_name = "";
-                                $last_name = "";
-                                $email = "";
-                                $username = "";*/
+                               
+                                //$tiene_alergia = "";
                                // header("Location: nientrevistaregistrada.php"); /*para poder volver al blog o login*/
                             } else {
                                 $error = "Datos de la Entrevista actual no ingresada";
@@ -149,26 +168,33 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                     ?>
 
 <!--------------------------------------------------Tamaño cajones------------------------------------------------------------>
-                    <div class="row">
-                        <div class="col-md-8">
+                    
                             <form action="" method="post" enctype="multipart/form-data">     
-
+                            
 
 <!--............................................Numero_ci/Apellidos/Nombres........................................................-->
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <!-- <label for="ci_ninio">Número de Documento de Identificación:</label> -->
-                                                <input type="text" id="ci_ninio" name="ci_ninio" class="form-control" maxlength="10" disabled value="<?php echo($c_i); ?>" >
-                                            </div>
-                                        
-                                                <div class="col-md-9">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <!-- <label for="ci_ninio">Número de Documento de Identificación:</label> -->
+                                                    <input type="text" id="ci_ninio" name="ci_ninio" class="form-control" maxlength="10" disabled value="<?php echo($c_i); ?>" >
+                                                </div>
+                                                
+                                                <div class="col-md-7">
                                                     <input type="text" id="apellidos_n" name="apellidos_n" class="form-control"  disabled value= "<?php                                    
                                                         echo "$last_name $first_name";                                
                                                     ?>">
+                                                    <?php
+                                if (isset($error)) {
+                                    echo "<span style='color:red;' class='pull-right'>$error</span>";
+                                } else if (isset($msg)) {
+                                    echo "<span style='color:green;' class='pull-right'>$msg</span>";
+                                }
+                            ?>
                                                 </div>
+                                            
                                             </div>
-                                         </div>
+                                        </div>     
 
 <!--*********************************************** TITULO ALIMENTOS **************************************************** -->                                             
                                         <div class="row">
@@ -177,7 +203,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
 
 <!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ID PRINCIPAL DEL NIÑO XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
                                         <input type="hidden" name="id_de_ninios" id = "id_de_ninios" value= "<?php echo $edit_id ?>">
-
+                                        
 
 <!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Ajax alergia alimentos XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
                                             <script type = "text/javascript"> 
@@ -286,7 +312,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                             </div>
                                             
                                             <div id="Si_tiene_alergia" style="display: none;">
-                                                <form id="frmajax" method="POST">
+                                               <!-- <form id="frmajax" method="POST">  -->
                                                     <div class="form-group">
                                                         <label class = "col-md-1" style="padding-top: 1%;padding-right: 10%" for="role">Especifíque:</label>  
                                                         <div class="row" >                          
@@ -321,7 +347,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                             </div>
                                                         </div>
                                                     </div>    
-                                                </form>        
+                                               <!-- </form>         -->
                                             </div>
                                            
 <!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Ajax rechaza alimentos (No le gusta) XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
@@ -426,7 +452,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                             <div id="No_rechaza_alimentos" style="display: none;"></div>
                                             
                                             <div id="Si_rechaza_alimentos" style="display: none;">
-                                                <form id="frmajax" method="POST">
+                                               <!-- <form id="frmajax" method="POST"> -->
                                                     <div class="form-group">
                                                     <label class = "col-md-1" style="padding-top: 1%;padding-right: 10%" for="role">Especifíque:</label>  
                                                         <div class="row" >                          
@@ -460,7 +486,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </form>       
+                                               <!-- </form>       -->
                                             </div>
 
 <!--*********************************************************** COME SOLO ******************************************************************-->
@@ -629,9 +655,9 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                             <div id="No_enfermedades_graves" style="display: none;"></div>
                                             
                                             <div id="Si_enfermedades_graves" style="display: none;">
-                                                <form id="frmajax" method="POST">
+                                               <!-- <form id="frmajax" method="POST"> -->
                                                     <div class="form-group">
-                                                    <label class = "col-md-1" style="padding-top: 1%;padding-right: 10%" for="role">Especifíque:</label>  
+                                                      <label class = "col-md-1" style="padding-top: 1%;padding-right: 10%" for="role">Especifíque:</label>  
                                                         <div class="row" >                          
                                                             <div class="col-md-8">
 
@@ -664,7 +690,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </form>       
+                                              <!--  </form>       -->
                                             </div>
 
 <!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Ajax Intervensiones quirurgicas XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
@@ -771,7 +797,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                             <div id="No_intervensionesq" style="display: none;"></div>
                                             
                                             <div id="Si_intervensionesq" style="display: none;">
-                                                <form id="frmajax" method="POST">
+                                              <!--  <form id="frmajax" method="POST">  -->
                                                     <div class="form-group">
                                                     <label class = "col-md-1" style="padding-top: 1%;padding-right: 10%" for="role">Especifíque:</label>  
                                                         <div class="row" >                          
@@ -806,7 +832,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </form>       
+                                             <!--   </form>        -->
                                             </div>               
 
 <!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Ajax Toma medicina XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
@@ -913,7 +939,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                             <div id="No_toma_medicamentos" style="display: none;"></div>
                                             
                                             <div id="Si_toma_medicamentos" style="display: none;">
-                                                <form id="frmajax" method="POST">
+                                               <!-- <form id="frmajax" method="POST">  -->
                                                     <div class="form-group">
                                                     <label class = "col-md-1" style="padding-top: 1%;padding-right: 10%" for="role">Especifíque:</label>  
                                                         <div class="row" >                          
@@ -948,7 +974,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </form>       
+                                               <!-- </form>       -->
                                             </div> 
 
 <!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Ajax alergico a algo XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
@@ -1055,7 +1081,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                             <div id="No_es_alergico" style="display: none;"></div>
                                             
                                             <div id="Si_es_alergico" style="display: none;">
-                                                <form id="frmajax" method="POST">
+                                             <!--   <form id="frmajax" method="POST"> -->
                                                     <div class="form-group">
                                                     <label class = "col-md-1" style="padding-top: 1%;padding-right: 10%" for="role">Especifíque:</label>  
                                                         <div class="row" >                          
@@ -1090,7 +1116,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </form>       
+                                             <!--   </form>       -->
                                             </div>
 
 <!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Ajax HA tenido accidentes XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
@@ -1197,7 +1223,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                             <div id="No_sufrio_accidentes" style="display: none;"></div>
                                             
                                             <div id="Si_sufrio_accidentes" style="display: none;">
-                                                <form id="frmajax" method="POST">
+                                               <!-- <form id="frmajax" method="POST">  -->
                                                     <div class="form-group">
                                                     <label class = "col-md-1" style="padding-top: 1%;padding-right: 10%" for="role">Especifíque:</label>  
                                                         <div class="row" >                          
@@ -1232,27 +1258,150 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </form>       
+                                            <!--    </form>       -->
                                             </div>  
 
 <!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Enfermedades Padecio XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
-                                        <div class="form-group">
-                                             <label for="enfer_padecio">Enfermedades que padeció:</label> 
-                                             <div class="form-group" style="padding-left: 1%">
-                                                    <input type="checkbox" id="enfer_padecio" name="enfer_padecio" value="Varicela">
-                                                    <label for="enfer_padecio" > Varicela</label><br>
-                                                    <input type="checkbox" id="enfer_padecio" name="enfer_padecio" value="Saranpión">
-                                                    <label for="enfer_padecio"> Saranpión</label><br>
-                                                    <input type="checkbox" id="enfer_padecio" name="enfer_padecio" value="Rubeola">
-                                                    <label for="enfer_padecio"> Rubeola</label><br>  
-                                                    <input type="checkbox" id="enfer_padecio" name="enfer_padecio" value="Parotiditis">
-                                                    <label for="enfer_padecio"> Parotiditis</label><br>
-                                                    <input type="checkbox" id="enfer_padecio" name="enfer_padecio" value="Bronquitis">
-                                                    <label for="enfer_padecio"> Bronquitis</label><br>     
-                                                    <input type="checkbox" id="enfer_padecio" name="enfer_padecio" value="Asma">
-                                                    <label for="enfer_padecio"> Asma</label><br>                                                                                                                                                                                                                       
-                                              </div>
-                                        </div>
+<script type = "text/javascript"> 
+                                                    var listar_sufrio_enfer_padece = function(){
+                                                        //$(document).ready(function(){
+                                                         var id_ninio_enfermed_padecio = $("#id_de_ninios").val();
+                                                         //alert(id_ninio_list_accidente); 
+                                                         $.ajax({
+                                                             type: 'POST',
+                                                             url: 'ajax_archivos/ajax_ei_enfermedades_padecio_listar.php',
+                                                             data: {
+                                                                 'id_ajax_ninio_list_enfermed_padecio': id_ninio_enfermed_padecio,
+                                                             },
+                                                             success: function(data){
+                                                                 //alert(data);
+                                                                 $('#list_enefer_padecio').empty().html(data);
+                                                             }
+                                                         })
+                                                     } 
+
+                                                //eliminar
+                                                $(document).on("click","#eliminar_enfer_padece",function(){
+                                                     if(confirm("Está seguro que desea eliminar")){
+                                                         var id_eliminar_enfer_padecio = $(this).data("id_eliminar_ep");
+                                                         //alert(id_eliminar_accident);
+                                                         $.ajax({
+                                                             type: 'POST',
+                                                             url: 'ajax_archivos/ajax_ei_enfermedades_padecio_eliminar.php',
+                                                             data: {
+                                                                'id_ajax_eliminar_enfer_padecio': id_eliminar_enfer_padecio,
+                                                             },
+                                                             success: function(respuesta){
+                                                                 //alert(respuesta);
+                                                                 listar_sufrio_enfer_padece();
+                                                             },
+                                                             error:function(){
+                                                             alert("error")
+                                                            }
+                                                         });
+                                                         return false;
+                                                     };
+                                                 } )              
+                                                //fin eliminar
+                                               
+                                                $(document).ready(function(){
+                                                  $("#btn_enfer_padecio").click(function (){
+                                                      var id_enfer_padecio_n = $("#enfer_padece").val();
+                                                      var id_ninio_enfer_padecio = $("#id_de_ninios").val();
+                                                      //alert(id_enfer_padecio_n);
+                                                      //alert(id_ninio_enfer_padecio);
+                                                      $.ajax({
+                                                          type: 'POST',
+                                                          url: 'ajax_archivos/ajax_ei_enfermedades_padecio_guardar.php',
+                                                          data: {
+                                                                'id_ajax_ninio_enfer_padecio':id_ninio_enfer_padecio,
+                                                                'id_ajax_enfer_padecio_n':id_enfer_padecio_n,
+                                                            },
+                                                          success: function (respuesta){
+                                                              //alert(respuesta);
+                                                            listar_sufrio_enfer_padece();
+                                                          },
+                                                          error: function (){
+                                                              
+                                                              alert("Error");
+                                                          }
+
+                                                      });
+                                                      return false;
+                                                  });  
+                                                });
+
+                                            </script>
+
+<!-------------------------------------------------- SI/NO es alergico a algo ------------------------------------------------------------>                             
+                                            <script type="text/javascript">
+                                                function mostrar_nombre_enfer_padece_del_ninio(a) {
+                                                    if (a== "No") {
+                                                        $("#No_padece_enfer").show();
+                                                        $("#Si_padece_enfer").hide();                            
+                                                    }
+                                                    if (a == "Si") {
+                                                        $("#No_padece_enfer").hide();
+                                                        $("#Si_padece_enfer").show();
+                                                    }                 
+                                                }    
+                                            </script>    
+
+                                            <div class="form-group">
+                                             <label for="enfermedad_padece_ninio">¿Alguna enfermedad que padeció?</label> 
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <select class="form-control" id="enfermedad_padece_ninio" name="enfermedad_padece_ninio" onChange="mostrar_nombre_enfer_padece_del_ninio(this.value);" required>
+                                                            <option value="seleccione">Seleccione</option>
+                                                            <option value="Si">Si</option>
+                                                            <option value="No">No</option>
+                                                        
+                                                        </select>
+                                                    </div>                                                
+                                                </div>
+                                            </div>
+                                                    
+                                            
+                                            <div id="No_padece_enfer" style="display: none;"></div>
+                                            
+                                            <div id="Si_padece_enfer" style="display: none;">
+                                               <!-- <form id="frmajax" method="POST">  -->
+                                                    <div class="form-group">
+                                                    <label class = "col-md-1" style="padding-top: 1%;padding-right: 10%" for="role">Especifíque:</label>  
+                                                        <div class="row" >                          
+                                                            <div class="col-md-8">
+
+                                                                <select class="form-control" name="enfer_padece" id="enfer_padece">
+                                                                <option value="seleccione">Seleccione</option>
+                                                                    <?php
+                                                                    $sql_enf_padece = "select * from tbl_enfermedades_padecio";
+                                                                    $ejecutar = mysqli_query($con, $sql_enf_padece);//ejecutar consulta
+                                                                    
+                                                                    if (mysqli_num_rows($ejecutar) > 0) {
+                                                                        while ($row2 = mysqli_fetch_array($ejecutar)) {  
+                                                                            
+                                                                            $detalle_enf_padece = $row2['detalle'];
+                                                                            $id_enf_padece = $row2['id_enfermedades_padecio'];
+                                                                            echo "<option value='" . $id_enf_padece. "' " .  ">" . ($detalle_enf_padece) . "</option>";
+                                                                        }
+                                                                    } 
+                                                                    ?>
+                                                                </select>
+                                                                
+                                                            </div>
+                                                            <button type="button" class="btn btn-primary" id="btn_enfer_padecio">Agregar</button>
+                                                        </div>   
+                                                    </div>
+                                                    <div class="row" >
+                                                        <div class="card" style="width: 100%;">
+                                                            <div class="card-body">                                       
+                                                                <div class="div" id="list_enefer_padecio">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                            <!--    </form>       -->
+                                            </div>
 
 <!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Lado predominante XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
                                             <div class="form-group">
@@ -2453,23 +2602,23 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                     <label class = "col-md-1" style="padding-top: 1%;padding-right: 10%" for="role">Especifíque:</label> 
                                                         <div class="row">
                                                                 <div class="col-md-8">
-                                                                <select class="form-control" name="miedos_ninio" id="miedos_ninio">
-                                                                  <option value="seleccione">Seleccione</option>
-                                                                    <?php
-                                                                    $sql_miedos = "select * from tbl_miedos";
-                                                                    $ejecutar = mysqli_query($con, $sql_miedos);//ejecutar consulta
-                                                                    
-                                                                    if (mysqli_num_rows($ejecutar) > 0) {
-                                                                        while ($row2 = mysqli_fetch_array($ejecutar)) {  
-                                                                            
-                                                                            $detalle_miedos = $row2['detalle'];
-                                                                            $id_miedos_ninio = $row2['id_miedos'];
-                                                                            echo "<option value='" . $id_miedos_ninio. "' " .  ">" . ($detalle_miedos) . "</option>";
-                                                                        }
-                                                                    } 
-                                                                    ?>
-                                                                </select>
-                                                            </div>
+                                                                    <select class="form-control" name="miedos_ninio" id="miedos_ninio">
+                                                                    <option value="seleccione">Seleccione</option>
+                                                                        <?php
+                                                                        $sql_miedos = "select * from tbl_miedos";
+                                                                        $ejecutar = mysqli_query($con, $sql_miedos);//ejecutar consulta
+                                                                        
+                                                                        if (mysqli_num_rows($ejecutar) > 0) {
+                                                                            while ($row2 = mysqli_fetch_array($ejecutar)) {  
+                                                                                
+                                                                                $detalle_miedos = $row2['detalle'];
+                                                                                $id_miedos_ninio = $row2['id_miedos'];
+                                                                                echo "<option value='" . $id_miedos_ninio. "' " .  ">" . ($detalle_miedos) . "</option>";
+                                                                            }
+                                                                        } 
+                                                                        ?>
+                                                                    </select>
+                                                                </div>
                                                             <button type="button" class="btn btn-primary" id="btn_miedo">Agregar</button>
                                                         </div>          
                                                     </div>       
@@ -2550,7 +2699,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                              <label for="acuerdos_de_contribucion">Está Usted de acuerdo en realizar autogestión o contribuir para el bienestar de su niño/niña 
                                                                                y para el mejoramiento de las instalaciones del Centro de Desarrollo Infantil</label> 
                                                 <div class="row">
-                                                    <div class="col-md-5">
+                                                    <div class="col-md-8">
                                                         <select class="form-control" id="acuerdos_de_contribucion" name="acuerdos_de_contribucion" required>
                                                             <option value="seleccione">Seleccione</option>
                                                             <option value="Acuerdo">Si estoy de acuerdo</option>
@@ -2560,32 +2709,20 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                 </div>
                                             </div>                                             
 
-<!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX FECHA INSCRIPCION XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
-                                            <?php
-                                                date_default_timezone_set('America/Bogota');//declaro zona horaria
-                                                $time = new DateTime();//para sacar la fecha actual
-                                                $hoy = $time->format('Y-m-d (H:i:s)');  //imprimimos la fecha actual
-                                                //echo $hoy; 
-                                            ?>
-                                            <div class="form-group"> 
-                                              <label for="fecha_inscrip" >Fecha de Inscripción:</label> 
-                                                <div class="row">
-                                                    <div class="col-md-3" >
-                                                      <input type="datetime" id="fecha_inscrip" name="fecha_inscrip" class="form-control"  value="<?php echo($hoy);?>">                                                                                                                                                    
-                                                    </div>
-                                                </div>
-                                            </div>
-
 <!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX NOMBRE ENTREVISTADO XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
                                             <div class="form-group">
-                                                <label for="nombre_entrevistado_ninio">Nombre del entrevistado(a):</label>
-                                                <input type="text" id="nombre_entrevistado_ninio" name="nombre_entrevistado_ninio" class="form-control" value= "" placeholder="Nombre del entrevistado(a)" required>
+                                                <div class="row">
+                                                    <div class="col-md-8" >
+                                                        <label for="nombre_entrevistado_ninio">Nombre del entrevistado(a):</label>
+                                                        <input type="text" id="nombre_entrevistado_ninio" name="nombre_entrevistado_ninio" class="form-control" value= "" placeholder="Nombre del entrevistado(a)" required>
+                                                    </div>
+                                                </div>
                                             </div>
 
 <!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX PARENTESCO XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
                                             <div class="form-group">
                                                 <div class="row">
-                                                    <div class="col-md-5" >
+                                                    <div class="col-md-8" >
                                                       <label for="parentesco_entrevistado">Parentesco :</label>
                                                         <select class="form-control" name="parentesco_entrevistado" id="parentesco_entrevistado" required>
                                                         <option value="">Seleccione</option>
@@ -2606,46 +2743,50 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                     </div>
                                                 </div>
                                             </div>
-
-<!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX PARENTESCO XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
-                                            <div class="form-group">
-                                                <div class="row">
-                                                    <div class="col-md-12" >
-                                                      <label for="nombre_entrevistador_nin">Nombre del entrevistador :</label>
-                                                        <select class="form-control" name="nombre_entrevistador_nin" id="nombre_entrevistador_nin" required>
-                                                        <option value="">Seleccione</option>
-                                                            <?php
-                                                            $sql_entrevistador_n = "select * from tbl_usuario";
-                                                            $ejecutar = mysqli_query($con, $sql_entrevistador_n);//ejecutar consulta
-                                                            
-                                                            if (mysqli_num_rows($ejecutar) > 0) {
-                                                                while ($row2 = mysqli_fetch_array($ejecutar)) {  
-                                                                    
-                                                                    $nombres_entre = $row2['nombres'];
-                                                                    $apellidos_entre = $row2['apellidos'];
-                                                                    $id_entre = $row2['id_usuario'];
-                                                                    echo "<option value='" . $id_entre. "' " .  ">" . ("$apellidos_entre $nombres_entre") . "</option>";
-                                                                }
-                                                            } 
-                                                            ?>
-                                                        </select>
-                                                    </div>
+                                            
+<!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ENTREVISTADOR XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-8" >
+                                                    <label for="nombres_user">Nombre del Entrevistador(a) :</label>
+                                                    <input type="text" name="nombres_user" id="nombres_user" class="form-control"  value="<?php 
+                                                        echo "$apellidos_user  $nombre_users";
+                                                    ?>" >
+                                                                                
+                                                    <label for="role_user">Tipo de Usuario:</label>                                                    
+                                                    <input type="text" id="role_user" name="role_user" class="form-control"  value="<?php   
+                                                    echo $tipo_user_ei;                                    
+                                                    ?>">
+                                                </div>
+                                            </div>                                 
+                                        </div>
+<!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX FECHA INSCRIPCION XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+                                        <?php
+                                            date_default_timezone_set('America/Bogota');//declaro zona horaria
+                                            $time = new DateTime();//para sacar la fecha actual
+                                            $hoy = $time->format('Y-m-d (H:i:s)');  //imprimimos la fecha actual
+                                            //echo $hoy; 
+                                        ?>
+                                        <div class="form-group"> 
+                                              <label for="fecha_inscrip" >Fecha de Inscripción:</label> 
+                                            <div class="row">
+                                                <div class="col-md-3" >
+                                                    <input type="datetime" id="fecha_inscrip" name="fecha_inscrip" class="form-control"  value="<?php echo($hoy);?>">                                                                                                                                                    
                                                 </div>
                                             </div>
+                                        </div>                                            
 
  <!--+++++++++++++++++++++++++++++++++++++++++++++++++++++ AQUI ESE EL FIN DEL FORMULARIO (FORM) +++++++++++++++++++++++++++++++++++++++++-->
                                   
-                                   
-
-                            </form>
-                            <input type="submit" value="Agregar Datos Personales del Niño(a)" name="submit" class="btn btn-primary">
+                                    <input type="submit" value="Agregar Datos Personales del Niño(a)" name="submit" class="btn btn-primary">
                                     
                                     <a href="niniosregistrados_ci.php">
                                     <button type="button" class="btn btn-primary">Regresar</button>
-                                    </a>
-                                    
-                        </div> 
-                    </div>
+                                    </a>   
+
+                            </form>
+                            
+                      
             </div>
         </div>
     </div>

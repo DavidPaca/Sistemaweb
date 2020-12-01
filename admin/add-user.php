@@ -182,7 +182,7 @@ if (!isset($_SESSION['username'])) {
                                     <select class="form-control" name="cdi" id="categories" required>
                                     <option value="" >Seleccione</option>
                                         <?php
-                                            $sql_cdi = "SELECT * FROM `tbl_cdi` WHERE id != 7";
+                                            $sql_cdi = "SELECT * FROM `tbl_cdi` WHERE id != 100 AND id != 101";
                                             $ejecutar = mysqli_query($con, $sql_cdi);//ejecutar consulta
                                             
                                             if (mysqli_num_rows($ejecutar) > 0) {
