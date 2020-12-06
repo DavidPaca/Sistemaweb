@@ -4,8 +4,12 @@ if (!isset($_SESSION['username'])) {
     header('Location: login.php');
 } 
 
+$cdi_perimisos = $_SESSION['tipo_cdi'];
+//echo $cdi_perimisos;
+
 if (isset($_GET['del'])) {
     $del_id = $_GET['del'];
+    echo  $del_id;
     //$del_check_query = "SELECT * FROM users WHERE id = $del_id";
     //$del_check_run = mysqli_query($con, $del_check_query);
    // if (mysqli_num_rows($del_check_run) > 0) {
@@ -57,7 +61,14 @@ if (isset($_POST['checkboxes'])) {
                         <li class="active"><i class="fa fa-users"></i> Usuarios</li>
                     </ol>
                     <?php
-                    $query = "SELECT * FROM tbl_usuario WHERE tipo = 'Parvulario' ORDER BY id_usuario ASC";
+                    $query = "SELECT tbl_usuario.id_usuario, tbl_usuario.id_docide, tbl_usuario.ci, tbl_usuario.apellidos, tbl_usuario.nombres, tbl_usuario.fecha_ingreso,
+                    tbl_usuario.direccion_dom, tbl_usuario.telefono, tbl_usuario.correo_e, tbl_usuario.contrasenia,
+                    tbl_usuario.imagen_usuario, tbl_usuario.tipo, tbl_usuario_nombre.detalle AS detalle_nivel_usuario, tbl_usuario.id_cdi, 
+                    tbl_cdi.nombre
+                    FROM tbl_usuario
+                    INNER JOIN tbl_usuario_nombre ON tbl_usuario_nombre.id_usuario_nombre = tbl_usuario.tipo
+                    INNER JOIN tbl_cdi ON tbl_cdi.id = tbl_usuario.id_cdi
+                    WHERE tbl_usuario.tipo = '5' AND tbl_usuario.id_cdi = $cdi_perimisos ORDER BY id_usuario ASC";
                     $run = mysqli_query($con, $query);
                     if (mysqli_num_rows($run) > 0) {
                         ?>
@@ -120,11 +131,11 @@ if (isset($_POST['checkboxes'])) {
                                         $last_name = ($row['apellidos']);
                                         $first_name = ($row['nombres']);
                                         $fecha_ing = $row['fecha_ingreso'];
-                                        $role = $row['tipo'];
+                                        $role = $row['detalle_nivel_usuario'];
                                         $dir = $row['direccion_dom'];
                                         $tlf = $row['telefono'];
                                         $email = $row['correo_e'];
-                                        $cdi = $row['id_cdi'];
+                                        $cdi = $row['nombre'];
                                         
                                       
                                         ?>

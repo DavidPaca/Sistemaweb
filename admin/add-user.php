@@ -6,6 +6,9 @@ if (!isset($_SESSION['username'])) {
     header('Location: login.php');
 }
 
+$_nom_cdi = $_SESSION['tipo_cdi'];
+//echo $_nom_cdi;
+
 ?>
 </head>
 <body>
@@ -41,6 +44,7 @@ if (!isset($_SESSION['username'])) {
                         $email = ($_POST['email']);
                         $password =($_POST['password']);
                         $cdi = ($_POST['cdi']);
+                        $periodo_academic = ($_POST['periodo_acad']);
                         $image = $_FILES['image']['name'];
                         $image_temp = $_FILES['image']['tmp_name'];
                         if($image == null){
@@ -56,7 +60,7 @@ if (!isset($_SESSION['username'])) {
                         if (empty($first_name) or empty($last_name) or empty($username) or empty($email) or empty($password)) {   //username
                             $error = "Todos los (*) Campos son requeridos";
                         } else {
-                            $insert_query = "INSERT INTO `tbl_usuario` ( `id_usuario`,`id_docide`,`ci`,`apellidos`,`nombres`,`fecha_ingreso`,`tipo`,`direccion_dom`,`telefono`,`correo_e`,`contrasenia`,`id_cdi`,`imagen_usuario`) values('id_usuario','$tipo_docide','$username','$last_name','$first_name','$fecha_ingreso','$role','$dir','$telef','$email','$password','$cdi','$image')";
+                            $insert_query = "INSERT INTO `tbl_usuario` ( `id_usuario`,`id_docide`,`ci`,`apellidos`,`nombres`,`fecha_ingreso`,`tipo`,`direccion_dom`,`telefono`,`correo_e`,`contrasenia`,`id_cdi`, id_periodo_usuario,`imagen_usuario`) values('id_usuario','$tipo_docide','$username','$last_name','$first_name','$fecha_ingreso','$role','$dir','$telef','$email','$password','$cdi', $periodo_academic,'$image')";
                             if (mysqli_query($con, $insert_query)) {
                                 $msg = "Usuario ingresado";
                                 $path="img/$image";
@@ -72,7 +76,7 @@ if (!isset($_SESSION['username'])) {
                                 $last_name = "";
                                 $email = "";
                                 $username = "";         //username
-                                header("Location: users.php"); /*para poder volver al blog o login*/
+                               // header("Location: users.php"); /*para poder volver al blog o login*/
                             } else {
                                 $error = "Usuario no ingresado";
                             }
@@ -83,28 +87,38 @@ if (!isset($_SESSION['username'])) {
                         <div class="col-md-8">
                             <form action="" method="post" enctype="multipart/form-data">
 
-
-                                <div class="form-group">
-                                        <label for="role">Tipo de Documento de Identidad:</label>
-                                        <select class="form-control" name="tipo_docid" id="tipo_docid" required>
-                                        <option value="" >Seleccione</option>
-                                        <?php
-                                            $sql_tdocu = "select * from tbl_documento_identidad";
-                                            $ejecutar = mysqli_query($con, $sql_tdocu);//ejecutar consulta
-                                            
-                                            if (mysqli_num_rows($ejecutar) > 0) {
-                                                while ($row2 = mysqli_fetch_array($ejecutar)) {
+                            <div class="row">                             
+                                <div class="col-md-12">
+                                    <div class="form-group ">
+                                            <?php
+                                        if (isset($error)) {
+                                            echo "<span style='color:red;' class='pull-right'>$error</span>";
+                                        } else if (isset($msg)) {
+                                            echo "<span style='color:green;' class='pull-right'>$msg</span>";
+                                        }
+                                    ?>
+                                                <label for="role">Tipo de Documento de Identidad:</label>
+                                                <select class="form-control" name="tipo_docid" id="tipo_docid" required>
+                                                <option value="" >Seleccione</option>
+                                                <?php
+                                                    $sql_tdocu = "select * from tbl_documento_identidad";
+                                                    $ejecutar = mysqli_query($con, $sql_tdocu);//ejecutar consulta
                                                     
-                                                    $detalledoc = $row2['detalle'];
-                                                    $iddoc = $row2['id_docide'];
-                                                    echo "<option value='" . $iddoc. "' " .  ">" . ($detalledoc) . "</option>";
-                                                }
-                                            } else {
-                                            // echo "<center><h6>Categoría no disponible</h6></center>";
-                                            }
-                                        ?>
-                                        </select>
+                                                    if (mysqli_num_rows($ejecutar) > 0) {
+                                                        while ($row2 = mysqli_fetch_array($ejecutar)) {
+                                                            
+                                                            $detalledoc = $row2['detalle'];
+                                                            $iddoc = $row2['id_docide'];
+                                                            echo "<option value='" . $iddoc. "' " .  ">" . ($detalledoc) . "</option>";
+                                                        }
+                                                    } else {
+                                                    // echo "<center><h6>Categoría no disponible</h6></center>";
+                                                    }
+                                                ?>
+                                                </select>
+                                    </div>
                                 </div>
+                            </div>
 
 
                                 <div class="form-group">
@@ -142,7 +156,7 @@ if (!isset($_SESSION['username'])) {
                                     <select name="role" id="role" class="form-control" required>
                                         <option value="" >Seleccione</option>
                                         <!--<option value="Coordinador">Coordinador</option> -->
-                                        <option value="Parvulario">Parvulario</option> 
+                                        <option value="5">Parvulario</option> 
                                     </select>
                                 </div>
 
@@ -182,15 +196,36 @@ if (!isset($_SESSION['username'])) {
                                     <select class="form-control" name="cdi" id="categories" required>
                                     <option value="" >Seleccione</option>
                                         <?php
-                                            $sql_cdi = "SELECT * FROM `tbl_cdi` WHERE id != 100 AND id != 101";
+                                            $sql_cdi = "SELECT * FROM `tbl_cdi` WHERE id = '$_nom_cdi'";
                                             $ejecutar = mysqli_query($con, $sql_cdi);//ejecutar consulta
-                                            
                                             if (mysqli_num_rows($ejecutar) > 0) {
                                                 while ($row2 = mysqli_fetch_array($ejecutar)) {
                                                     
                                                     $cdi = $row2['nombre'];
                                                     $idcdi = $row2['id'];
                                                     echo "<option value='" . $idcdi. "' " .  ">" . ($cdi) . "</option>";
+                                                }
+                                            } else {
+                                            // echo "<center><h6>Categoría no disponible</h6></center>";
+                                            }
+                                        ?>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="periodo_acad">Período académico:</label>
+                                    <select class="form-control" name="periodo_acad" id="periodo_acad" required>
+                                    <option value="" >Seleccione</option>
+                                        <?php
+                                            $sql_periodo_ac = "SELECT * FROM `tbl_periodo` WHERE id_periodo ";
+                                            $ejecutar = mysqli_query($con, $sql_periodo_ac);//ejecutar consulta
+                                            if (mysqli_num_rows($ejecutar) > 0) {
+                                                while ($row2 = mysqli_fetch_array($ejecutar)) {
+                                                    
+                                                    $periodo_ac_fin = $row2['fin'];
+                                                    $periodo_ac_inicio = $row2['inicio'];
+                                                    $id_periodo_ac = $row2['id_periodo'];
+                                                    echo "<option value='" . $id_periodo_ac. "' " .  ">" . ("$periodo_ac_inicio $periodo_ac_fin") . "</option>";
                                                 }
                                             } else {
                                             // echo "<center><h6>Categoría no disponible</h6></center>";

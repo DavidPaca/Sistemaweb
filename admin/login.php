@@ -9,10 +9,12 @@ if (isset($_POST['submit'])) {//if hicieron clic en submit
     $ci = mysqli_real_escape_string($con, $_POST['username']);//ATRAPAMOS USER NAME Y PASSWOR
     $password = mysqli_real_escape_string($con, $_POST['password']);
     $cdia = mysqli_real_escape_string($con, $_POST['cdi']);
+    $periodo_users = mysqli_real_escape_string($con, $_POST['periodo_usuario']);
 
-   // echo($ci);
-   // echo($password);
-   // echo($cdia);
+    //echo($ci);
+    //echo($password);
+    //echo($cdia);
+    echo($periodo_users);
 
     
 
@@ -28,6 +30,7 @@ if (isset($_POST['submit'])) {//if hicieron clic en submit
         $db_password = $row['contrasenia'];
         $db_tipo_role = $row['tipo'];
         $db_tipo_cdi = $row['id_cdi'];
+        $db_periodo_academ = $row['id_periodo_usuario'];
         
         //echo $db_ci;
         //echo $db_password;
@@ -42,16 +45,15 @@ if (isset($_POST['submit'])) {//if hicieron clic en submit
         echo($db_ci );   */    
         //echo($db_tipo_role);
         
-        if ($ci == $db_ci && $password == $db_password && $cdia == $db_tipo_cdi && $db_tipo_role == "Coordinador General") {
+        if ($ci == $db_ci && $password == $db_password && $cdia == $db_tipo_cdi && $db_tipo_role == "2" && $periodo_users == $db_periodo_academ) {
             ("estoy adentro");
  
             header('Location: index.php');//enviar a la pagina q deseas
              $_SESSION['username'] = $db_ci;
              $_SESSION['roleSS'] = $db_tipo_role;
              $_SESSION['tipo_cdi'] = $db_tipo_cdi;
-
-             $var_tipo =  $_SESSION['tipo_cdi'];
-             echo  $var_tipo;
+             $_SESSION['periodo_ac'] = $db_periodo_academ;
+             
              
             // $_SESSION['author_image'] = $db_author_image;
          } 
@@ -59,28 +61,29 @@ if (isset($_POST['submit'])) {//if hicieron clic en submit
          else {
 
         
-        if ($ci == $db_ci && $password == $db_password && $cdia == $db_tipo_cdi ) {
+        if ($ci == $db_ci && $password == $db_password && $cdia == $db_tipo_cdi && $periodo_users == $db_periodo_academ ) {
            ("estoy adentro");
 
             header('Location: index.php');//enviar a la pagina q deseas
             $_SESSION['username'] = $db_ci;
             $_SESSION['roleSS'] = $db_tipo_role;
             $_SESSION['tipo_cdi'] = $db_tipo_cdi;
+            $_SESSION['periodo_ac'] = $db_periodo_academ;
             
            // $_SESSION['author_image'] = $db_author_image;
         } else {
-            $error = "Usuario, clave o CDI incorrecto";
+            $error = "Usuario, Contraseña, CDI o Período Incorrecto";
         }
 
         
-        if ($ci == $db_ci && $password == $db_password && $cdia == $db_tipo_cdi && $db_tipo_role == "Visitador Social") {
+        if ($ci == $db_ci && $password == $db_password && $cdia == $db_tipo_cdi && $db_tipo_role == "3" && $periodo_users == $db_periodo_academ) {
             ("estoy adentro");
         
             header('Location: index.php');//enviar a la pagina q deseas
              $_SESSION['username'] = $db_ci;
              $_SESSION['roleSS'] = $db_tipo_role;
              $_SESSION['tipo_cdi'] = $db_tipo_cdi;
-        
+             $_SESSION['periodo_ac'] = $db_periodo_academ;
              
              
             // $_SESSION['author_image'] = $db_author_image;
@@ -88,7 +91,7 @@ if (isset($_POST['submit'])) {//if hicieron clic en submit
     } 
 }
     else {
-        $error = "Usuario, clave o CDI incorrecto";
+        $error = "Usuario, Contraseña, CDI o Período Incorrecto";
     } 
 }
 
@@ -151,10 +154,32 @@ if (isset($_POST['submit'])) {//if hicieron clic en submit
                                     
                                     $cdi = $row2['nombre'];
                                     $idcdi = $row2['id'];
-                                    echo "<option value='" . $idcdi. "' " .  ">" . ucfirst($cdi) . "</option>";
+                                    echo "<option value='" . $idcdi. "' " .  ">" . ($cdi) . "</option>";
                                 }
                             } else {
-                                echo "<center><h6>Categoría no disponible</h6></center>";
+                                echo "<center><h6>No disponible</h6></center>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+
+                    <div class="form-group" >
+                        <label for="periodo_usuario">Seleccione el Período:</label>                        
+                        <select class="form-control" name="periodo_usuario" id="periodo_usuario">
+                            <?php
+                            $sql_period = "select * from tbl_periodo";
+                            $ejecutar = mysqli_query($con, $sql_period);//ejecutar consulta
+                            
+                            if (mysqli_num_rows($ejecutar) > 0) {
+                                while ($row2 = mysqli_fetch_array($ejecutar)) {
+                                    
+                                    $detalle_fin = $row2['fin'];
+                                    $detalle_inicio = $row2['inicio'];
+                                    $id_perio = $row2['id_periodo'];
+                                    echo "<option value='" . $id_perio. "' " .  ">" . ("$detalle_inicio $detalle_fin") . "</option>";
+                                }
+                            } else {
+                                echo "<center><h6>No disponible</h6></center>";
                             }
                             ?>
                         </select>
@@ -172,7 +197,7 @@ if (isset($_POST['submit'])) {//if hicieron clic en submit
                         <br>
                         <!--<i class="fas fa-sign-in-alt fa-2x cust1"></i>-->
                         <input type="submit" value="Iniciar Sesión" name="submit" class="text-center" style = "background-color: #0004ff;">
-                        </form>
+                </form>
                         
                     </div>
 

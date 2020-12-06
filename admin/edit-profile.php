@@ -61,12 +61,16 @@ echo($edit_id);
                     if (isset($_POST['submit'])) {
                         $tipo_docide = ($_POST['tipo_docid']);
                         $username = ( $_POST['ci']);
-                        $first_name = ( $_POST['first-name']);     /*first name es el nombre del cajon*/
                         $last_name = ( $_POST['last-name']);
-                        $password = ( $_POST['password']);
+                        $first_name = ( $_POST['first-name']);     /*first name es el nombre del cajon*/
+                        $fecha_ing = ( $_POST['fecha_ing']);     
+                        $pass = ( $_POST['password']);     
+                        $role_ni = ( $_POST['role']);
                         $email =  ($_POST['email']);
                         $telef = ($_POST['telef']);
                         $dir = ($_POST['dir']);
+                        $cdi_ni = ($_POST['cdi']);
+                        $periodo_ni = ($_POST['periodo_nin']);
                         $image = $_FILES['image']['name'];
                         $image_temp = $_FILES['image']['tmp_name'];
 
@@ -79,7 +83,7 @@ echo($edit_id);
                         if (empty($first_name) or empty($last_name)  or empty($email) or empty($password)) {
                             $error = "Todos los (*) Campos son requeridos";
                         } else {
-                            $insert_query = "UPDATE tbl_usuario SET id_docide='$tipo_docide', ci='$username' nombres='$first_name', apellidos='$last_name',contrasenia='$password',correo_e='$email',telefono='$telef',direccion_dom='$dir',imagen_usuario='$image' where id_usuario = '$edit_id'";
+                            $insert_query = "UPDATE tbl_usuario SET id_docide='$tipo_docide', ci='$username' nombres='$first_name', apellidos='$last_name', fecha_ingreso = '$fecha_ing', contrasenia='$pass', tipo= '$role_ni', correo_e='$email',telefono='$telef',direccion_dom='$dir', id_cdi = '$cdi_ni', id_periodo_usuario =  imagen_usuario = '$periodo_ni', '$image' where id_usuario = '$edit_id'";
                             if (mysqli_query($con, $insert_query)) {
                                 //$msg = "Usuario ingresado";
                                 //$path="img/$image";
@@ -107,6 +111,13 @@ echo($edit_id);
 
                                 
                                         <div class="form-group">
+                                                <?php
+                                            if (isset($error)) {
+                                                echo "<span class='pull-right' style='color:red;'>$error</span>";
+                                            } else if (isset($msg)) {
+                                                echo "<span class='pull-right' style='color:green;'>$msg</span>";
+                                            }
+                                            ?>
                                             <label for="role">Tipo de Documento de Identidad:</label>
                                             <select class="form-control" name="tipo_docid" id="categories">
                                             
@@ -155,47 +166,39 @@ echo($edit_id);
 
                                 <div class="form-group">
                                     <label for="first-name">Nombres:</label>
-                                    <?php
-                                    if (isset($error)) {
-                                        echo "<span class='pull-right' style='color:red;'>$error</span>";
-                                    } else if (isset($msg)) {
-                                        echo "<span class='pull-right' style='color:green;'>$msg</span>";
-                                    }
-                                    ?>
                                     <input type="text" id="first-name" name="first-name" class="form-control" value="<?php echo($row["nombres"])       ?>" placeholder="Nombres">
                                 </div>
 
                                 
-
-                                <!--<div class="form-group">
-                                    <label for="username">CI:*</label>
-                                    <input type="text" id="username" name="ci" class="form-control" value="<?php
-                                    
-                                    ?>" placeholder="CI">
-                                </div>-->
+                                <div class="form-group">
+                                    <label for="date">Fecha de Ingreso :</label>  
+                                    <input type="date"  name="fecha_ing" class="form-control" value="<?php echo($fecha_ing);?>">
+                                </div>   
+                                
 
                                 <div class="form-group">
                                     <label for="Password">Password :*</label>
                                     <input type="password" id="password" name="password" class="form-control" placeholder="Password" value="<?php echo( $row["contrasenia"]);?>">
                                 </div>
 
-                                <!--<div class="form-group">
-                                    <label for="role">Rol :*</label>
-                                    <select name="role" id="role" class="form-control">
-                                        <option value="Parvulario">Parvulario</option>
-                                        <option value="Coordinador">Coordinador</option>
+                                <div class="form-group">
+                                    <label for="role">Tipo de Ususario:</label>
+                                    <select name="role" id="role" class="form-control" value="<?php echo($tipo); ?>" >
+                                        <option value="4">Coordinador</option>
+                                        <option value="5">Parvulario</option>
+                                        
                                     </select>
-                                </div>-->
+                                </div>
 
                                 <div class="form-group">
-                                    <label for="email">Email :*</label>
+                                    <label for="email">Email :</label>
                                     <input type="text" id="email" name="email" class="form-control" value="<?php echo($row["correo_e"]);
                                     
                                     ?>" placeholder="Email">
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="telef">Teléfono:*</label>
+                                    <label for="telef">Teléfono:</label>
                                     <input type="text" id="telef" name="telef" class="form-control" maxlength="10" value="<?php echo($row["telefono"]);
                                     
                                     ?>" placeholder="Teléfono">

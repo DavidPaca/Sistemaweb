@@ -4,21 +4,24 @@ if (!isset($_SESSION['username'])) {
     header('Location: login.php');
 }
 
+
 /*if (isset($_GET['edit'])) {//si esque hay la variable edit
     $edit_id = $_GET['edit'];//get y post sirven para atrapar datos.
 */
 
-//$session_username = $_SESSION['ci'];
+$session_username = $_SESSION['username']; //$_SESSION['ci'];
 //echo($session_username);
 
 $query = "SELECT   tbl_usuario.id_usuario, tbl_usuario.ci,  tbl_usuario.apellidos,  tbl_usuario.nombres,  tbl_usuario.fecha_ingreso,  tbl_usuario.tipo,  tbl_usuario.direccion_dom,  tbl_usuario.telefono,  tbl_usuario.correo_e,  tbl_usuario.contrasenia,  tbl_usuario.imagen_usuario,  tbl_usuario.id_docide, tbl_documento_identidad.detalle AS detalle_di,
-tbl_usuario.id_cdi, tbl_cdi.nombre AS detalle_cdi
+tbl_usuario.id_cdi, tbl_cdi.nombre AS detalle_cdi, tbl_usuario_nombre.detalle AS detalle_user
                    FROM  tbl_usuario 
                    INNER JOIN tbl_documento_identidad 
                    ON  tbl_usuario.id_docide = tbl_documento_identidad.id_docide 
                    INNER JOIN tbl_cdi
                    ON  tbl_usuario.id_cdi = tbl_cdi.id
-                  ";
+                   INNER JOIN tbl_usuario_nombre
+                   ON tbl_usuario_nombre.id_usuario_nombre = tbl_usuario.tipo
+                   WHERE tbl_usuario.ci = $session_username";
 $run = mysqli_query($con, $query);
 $row = mysqli_fetch_array($run);
 
@@ -28,7 +31,7 @@ $row = mysqli_fetch_array($run);
         $apellidos=$row['apellidos'];
         $nombre = $row['nombres'];
         $fecha_ing = $row['fecha_ingreso'];
-        $tipo = $row['tipo'];
+        $tipo = $row['detalle_user'];
         $direccion = $row['direccion_dom'];
         $correo = $row ['correo_e'];
         $telefono = $row['telefono'];

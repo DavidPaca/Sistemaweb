@@ -275,7 +275,7 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                                     echo "<span style='color:green;' class='pull-right'>$msg</span>";
                                 }
                             ?>
-                                    <label for="ti_docide">Tipo de Documento de Identificación :</label>
+                                    <label for="ti_docide">Tipo de Documento de Identidad:</label>
                                     <select class="form-control" name="ti_docide" id="ti_docide" required>
                                     <option value="" >Seleccione</option>
                                         <?php
@@ -570,10 +570,7 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                             
                     
                 <div id="no_discap" style="display: none;">                        
-                    <div class="form-group">
-                         <label for="n_discap">***************No tienes DISCAPACIDADES***************</label>                             
-                        </div>
-                    </div>
+                    
                     
                     
                         <div id="si_discap" style="display: none;">

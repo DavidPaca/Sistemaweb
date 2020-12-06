@@ -9,10 +9,6 @@ if(!isset($_SESSION['username'])){
   <body>
     <div id="wrapper">
 
-
-
-
-
 <?php 
 require_once('inc/header.php');
 //require_once('inc/menufichas.php');
@@ -22,7 +18,7 @@ require_once('inc/header.php');
     <div class="container-fluid body-section">
         <div class="row">
                 <div class="col-md-3">
-                    <?php require_once('inc/sidebar.php');?>
+                    <?php require_once('../admin/inc/sidebar.php');?>
                     
                 </div>
 
@@ -32,49 +28,110 @@ require_once('inc/header.php');
                     <ol class="breadcrumb">
                         <li><a href="../admin/index.php"><i class="fas fa-home"></i> Regresar menú</a></li>
                     </ol> 
-                   
-<!--*********************************************** S E **************************************************** -->                                             
-                    <div class="row">
-                      <label for="nom_alimentos" style="font-size:1.5rem"> FICHA SOCIO ECONÓMICA </label>
-                    </div>
-<!--*********************************************** menu **************************************************** -->                            
-                    <h2>
+                    <h2><h2> 
+<!---------------------------------------------------------->
+<?php
+                      if ($session_role1 == '3') {
+                    ?>
 
-
-                    <a href="niniosregistrados_ing_se.php" class="list-group-item">
-                      <i class="fa fa-user-plus"></i> Ingresar Información Socio Económica
-                    </a>
-
-                    <a href="niniosregistrados_ing_se.php" class="list-group-item">
-                      <i class="fas fa-hand-holding-usd"></i> Información Socio Económica registrada
-                    </a>
-                    </h2>
-
-<!--*********************************************** DPN **************************************************** -->                                             
-                    <div class="row">
-                      <label for="nom_alimentos" style="font-size:1.5rem"> DATOS PERSONALES DE LOS NIÑOS </label>
-                    </div>
-<!--*********************************************** munu **************************************************** -->                            
-                    <h2>  
-                    <a href="protipodiscapacidad.php" class="list-group-item">     
-                      <i class="fas fa-outdent"></i> Lista de niños registrados
-                    </a>
-                    </h2>
-<!--*********************************************** E I **************************************************** -->                                             
-<div class="row">
-                      <label for="nom_alimentos" style="font-size:1.5rem"> ENTREVISTA INICIAL </label>
-                    </div>
-<!--*********************************************** menu **************************************************** --> 
-                    <h2>
-                    <a href="proalergias.php" class="list-group-item">
-                      <i class="fa fa-folder-open" aria-hidden="true"></i> Entrevista Inicial registrada            
-                    </a>
-                    </h2>
-                                   
-                    
+                    <div class="row tag-boxes">
+                        <div class="col-md-6 col-lg-3">
                         
-                </div>
-        </div>
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-user-circle fa-5x"></i><!-----------IMAGEN DE PRIMER CUADRO----------->
+                                        </div>
+                                        <div class="col-xs-9">
+                                            <div class="text-right huge"><?php //echo $com_rows;?></div>
+                                            <!--<div class="text-right">Comentarios Nuevos</div>-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="menuprincipaldatosninio.php">
+                                    <div class="panel-footer letrasmenuficha">
+                                        <span class="pull-left">DATOS PERSONALES DEL NIÑO/A</span>
+                                        <span class="pull-right "><i class="fa fa-arrow-circle-right"></i></span>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                        </div>
+
+                        <div class="col-md-6 col-lg-3">
+                            <div class="panel panel-red">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-comments fa-5x"></i>
+                                        </div>
+                                        <div class="col-xs-9">
+                                            <div class="text-right huge"><?php// echo// $post_rows;?></div>
+                                            <!--<div class="text-right"></div>-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="menuprincipal_ei.php">
+                                    <div class="panel-footer letrasmenuficha">
+                                        <span class="pull-left">ENTREVISTA INICIAL<br><br></span>
+                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-3">
+                            <div class="panel panel-yellow">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-users fa-5x"></i>
+                                        </div>
+                                            <div class="col-xs-9">
+                                                <div class="text-right huge"><?php //echo $user_rows;?></div>
+                                                <!--<div class="text-right">Todos los usuarios</div>-->
+                                            </div>
+                                    </div>
+                                </div>
+                                        <a href="menuprincipal_se.php">
+                                            <div class="panel-footer letrasmenuficha">
+                                                <span class="pull-left">SOCIO ECONÓMICO <br><br></span>
+                                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
+                            </div>
+                        </div>
+                           
+                        <div class="col-md-6 col-lg-3">
+                            <div class="panel panel-green">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-folder-open fa-5x"></i>
+                                        </div>
+                                        <div class="col-xs-9">
+                                            <div class="text-right huge"><?php //echo $cat_rows;?></div>
+                                           <!-- <div class="text-right">Todas Categorias</div>-->
+                                        </div>   
+                                    </div>   
+                                 </div>   
+                                 <a href="menuprincipalprocesos.php">
+                                    <div class="panel-footer letrasmenuficha">
+                                        <span class="pull-left"> PROCESOS <br></span>
+                                        <span class="pull-right"><br><br><br><i class="fa fa-arrow-circle-right"></i></span>                                        <div class="clearfix"></div>
+                                    </div> 
+                                </a>
+                            </div>
+                        </div>
+                    </div><hr></hr> 
+
+                    <?php } ?>
+   
+   </div>
                 
     </div>
             

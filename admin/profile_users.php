@@ -11,12 +11,14 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
 //echo($session_username);
 
 $query = "SELECT   tbl_usuario.id_usuario, tbl_usuario.ci,  tbl_usuario.apellidos,  tbl_usuario.nombres,  tbl_usuario.fecha_ingreso,  tbl_usuario.tipo,  tbl_usuario.direccion_dom,  tbl_usuario.telefono,  tbl_usuario.correo_e,  tbl_usuario.contrasenia,  tbl_usuario.imagen_usuario,  tbl_usuario.id_docide, tbl_documento_identidad.detalle AS detalle_di,
-tbl_usuario.id_cdi, tbl_cdi.nombre AS detalle_cdi
+tbl_usuario.id_cdi, tbl_cdi.nombre AS detalle_cdi, tbl_periodo.inicio, tbl_periodo.fin
                    FROM  tbl_usuario 
                    INNER JOIN tbl_documento_identidad 
                    ON  tbl_usuario.id_docide = tbl_documento_identidad.id_docide 
                    INNER JOIN tbl_cdi
                    ON  tbl_usuario.id_cdi = tbl_cdi.id
+                   INNER JOIN tbl_periodo
+                   ON tbl_periodo.id_periodo = tbl_usuario.id_periodo_usuario
                    Where  tbl_usuario.id_usuario = $edit_id";
 $run = mysqli_query($con, $query);
 $row = mysqli_fetch_array($run);
@@ -32,6 +34,8 @@ $row = mysqli_fetch_array($run);
         $telefono = $row['telefono'];
         $contrasenia = $row['contrasenia'];
         $id_cdi = $row['detalle_cdi']; 
+        $periodo_in = $row['inicio']; 
+        $periodo_fin = $row['fin'];
         $image = $row['imagen_usuario'];
     } 
 ?>
@@ -97,6 +101,10 @@ $row = mysqli_fetch_array($run);
                                 <tr>
                                     <td width="20%"><b>Teléfono:</b></td>
                                     <td width="30%"><?php echo $telefono; ?></td>
+                                    <td width="20%"><b><b>Período acádemico:</b></b></td>
+                                    <td width="30%"><?php echo "$periodo_in $periodo_fin"; ?></td>
+                                </tr>
+                                <tr>
                                     <td width="20%"><b><b>Nombre de CDI:</b></b></td>
                                     <td width="30%"><?php echo $id_cdi; ?></td>
                                 </tr>

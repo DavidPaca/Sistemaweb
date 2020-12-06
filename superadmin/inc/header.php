@@ -13,11 +13,17 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
         $db_Apellido = $row['apellidos'];
 
         /**CONSULTA PARA ATRAPAR EL NOMBRE DE CDI */
-        $sql2="SELECT * FROM tbl_cdi WHERE id = $session_tipo_cdi ";
+        $sql2="SELECT tbl_usuario.id_docide, tbl_usuario.ci, tbl_usuario.apellidos, tbl_usuario.nombres, tbl_usuario.fecha_ingreso,
+        tbl_usuario.direccion_dom, tbl_usuario.telefono, tbl_usuario.correo_e, tbl_usuario.contrasenia, tbl_usuario.id_cdi,
+        tbl_usuario.imagen_usuario, tbl_usuario.tipo, tbl_usuario_nombre.detalle AS detalle_nivel_usuario
+        FROM tbl_usuario
+        INNER JOIN tbl_usuario_nombre ON tbl_usuario_nombre.id_usuario_nombre = tbl_usuario.tipo
+        WHERE tbl_usuario.ci = $session_username2";
         $check_username_run2 = mysqli_query($con, $sql2);//ejecutar consulta 
         $row2 = mysqli_fetch_array($check_username_run2); //atratpa todos los valores de la fila
         $db_nombre_cdi = $row2['nombre'];
-        
+        $db_Apellido = $row['apellidos'];
+        $db_nivel_usuario = $row['detalle_nivel_usuario'];
         
 
 ?>
@@ -25,22 +31,22 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
     <div class="container-fluid">
         <div class="navbar-header">
             <!--***************************LOGO ADMIN *****************************-->
-         <a class="navbar-brand" href="index.php"><img src="img/logoescudoGADM.png" class="img-responsive" style="width: 170px; height: 45px; margin-top: -10px"></a> <!--para el logo de la empresa-->
+         <a class="navbar-brand" href="../admin/index.php"><img src="img/logoescudoGADM.png" class="img-responsive" style="width: 170px; height: 45px; margin-top: -10px"></a> <!--para el logo de la empresa-->
         </div>
         <div class="navbar-collapse collapse" id="navbar">
             <ul class="nav navbar-nav">
                 <!--<li><a href="add-post.php"><i class="fa fa-plus-square" title="Agregar Noticia"></i> Ver Noticia</a></li>-->
                 <?php
-                if ($session_role2 == 'Coordinador General') {
+                if ($session_role2 == 'detalle_nivel_usuario') {
                     ?>
               <!--      <li><a href="add-user.php"><i class="fa fa-user-plus" title="Agregar Usuario"></i>Agregar Usuario</a></li>    -->
                 <?php } ?>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a><i class="fa fa-user"></i> <?php echo ($db_Apellido.' '.$db_nombre); ?></a></li>
-                <li><a><i class="far fa-user-circle fa-1x"></i> <?php echo ($session_role2); ?></a></li>
+                <li><a><i class="far fa-user-circle fa-1x"></i> <?php echo ($db_nivel_usuario); ?></a></li>
 
-                <li><a><i class="far fa-user-circle fa-1x"></i> <?php echo ($db_nombre_cdi); ?></a></li>
+             <!--   <li><a><i class="far fa-user-circle fa-1x"></i> <?php // echo ($db_nombre_cdi); ?></a></li>     -->
 
                 <li><a href="profile.php"><i class="fa fa-user" title="Ver Perfil"></i>Ver Perfil</a></li>
                 <li><a href="logout.php"><i class="fas fa-sign-out-alt" title="Salir"></i></a></li>

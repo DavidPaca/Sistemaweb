@@ -8,7 +8,7 @@ if (!isset($_SESSION['username'])) {
 
 if (isset($_GET['edit'])) {//si esque hay la variable edit
     $edit_id = $_GET['edit'];//get y post sirven para atrapar datos.
-    echo($edit_id);
+    //echo($edit_id);
     $edit_query = "SELECT * FROM tbl_usuario WHERE id_usuario = $edit_id";
     $edit_query_run = mysqli_query($con, $edit_query);
    // if (mysqli_num_rows($edit_query_run) > 0) {/*if numero de filas es mayor q 0*/
@@ -192,7 +192,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                     <label for="role">Centro de Desarrollo Infantil:</label>
                                     <select class="form-control" name="cdi" id="categories">
                                         <?php
-                                            $sql_cdi = "SELECT * FROM `tbl_cdi` WHERE id != 7";
+                                            $sql_cdi = "SELECT * FROM `tbl_cdi` WHERE id != 100 AND id !=101";
                                             $ejecutar = mysqli_query($con, $sql_cdi);//ejecutar consulta
                                             $sql_llenarcdi = "SELECT tbl_usuario.id_cdi,tbl_cdi.nombre FROM tbl_usuario INNER JOIN tbl_cdi ON tbl_usuario.id_cdi = tbl_cdi.id Where id_usuario = $edit_id";
                                             $ejecutarllenarcdi = mysqli_query($con, $sql_llenarcdi);

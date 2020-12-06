@@ -41,7 +41,7 @@ require_once('inc/header.php');
 
 <!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX MENU COORDINADOR GENERAL XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->                    
                     <?php
-                      if ($session_role1 == 'Coordinador General') {
+                      if ($session_role1 == '2') {
                     ?>
 
                     <div class="row tag-boxes">
@@ -180,7 +180,7 @@ require_once('inc/header.php');
 
 <!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX MENU VISITADORA SOCIAL XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->                    
 <?php
-                      if ($session_role1 == 'Visitador Social') {
+                      if ($session_role1 == '3') {
                     ?>
 
                     <div class="row tag-boxes">
@@ -320,7 +320,7 @@ require_once('inc/header.php');
 
 <!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX MENU PRINCIPAL COORDINADOR XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
                     <?php
-                      if ($session_role1 == 'Coordinador') {
+                      if ($session_role1 == '4') {
                     ?>
 
                     <div class="row tag-boxes">
@@ -424,7 +424,7 @@ require_once('inc/header.php');
 
 <!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX MENU PRINCIPAL PARVULARIO XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->        
 <?php
-                      if ($session_role1 == 'Parvulario') {
+                      if ($session_role1 == '5') {
                     ?>
 
                     <div class="row tag-boxes">

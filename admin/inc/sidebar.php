@@ -10,7 +10,7 @@ $get_comment_run = mysqli_query($con, $get_comment);
 
 <div class="list-group rojo"  >
       <?php
-       if ($session_role1 == 'Coordinador') {
+       if ($session_role1 == '4') {
       ?>
       <a href="index.php" class="list-group-item active" style="background-color:#595757">
         <i class="fas fa-home"></i>  Menu principal
@@ -59,7 +59,7 @@ $get_comment_run = mysqli_query($con, $get_comment);
 <div class="list-group rojo" >
 
       <?php
-       if ($session_role1 == 'Coordinador') {
+       if ($session_role1 == '4') {
       ?>
         <a href="index.php" class="list-group-item active" style="background-color:#595757">  
             <i class="fas fa-home"></i>  Fichas de los Niños 
@@ -171,7 +171,7 @@ $get_comment_run = mysqli_query($con, $get_comment);
 <div class="list-group rojo" >
 
                   <?php
-                    if ($session_role1 == 'Parvulario') {
+                    if ($session_role1 == '5') {
                   ?>
                     <a href="index.php" class="list-group-item active" style="background-color:#595757">  
                         <i class="fas fa-home"></i>  Fichas de los Niños 
@@ -267,7 +267,7 @@ $get_comment_run = mysqli_query($con, $get_comment);
 
 <div class="list-group rojo"  >
       <?php
-       if ($session_role1 == 'Coordinador General') {
+       if ($session_role1 == '2') {
       ?>
       <a href="../admin/index.php" class="list-group-item active" style="background-color:#595757">
         <i class="fas fa-home"></i>  Menu principal
@@ -331,7 +331,7 @@ $get_comment_run = mysqli_query($con, $get_comment);
 
 <div class="list-group rojo"  >
       <?php
-       if ($session_role1 == 'Visitador Social') {
+       if ($session_role1 == '3') {
       ?>
       <a href="../admin/index.php" class="list-group-item active" style="background-color:#595757">
         <i class="fas fa-home"></i>  Menu principal

@@ -4,12 +4,16 @@ if (!isset($_SESSION['username'])) {
     header('Location: login.php');
 } 
 
+$_nom_cdi = $_SESSION['tipo_cdi'];
+//echo $_nom_cdi;
+
 if (isset($_GET['del'])) {
     $del_id = $_GET['del'];
+   // echo $del_id;
    // $del_check_query = "SELECT * FROM tbl_datos_personales_ninio ORDER BY id_ninio DESC";
     //$del_check_run = mysqli_query($con, $del_check_query);
    // if (mysqli_num_rows($del_check_run) > 0) {
-        $del_query = "UPDATE tbl_datos_personales_ninio SET estado='Inactivo' WHERE id_ninio= $del_id";
+        $del_query = "UPDATE tbl_datos_personales_ninio SET estado='Inactivo' WHERE id_ninio= $del_id ";
 
    //     $query_documento_identidad = "SELECT detalle FROM tbl_documento_identidad WHERE id = $idTipodocumento ";
         //if (isset($_SESSION['username']) && $_SESSION['role'] == 'admin') {
@@ -60,7 +64,7 @@ if (isset($_GET['del'])) {
                         <li class="active"><i class="fa fa-users"></i> Datos Personales del Niño(a)</li>
                     </ol>
                     <?php
-                    $query = "SELECT * FROM tbl_datos_personales_ninio Where estado='Activo'";
+                    $query = "SELECT * FROM tbl_datos_personales_ninio Where estado='Activo' AND id_cdi = $_nom_cdi ";
                     $run = mysqli_query($con, $query);
                     if (mysqli_num_rows($run) > 0) {
                         ?>
