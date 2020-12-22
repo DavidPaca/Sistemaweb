@@ -3,21 +3,15 @@ require_once('inc/top.php');//llamar archivos
 if(!isset($_SESSION['username'])){
     header('Location: login.php');
 }
-
 ?>
   </head>
   <body>
     <div id="wrapper">
 
-
-
-
-
-<?php 
-require_once('inc/header.php');
-//require_once('inc/menufichas.php');
-    
-?>
+        <?php 
+        require_once('inc/header.php');
+        //require_once('inc/menufichas.php');            
+        ?>
 
         <div class="container-fluid body-section">
             <div class="row">
@@ -50,7 +44,7 @@ require_once('inc/header.php');
                                         </div>
                                     </div>
                                 </div>
-                                <a href="niniosregistrados_se.php">
+                                <a href="niniosregistrados_ing_se.php">
                                     <div class="panel-footer">
                                         <span class="pull-left">Ingresar Información</span>
                                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span> <!-- Es la flecha de la esquina inferior del icono -->
@@ -61,7 +55,7 @@ require_once('inc/header.php');
                         </div>
 
                         <div class="col-md-6 col-lg-3">
-                        <div class="panel panel-yellow">
+                            <div class="panel panel-yellow">
                                 <div class="panel-heading">
                                     <div class="row">
                                         
@@ -71,7 +65,7 @@ require_once('inc/header.php');
                                         </div>
                                     </div>
                                 </div>
-                                <a href="niniosregistrados.php">
+                                <a href="nisocioeconomico.php">
                                     <div class="panel-footer">
                                         <span class="pull-left"> Información Registrada  </span>
                                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span> <!-- Es la flecha de la esquina inferior del icono -->
@@ -80,39 +74,9 @@ require_once('inc/header.php');
                                 </a>
                             </div>
                         </div>
-
-                      <!--  <div class="col-md-6 col-lg-3">
-                        <div class="panel panel-primary">
-                                <div class="panel-heading">
-                                    <div class="row">
-                                        
-                                        <div class="col-xs-9"> -->
-                                            <div class="text-right huge"><?php //echo $com_rows;?></div>
-                                            <!--<div class="text-right">Comentarios Nuevos</div>-->
-                                        </div>
-                                    </div>
-                                </div>
-                               <!-- <a href="ing_dp_ninio.php">
-                                    <div class="panel-footer">
-                                        <span class="pull-left">Ingresar Datos del Niño(a)</span>
-                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span> <!-- Es la flecha de la esquina inferior del icono -->
-                                 <!--       <div class="clearfix"></div>  -->
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
                     </div>
-
-                   
-
-
-                
-                    
                 </div>
-                
             </div>
-            
-        </div>
-
-<?php require_once('inc/footer.php');?>
-
+        </div> 
+          <?php require_once('inc/footer.php');?>
+    </div>

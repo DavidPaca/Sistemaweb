@@ -7,6 +7,9 @@ if (!isset($_SESSION['username'])) {
 $_nom_cdi = $_SESSION['tipo_cdi'];
 //echo $_nom_cdi;
 
+$_nom_periodo = $_SESSION['periodo_ac'];
+//echo $_nom_periodo;
+
 if (isset($_GET['del'])) {
     $del_id = $_GET['del'];
    // echo $del_id;
@@ -64,7 +67,7 @@ if (isset($_GET['del'])) {
                         <li class="active"><i class="fa fa-users"></i> Datos Personales del Niño(a)</li>
                     </ol>
                     <?php
-                    $query = "SELECT * FROM tbl_datos_personales_ninio Where estado='Activo' AND id_cdi = $_nom_cdi ";
+                    $query = "SELECT * FROM tbl_datos_personales_ninio Where estado='Activo' AND id_cdi = $_nom_cdi AND id_periodo_ninio = $_nom_periodo ORDER BY apellidos ASC";
                     $run = mysqli_query($con, $query);
                     if (mysqli_num_rows($run) > 0) {
                         ?>
@@ -187,6 +190,7 @@ if (isset($_GET['del'])) {
                                         
                                       
                                         </tr>
+                                        
                                     <?php } ?>
                                 </tbody>
                             </table>
@@ -195,7 +199,11 @@ if (isset($_GET['del'])) {
                             echo "<center><h2>Usuarios no disponibles por ahora</h2></center>";
                         }
                         ?>
-
+                                <center>
+                                <a href="pdf_lista_ninios.php">
+                                    <button type="button" class="btn btn-primary">Regresar</button>
+                                </a>
+                                </center>
                     </form>
                 </div>
             </div>

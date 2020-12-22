@@ -13,8 +13,8 @@ if (isset($_GET['del'])) {
     //$del_check_query = "SELECT * FROM users WHERE id = $del_id";
     //$del_check_run = mysqli_query($con, $del_check_query);
    // if (mysqli_num_rows($del_check_run) > 0) {
-        $del_query = "DELETE FROM `tbl_usuario` WHERE `id_usuario` = $del_id";
-     //  if (isset($_SESSION['username']) && $_SESSION['role'] == 'admin') {
+        $del_query = "UPDATE `tbl_usuario` SET estado_us='inactivo' WHERE `id_usuario` = $del_id";
+            //  if (isset($_SESSION['username']) && $_SESSION['role'] == 'admin') {
             if (mysqli_query($con, $del_query)) {
                 header('Location: users.php');
             } 
@@ -68,7 +68,7 @@ if (isset($_POST['checkboxes'])) {
                     FROM tbl_usuario
                     INNER JOIN tbl_usuario_nombre ON tbl_usuario_nombre.id_usuario_nombre = tbl_usuario.tipo
                     INNER JOIN tbl_cdi ON tbl_cdi.id = tbl_usuario.id_cdi
-                    WHERE tbl_usuario.tipo = '5' AND tbl_usuario.id_cdi = $cdi_perimisos ORDER BY id_usuario ASC";
+                    WHERE estado_us ='Activo' AND tbl_usuario.tipo = '5' AND tbl_usuario.id_cdi = $cdi_perimisos ORDER BY apellidos ASC";
                     $run = mysqli_query($con, $query);
                     if (mysqli_num_rows($run) > 0) {
                         ?>

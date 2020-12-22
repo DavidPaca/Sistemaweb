@@ -7,17 +7,26 @@ if (!isset($_SESSION['username'])) {
     header('Location: login.php');
 }
 
+$num_ci = $_SESSION['username'];
+//echo $num_ci;
+
 if (isset($_SESSION['username'])) {//si esque hay la variable edit
     $edt_id = $_SESSION['username'];//get y post sirven para atrapar datos.
     //echo $edt_id;
-    $edt_query = "SELECT * FROM tbl_usuario WHERE ci = $edt_id";
+    $edt_query = "SELECT tbl_usuario.id_docide, tbl_usuario.ci, tbl_usuario.apellidos, tbl_usuario.nombres, tbl_usuario.fecha_ingreso,
+    tbl_usuario.direccion_dom, tbl_usuario.telefono, tbl_usuario.correo_e, tbl_usuario.contrasenia, tbl_usuario.id_cdi,
+    tbl_usuario.id_periodo_usuario, tbl_usuario.estado_us, tbl_usuario.imagen_usuario, tbl_usuario.tipo, tbl_usuario_nombre.detalle 
+    AS detalle_user
+    FROM tbl_usuario
+    INNER JOIN tbl_usuario_nombre ON tbl_usuario_nombre.id_usuario_nombre = tbl_usuario.tipo
+    WHERE tbl_usuario.ci = $num_ci";
     $edt_query_run = mysqli_query($con, $edt_query);
    // if (mysqli_num_rows($edit_query_run) > 0) {/*if numero de filas es mayor q 0*/
         $edt_row = mysqli_fetch_array($edt_query_run);//fetch array sirve para que tu atrapestoda la fila de una table... fetch assoc.
         //$row = mysqli_fetch_array($run)
         $apellidos_user =$edt_row['apellidos'];
         $nombre_users = $edt_row['nombres'];
-        $tipo_user_ei = $edt_row['tipo'];
+        $tipo_user_ei = $edt_row['detalle_user'];
         
     }
 
@@ -115,6 +124,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                         $comparte_sus_jueguetes = ( $_POST['Comparte_juguetes']);
                         $tiene_mascotas_ninio = ( $_POST['tiene_mascotas_ninio']);
                         $facilmente_llora = ( $_POST['llora_facilmente']);
+                        $miedos_ninio_a_algo = ( $_POST['miedos_del_ninio']);
                         $quien_le_lee_cuentos = ( $_POST['leen_cuentos']);
                         $refer_de_cdi = ( $_POST['referencia_cdi_ninio']);
                         $elec_cdi_ninio = ( $_POST['eleccion_cdi']);
@@ -142,14 +152,14 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                             `control_esfinteres`,`actual_va_banio_solo`, `presencia_enfermedades_graves`, `intervensiones_q`, `toma_medicamentos`, `es_alergico`, 
                             `sifrio_accidentes`, `enfermedades_padecio`, `lado_predominante_ninio`, `ha_gateado`, `problemas_vista`, `usa_lentes`, `escucha_bien`,
                             `usa_audifonos`, `duerme_solo`, `hora_acostarse`, `hora_despertarse`, `vocabulario_ninio`, `Expresa_gestos_palabras`, `dependencia_adultos`,
-                            `esta_contacto_otros_ninios`, `sociable_actitud_negativa`, `comparte_juguete`, `tiene_mascotas`,`llora_con_facilidad`,`alguien_lee_cuentos`,
+                            `esta_contacto_otros_ninios`, `sociable_actitud_negativa`, `comparte_juguete`, `tiene_mascotas`,`llora_con_facilidad`,`miedo_a_algo`, `alguien_lee_cuentos`,
                             `referencia_del_cdi_n`, `experiencia_cdi`, `acuerdo_contribucion_cdi`, `nombre_entrevistado`, `parentesco`, `nombre_entrevistador`,
                             `tipo_usuario`, `fecha_entrevista`) 
                              VALUES ('$id_ninio_ei', '$tiene_alergia', '$rechaza_alimentos', '$come_solo_n', '$usa_mamadera_n', '$cont_esfinteres_n', '$banio_solo_n',
                              '$tiene_enfer_graves', '$interven_quirurgica', '$toma_medicamento_ni', '$presenta_alergias', '$tiene_accidentes', '$padecio_enfer_n', 
                              '$lado_predominante_n', '$gateo_el_ni', '$problem_vista_ni', '$usa_lentes_ni', '$problem_oido_ni', '$usa_audifonos_ni',  '$duerme_solo_ninio', 
                              '$hora_se_acuesta', '$hora_se_despierta', '$vocabulario_nin', '$expresa_nin', '$dependencia_nin', '$contacto_nin', '$sociable_act_neg_nin', 
-                             '$comparte_sus_jueguetes', '$tiene_mascotas_ninio', '$facilmente_llora', '$quien_le_lee_cuentos',  '$refer_de_cdi', '$elec_cdi_ninio', 
+                             '$comparte_sus_jueguetes', '$tiene_mascotas_ninio', '$facilmente_llora', '$miedos_ninio_a_algo','$quien_le_lee_cuentos',  '$refer_de_cdi', '$elec_cdi_ninio', 
                              '$acuer_contribucion_ninio', '$nombre_entrevistado_ei', '$parentesc_entrevistado_ei', '$nombres_usuario_ei', '$tipo_usuario_ei', '$fecha_inscripcion_ei') ";
 
                             if (mysqli_query($con, $insert_query)) {
@@ -1920,7 +1930,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                
                                                 $(document).ready(function(){
                                                   $("#btn_juegos_ninios").click(function (){
-                                                      var id_juegos_ninio = $("#juegos_ninio").val();
+                                                      var id_juegos_ninio = $("#juegos_del_ninio").val();
                                                       var id_ninio_juegos = $("#id_de_ninios").val();
                                                       //alert(id_juegos_ninio);
                                                       //alert(id_ninio_juegos);
@@ -2752,6 +2762,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                     <input type="text" name="nombres_user" id="nombres_user" class="form-control"  value="<?php 
                                                         echo "$apellidos_user  $nombre_users";
                                                     ?>" >
+                                                        
                                                                                 
                                                     <label for="role_user">Tipo de Usuario:</label>                                                    
                                                     <input type="text" id="role_user" name="role_user" class="form-control"  value="<?php   

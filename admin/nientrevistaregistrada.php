@@ -4,6 +4,9 @@ if (!isset($_SESSION['username'])) {
     header('Location: login.php');
 } 
 
+$_nom_cdi = $_SESSION['tipo_cdi'];
+//echo $_nom_cdi; 
+
 if (isset($_GET['del'])) {
     $del_id = $_GET['del'];
    // $del_check_query = "SELECT * FROM tbl_datos_personales_ninio ORDER BY id_ninio DESC";
@@ -60,7 +63,7 @@ if (isset($_GET['del'])) {
                         <li class="active"><i class="fa fa-users"></i> Entrevista Inicial Registrada</li>
                     </ol>
                     <?php
-                    $query = "SELECT * FROM tbl_datos_personales_ninio Where estado='Activo'";
+                    $query = "SELECT * FROM tbl_datos_personales_ninio WHERE estado='Activo' AND id_cdi = '$_nom_cdi'";
                     $run = mysqli_query($con, $query);
                     if (mysqli_num_rows($run) > 0) {
                         ?>
@@ -178,7 +181,7 @@ if (isset($_GET['del'])) {
                                            <!--  <td><img src="img/<?php //echo $imagen_n; ?>" width="50px"></td>  -->
                                            <td><a href="profile_entrevista_inicial.php?edit=<?php echo $idninio; ?>"><i class="far fa-file-alt"></i></a></td>
                                             <td><a href="editar_datos_ninio.php?edit=<?php echo $idninio; ?>"><i class="far fa-edit"></i></a></td>
-                                            <td><a href="niniosregistrados.php?del=<?php echo $idninio; ?>" onclick="return confirm('¿Desea Borrar?');"><i class="fas fa-trash-alt"></i></a></td>
+                                            <td><a href="nientrevistaregistrada.php?del=<?php echo $idninio; ?>" onclick="return confirm('¿Desea Borrar?');"><i class="fas fa-trash-alt"></i></a></td>
                                         
                                         
                                       

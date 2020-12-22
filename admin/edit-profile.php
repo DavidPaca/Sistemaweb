@@ -83,7 +83,10 @@ echo($edit_id);
                         if (empty($first_name) or empty($last_name)  or empty($email) or empty($password)) {
                             $error = "Todos los (*) Campos son requeridos";
                         } else {
-                            $insert_query = "UPDATE tbl_usuario SET id_docide='$tipo_docide', ci='$username' nombres='$first_name', apellidos='$last_name', fecha_ingreso = '$fecha_ing', contrasenia='$pass', tipo= '$role_ni', correo_e='$email',telefono='$telef',direccion_dom='$dir', id_cdi = '$cdi_ni', id_periodo_usuario =  imagen_usuario = '$periodo_ni', '$image' where id_usuario = '$edit_id'";
+                            $insert_query = "UPDATE `tbl_usuario` SET `ci`='$username',`apellidos`='$last_name', `nombres`='$first_name', 
+                            `contrasenia`='$pass',  `correo_e`='$email',`telefono`='$telef',
+                            `direccion_dom`='$dir', `imagen_usuario` = '$image' 
+                            where `id_usuario` = '$edit_id'";
                             if (mysqli_query($con, $insert_query)) {
                                 //$msg = "Usuario ingresado";
                                 //$path="img/$image";
@@ -110,7 +113,7 @@ echo($edit_id);
                         <form action="" method="POST" enctype="multipart/form-data">
 
                                 
-                                        <div class="form-group">
+                                    <!--    <div class="form-group">
                                                 <?php
                                             if (isset($error)) {
                                                 echo "<span class='pull-right' style='color:red;'>$error</span>";
@@ -122,30 +125,30 @@ echo($edit_id);
                                             <select class="form-control" name="tipo_docid" id="categories">
                                             
                                                 <?php 
-                                                    $sql_tdocu = "select * from tbl_documento_identidad ";
-                                                    $ejecutar = mysqli_query($con, $sql_tdocu);//ejecutar consulta
-                                                    $sql_llenartdocumento = "SELECT tbl_usuario.id_docide,tbl_documento_identidad.detalle FROM tbl_usuario INNER JOIN tbl_documento_identidad ON tbl_usuario.id_docide = tbl_documento_identidad.id_docide Where id_usuario = $edit_id";
-                                                    $ejecutar2 = mysqli_query($con, $sql_llenartdocumento);
-                                                    $row3 = mysqli_fetch_array($ejecutar2);
-                                                    $idlltdoc=$row3['id_docide'];
-                                                        $detallelltdoc=$row3['detalle'];
-                                                        echo "<option value='" . $idlltdoc. "' " .  " selected>" . ($detallelltdoc) . "</option>";
-
-                                                    if (mysqli_num_rows($ejecutar) > 0) {
-                                                        while ($row2 = mysqli_fetch_array($ejecutar)) {
+                                                   // $sql_tdocu = "select * from tbl_documento_identidad ";
+                                                //    $ejecutar = mysqli_query($con, $sql_tdocu);//ejecutar consulta
+                                                  //  $sql_llenartdocumento = "SELECT tbl_usuario.id_docide,tbl_documento_identidad.detalle FROM tbl_usuario INNER JOIN tbl_documento_identidad ON tbl_usuario.id_docide = tbl_documento_identidad.id_docide Where id_usuario = $edit_id";
+                                                //    $ejecutar2 = mysqli_query($con, $sql_llenartdocumento);
+                                                 //   $row3 = mysqli_fetch_array($ejecutar2);
+                                                //    $idlltdoc=$row3['id_docide'];
+                                                //        $detallelltdoc=$row3['detalle'];
+                                                //        echo "<option value='" . $idlltdoc. "' " .  " selected>" . ($detallelltdoc) . "</option>";
+                                                //
+                                                //    if (mysqli_num_rows($ejecutar) > 0) {
+                                                //        while ($row2 = mysqli_fetch_array($ejecutar)) {
+                                                //            
+                                                //            $detalledoc = $row2['detalle'];
+                                                //            $iddoc = $row2['id_docide'];
+                                                //            echo "<option value='" . $iddoc. "' " .  ">" . ($detalledoc) . "</option>";
                                                             
-                                                            $detalledoc = $row2['detalle'];
-                                                            $iddoc = $row2['id_docide'];
-                                                            echo "<option value='" . $iddoc. "' " .  ">" . ($detalledoc) . "</option>";
-                                                            
-                                                        }
+                                                //        }
                                                         
-                                                    } else {
+                                                //    } else {
                                                     // echo "<center><h6>Categoría no disponible</h6></center>";
-                                                    }
+                                                //    }
                                                 ?>
                                             </select>
-                                        </div>
+                                        </div>    -->
 
 
 
@@ -170,25 +173,25 @@ echo($edit_id);
                                 </div>
 
                                 
-                                <div class="form-group">
+                              <!--  <div class="form-group">
                                     <label for="date">Fecha de Ingreso :</label>  
-                                    <input type="date"  name="fecha_ing" class="form-control" value="<?php echo($fecha_ing);?>">
-                                </div>   
+                                    <input type="date"  name="fecha_ing" class="form-control" value="<?php //echo($fecha_ing);?>">
+                                </div>   -->
                                 
 
                                 <div class="form-group">
-                                    <label for="Password">Password :*</label>
+                                    <label for="Password">Contraseña :</label>
                                     <input type="password" id="password" name="password" class="form-control" placeholder="Password" value="<?php echo( $row["contrasenia"]);?>">
                                 </div>
 
-                                <div class="form-group">
+                               <!-- <div class="form-group">
                                     <label for="role">Tipo de Ususario:</label>
-                                    <select name="role" id="role" class="form-control" value="<?php echo($tipo); ?>" >
+                                    <select name="role" id="role" class="form-control" value="<?php //echo($tipo); ?>" >
                                         <option value="4">Coordinador</option>
                                         <option value="5">Parvulario</option>
                                         
                                     </select>
-                                </div>
+                                </div>   -->
 
                                 <div class="form-group">
                                     <label for="email">Email :</label>

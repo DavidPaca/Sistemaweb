@@ -5,141 +5,134 @@ if (!isset($_SESSION['username'])) {
 }
 ob_start();
 require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
+
+$_nom_cdi = $_SESSION['tipo_cdi'];
+//echo $_nom_cdi;
+$_nom_periodo = $_SESSION['periodo_ac'];
+//echo $_nom_periodo;
+
 ?>
 
-
-
 <!--script provincia-->
-<script >
-    
-    $(document).ready(function(e){
-        $("#provincia").change(function(){
-            var parametros ="id="+$("#provincia").val();
-            
-            $.ajax({
-                data:parametros,
-                url: 'ajax_canton.php',
-                type: 'post',
-                beforeSend: function(){
-                   
-                },
-                success: function(response){
-                   
-                    $("#canton").html(response);
-                },
-                error:function(){
-                    alert("error")
-                }
-            });            
-        })
+                    <script>                        
+                        $(document).ready(function(e){
+                            $("#provincia").change(function(){
+                                var parametros ="id="+$("#provincia").val();
+                                
+                                $.ajax({
+                                    data:parametros,
+                                    url: 'ajax_canton.php',
+                                    type: 'post',
+                                    beforeSend: function(){
+                                    
+                                    },
+                                    success: function(response){
+                                    
+                                        $("#canton").html(response);
+                                    },
+                                    error:function(){
+                                        alert("error")
+                                    }
+                                });            
+                            })
 
-        $("#canton").change(function(){
-            var parametros ="id="+$("#canton").val();
-           // alert(parametros)
-            $.ajax({
-                data:parametros,
-                url: 'ajax_parroquia.php',
-                type: 'post',
-                beforeSend: function(){
-                   
-                },
-                success: function(response){
-                   
-                    $("#parroquia").html(response);
-                },
-                error:function(){
-                    alert("error")
-                }
-            });            
-        })
-
-    })
-
-   
-</script>
-
-
+                            $("#canton").change(function(){
+                                var parametros ="id="+$("#canton").val();
+                            // alert(parametros)
+                                $.ajax({
+                                    data:parametros,
+                                    url: 'ajax_parroquia.php',
+                                    type: 'post',
+                                    beforeSend: function(){
+                                    
+                                    },
+                                    success: function(response){
+                                    
+                                        $("#parroquia").html(response);
+                                    },
+                                    error:function(){
+                                        alert("error")
+                                    }
+                                });            
+                            })
+                        })                    
+                    </script>
 <!--********************************************Fecha Año*********************************************-->
-    <script>
-        $(document).ready(function(e){
-        $("#fecha_nac").blur(function(){
-            var parametros ="fecha="+$("#fecha_nac").val();
-          // alert(parametros)
-            $.ajax({
-                data:parametros,
-                url: 'ajax_fechaedad.php',
-                type: 'post',
-                beforeSend: function(){
-                   
-                },
-                success: function(response){
-                  //  alert(response);
-                    $("#calculafecha").html(response);
-                },
-                error:function(){
-                    alert("error")
-                }
-            });            
-        })       
+                    <script>
+                        $(document).ready(function(e){
+                        $("#fecha_nac").blur(function(){
+                            var parametros ="fecha="+$("#fecha_nac").val();
+                        // alert(parametros)
+                            $.ajax({
+                                data:parametros,
+                                url: 'ajax_fechaedad.php',
+                                type: 'post',
+                                beforeSend: function(){
+                                
+                                },
+                                success: function(response){
+                                //  alert(response);
+                                    $("#calculafecha").html(response);
+                                },
+                                error:function(){
+                                    alert("error")
+                                }
+                            });            
+                        })       
 
-    })
-    </script>
-
+                    })
+                    </script>
 <!--********************************************Fecha Mes*********************************************-->
-<script>
-        $(document).ready(function(e){
-        $("#fecha_nac").blur(function(){
-            var parametros ="fecha="+$("#fecha_nac").val();
-           //alert(parametros)
-            $.ajax({
-                data:parametros,
-                url: 'ajax_fechames.php',
-                type: 'post',
-                beforeSend: function(){
-                   
-                },
-                success: function(response){
-                    //alert(response);
-                    $("#calculames").html(response);
-                },
-                error:function(){
-                    alert("error")
-                }
-            });            
-        })       
+                    <script>
+                            $(document).ready(function(e){
+                            $("#fecha_nac").blur(function(){
+                                var parametros ="fecha="+$("#fecha_nac").val();
+                            //alert(parametros)
+                                $.ajax({
+                                    data:parametros,
+                                    url: 'ajax_fechames.php',
+                                    type: 'post',
+                                    beforeSend: function(){
+                                    
+                                    },
+                                    success: function(response){
+                                        //alert(response);
+                                        $("#calculames").html(response);
+                                    },
+                                    error:function(){
+                                        alert("error")
+                                    }
+                                });            
+                            })       
 
-    })
-    </script>
-
+                        })
+                        </script>
 <!--********************************************Fecha Dias*********************************************-->
-<script>
-        $(document).ready(function(e){
-        $("#fecha_nac").blur(function(){
-            var parametros ="fecha="+$("#fecha_nac").val();
-           //alert(parametros)
-            $.ajax({
-                data:parametros,
-                url: 'ajax_fechadias.php',
-                type: 'post',
-                beforeSend: function(){
-                   
-                },
-                success: function(response){
-                    //alert(response);
-                    $("#calculadias").html(response);
-                },
-                error:function(){
-                    alert("error")
-                }
-            });            
-        })       
+                        <script>
+                                $(document).ready(function(e){
+                                $("#fecha_nac").blur(function(){
+                                    var parametros ="fecha="+$("#fecha_nac").val();
+                                //alert(parametros)
+                                    $.ajax({
+                                        data:parametros,
+                                        url: 'ajax_fechadias.php',
+                                        type: 'post',
+                                        beforeSend: function(){
+                                        
+                                        },
+                                        success: function(response){
+                                            //alert(response);
+                                            $("#calculadias").html(response);
+                                        },
+                                        error:function(){
+                                            alert("error")
+                                        }
+                                    });            
+                                })       
 
-    })
-    </script>
+                            })
+                            </script>
 <!--*****************************************************************************************-->
-
-
-
 </head>
 <body>
     <div id="wrapper">
@@ -156,14 +149,11 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                          <li><a href="index.php"><i class="fas fa-home"></i> Menú</a></li>
                          <li><a href="menuprincipaldatosninio.php"><i class="fas fa-chevron-left"></i> Regresar</a></li>
                         <li class="active"><i class="fa fa-user-plus"></i> Ingresar Datos Personales del Niño/Niña</li>
-                    </ol>
+                    </ol>                    
                     
-                    
-                    <?php
-                    
+                    <?php                   
 /*---------------------------Guarda los datos ingresados en los cajones en las variables------------------------------------------*/
                     if (isset($_POST['submit'])) {
-                            //$date = time();
                         $tipo_docide = ( $_POST['ti_docide']);
                         $ci = ( $_POST['ci']);
                         $n_apellidos = ( $_POST['apellidos_n']);
@@ -172,17 +162,12 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                         $n_anio = ( $_POST['anio_n']);
                         $n_mes = ( $_POST['mes_n']);
                         $n_dia = ( $_POST['dia_n']);
-                        $n_pais = ( $_POST['pais_nom']);                                             
-
+                        $n_pais = ( $_POST['pais_nom']);
                         if($_POST['pais_nom'] == 'seleccione'){
                             $n_pais = '1';                                             
-
                         }else{
-                            $n_pais = ( $_POST['pais_nom']);                                             
-
+                            $n_pais = ( $_POST['pais_nom']);
                         }
-
-                        //$n_ciudad = ( $_POST['ciudad_n']);
                         $provincianac= ( $_POST['provincia_n']);
                         $cantonnac= ( $_POST['canton_no']);
                         $parroquia_n= ( $_POST['parroquia_ni']);
@@ -204,40 +189,32 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
 
                         }else{
                             $nombre_establec = ( $_POST['nom_establec']);
-                        }
-            
-                        
+                        }               
                         $peso_n = ( $_POST['n_peso']);
                         $talla_n = ( $_POST['n_talla']);
                         $nivel_ninio = ( $_POST['ninio_nivel']);
                         $sobrenombre = ( $_POST['sobrenombre_n']);
-                             // $role = $_POST['role'];
-                            // $docide_n=$_POST['docide'];
                         $cdi =  ($_POST['cdi']);
+                        $periodo_nin =  ($_POST['periodo_ni']);
                         $n_estado = ( $_POST['estado_n']);
-                        
-
                         $image = $_FILES['image']['name'];
                         $image_temp = $_FILES['image']['tmp_name'];
                         if($image == null){
                             $image='defecto.png';
-                        }
-
-                //      echo($first_name.$last_name.$ci.$fechanaci.$paisnac.$provincianac.$parroquianac.$genero_ni.$grupoetnico_n.$discapacidad_n.$pocentajedisc. $sobrenombre);
-
-                        
+                        }                 
                         
                         //$password = crypt($password, $salt);
 /*----------------------empty =vacio--------------------------*/
                         if (empty($n_nombres) or empty($n_apellidos) or empty($ci)) {
                             $error = "Todos los (*) Campos son requeridos";
-                        } else 
-                        
-                        {
-   //echo ($last_name+$first_name+$docide_n+$ci+$fechanaci+$lugarnac+$genero_ni+$grupoetnico_n+$nombre_ma+$nombre_pa+$direccion_domic+$discapacidad_n+$pocentajedisc+$carnetcon+$sobrenombre+$cdi);
-                            
-                            
-                $insert_query = "  INSERT INTO tbl_datos_personales_ninio(apellidos, nombres, id_docide, numero_docide, fecha_nac, anio, mes, dia , pais, id_provincia, id_canton, id_parroquia, direccion_dom, referencia_ubicacion, id_genero, id_etnia, discapacidad, porcentaje, carnet_conadis, id_tipo_discapacidad, asiste_estableci_personas_discapacidad, nombre_establecimiento, peso, talla, id_niveles_ninio, como_lo_llaman, id_cdi, estado, imagen_ninio) VALUES ('$n_apellidos','$n_nombres','$tipo_docide','$ci','$fechanaci','$n_anio','$n_mes','$n_dia','$n_pais','$provincianac','$cantonnac','$parroquia_n','$direccion_domic','$referencia_dom','$genero_ni','$getnico_n','$n_discapacidad','$porcentaje_n','$c_conadis_n','$t_discapa_n','$establec_disca','$nombre_establec','$peso_n','$talla_n','$nivel_ninio','$sobrenombre','$cdi','$n_estado','$image')";
+                        } else{
+                            $insert_query = "INSERT INTO tbl_datos_personales_ninio(apellidos, nombres, id_docide, numero_docide, fecha_nac, anio, mes, dia , pais, 
+                            id_provincia, id_canton, id_parroquia, direccion_dom, referencia_ubicacion, id_genero, id_etnia, discapacidad, porcentaje, carnet_conadis, 
+                            id_tipo_discapacidad, asiste_estableci_personas_discapacidad, nombre_establecimiento, peso, talla, id_niveles_ninio, como_lo_llaman, id_cdi, 
+                            id_periodo_ninio, estado, imagen_ninio) VALUES ('$n_apellidos','$n_nombres','$tipo_docide','$ci','$fechanaci','$n_anio','$n_mes','$n_dia','$n_pais',
+                            '$provincianac','$cantonnac','$parroquia_n','$direccion_domic','$referencia_dom','$genero_ni','$getnico_n','$n_discapacidad',
+                            '$porcentaje_n','$c_conadis_n','$t_discapa_n','$establec_disca','$nombre_establec','$peso_n','$talla_n','$nivel_ninio','$sobrenombre',
+                            '$cdi', '$periodo_nin', '$n_estado','$image')";
                             if (mysqli_query($con, $insert_query)) {
                                $msg = "Datos ingresados";
                              //  $path="img/$image";
@@ -257,240 +234,222 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                             }
                         }
                     }
-                    ?>
+                    ?>                                  
 
-                                   
-
-<form action="" method="post" enctype="multipart/form-data">
-
-
+                    <form action="" method="post" enctype="multipart/form-data">
 <!--............................................Documento Identidad........................................................-->
                             <div class="row">                             
                                 <div class="col-md-8">
                                     <div class="form-group ">
-                                    <?php
-                                if (isset($error)) {
-                                    echo "<span style='color:red;' class='pull-right'>$error</span>";
-                                } else if (isset($msg)) {
-                                    echo "<span style='color:green;' class='pull-right'>$msg</span>";
-                                }
-                            ?>
-                                    <label for="ti_docide">Tipo de Documento de Identidad:</label>
-                                    <select class="form-control" name="ti_docide" id="ti_docide" required>
-                                    <option value="" >Seleccione</option>
                                         <?php
-                                        $sql_cdi = "select * from tbl_documento_identidad";
-                                        $ejecutar = mysqli_query($con, $sql_cdi);//ejecutar consulta
-                                        
-                                        if (mysqli_num_rows($ejecutar) > 0) {
-                                            while ($row2 = mysqli_fetch_array($ejecutar)) {                                                  
-                                                $detalledocu = $row2['detalle'];
-                                                $iddocu = $row2['id_docide'];
-                                                echo "<option value='" . $iddocu. "' " .  ">" . ($detalledocu) . "</option>";
-                                            }
-                                        } else {
-                                        // echo "<center><h6>Categoría no disponible</h6></center>";
-                                        }
+                                            if (isset($error)) {
+                                                echo "<span style='color:red;' class='pull-right'>$error</span>";
+                                            } else if (isset($msg)) {
+                                                echo "<span style='color:green;' class='pull-right'>$msg</span>";
+                                            }        
                                         ?>
-                                    </select>
-<!--............................................CI........................................................-->
-                                <div class="form-group">
-                                    <label for="ci">Número de Documento de Identificación:</label>
-                                    <input type="text" id="username" name="ci" class="form-control" maxlength="10" value="" placeholder="Ej:1234567890" required>
-                                </div>
-
-
-<!--............................................Apellidos........................................................-->
-                                <div class="form-group">
-                                    <label for="apellidos_n">Apellidos:</label>
-                                    <input type="text" id="apellidos_n" name="apellidos_n" class="form-control" value= "" placeholder="Apellidos" required>
-                                </div>
-
-<!--............................................Nombre........................................................-->                    
-                <!--    <div class="row">
-                        <div class="col-md-8">  -->
-                                <div class="form-group">
-                                    <label for="nombres_n">Nombres :</label>                                   
-                                    <input type="text" id="nombres_n" name="nombres_n" class="form-control" value= "<?php
-                                   ?>" placeholder="Nombres" required>
-                                </div>
-
-
-<!--............................................Fecha nacimiento........................................................-->
-                                <div class="form-group">
-                                    <label for="fecha_nac">Fecha de Nacimiento :</label>  
-                                   <!-- <input  class="form-control" placeholder="Fecha de Nacimiento">-->
-                                    <input type="date"  name="fecha_nac" class="form-control" id="fecha_nac" required>
-                                </div>
-
-
-<!--............................................Edad........................................................-->
-                           <!-- <label for="porcentaje_d">Peso:</label> -->
-                                <div class="row">
-                                    <div class="col-md-3">
-                                            <div class="input-group" id="calculafecha" required>
-                                                                                          
-                                            </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                            <div class="input-group" id="calculames" required>
-                                                                                          
-                                            </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                            <div class="input-group" id="calculadias" required>
-                                                                                          
-                                            </div>
-                                    </div>
-                                    
-                                </div>
-                                
-                                </div> 
-                                                          
-
-<!--............................................Lugar de Nacimiento........................................................-->
-
-                           
-                <div class="form-group">
-                    <label for="pais_n">Lugar de Nacimiento :</label> 
-
-                    <script type="text/javascript"  >
-
-                        function mostrar(a) {
-                            if (a== "otro") {
-                                $("#otro").show();
-                                $("#Ecuador").hide();
-                            
-                            }
-
-                            if (a == "1") {
-                                $("#otro").hide();
-                                $("#Ecuador").show();
-                        
-                            }
-
-                           
-                        }    
-                    </script>    
-
-            <!--     <div class="form-group">
-                     <label for="pais_n">Seleccione Pais:</label> 
-                        <select name="pais_nom" id="pais_n" class="form-control" onChange="mostrar(this.value);">
-                            <option value="seleccione">Seleccione</option>
-                            <option value="Ecuador">Ecuador</option>
-                            <option value="otro">Otro</option>
-                        
-                        </select>
-                    </div>  -->
-                    
-                    <select  class="form-control" onChange="mostrar(this.value); " name="pais_nom" required >
-                            <option value="" >Seleccione</option>
-                            <option name="pais_nom" value="1">Ecuador</option>
-                            <option value="otro">Otro</option>
-                        
-                    </select>
-                    
-                    <div id="otro" style="display: none;"> <br>
-                        
-                        <div class="form-group" >
-                        <label class = "col-md-3" style= padding-top: 1%;padding-right: 10% for="role">Seleccione el país:</label>  
-                            <div class="row" >                          
-                                <div class="col-md-8">                     
-                                 
-                                    <select class="form-control" name="pais_nom" id="pais_nom">
-                                                <option value="seleccione" selected>Seleccione</option>
-                                                <?php
-                                                    $sql_genero = "select * from tbl_pais WHERE id_pais != 1";
-                                                    $ejecutar = mysqli_query($con, $sql_genero);//ejecutar consulta
-                                                    
-                                                    if (mysqli_num_rows($ejecutar) > 0) {
-                                                        while ($row2 = mysqli_fetch_array($ejecutar)) {  
-                                                            
-                                                            $genero_n = $row2['detalle'];
-
-                                                            $id_genero = $row2['id_pais'];
-                                                            echo "<option value='" . $id_genero. "' " .  ">" . ($genero_n) . "</option>";
-                                                        }
-                                                    } 
-                                                ?>
-                                    </select>
-                                    </div>  
-                                    </div>
-                        </div>
-                    </div>
-
-                    
-                    
-                    
-                        <div id="Ecuador" style="display: none;" >  <br>
-                          <label for="provincia_n" class = "col-md-1" style="padding-top: 1%;padding-right: 10%" >Provincia:</label> 
-                            <div class="row" >                          
-                                <div class="col-md-8"> 
-                                    <select name="provincia_n" class="form-control" id="provincia">
-                                    <option value="0" selected>Seleccione</option>  
-                                        <?php
-                                            $sql_provincia = "select * from tbl_provincia";
-                                            $ejecutar_prov = mysqli_query($con, $sql_provincia);//ejecutar consulta
-                                            
-                                            if (mysqli_num_rows($ejecutar_prov) > 0) {
-                                                while ($row_prov = mysqli_fetch_array($ejecutar_prov)) {
-                                                    
-                                                    $nom_prov = $row_prov['detalle'];
-                                                    $id_prov = $row_prov['id_provincia'];
-                                                    echo "<option value='" . $id_prov. "' " .  ">" . ($nom_prov) . "</option>";
-                                                }
-                                            } 
-                                        ?>
-
-                                    </select>
-                                </div>
-                            </div>
-
-                            <br>
-                                <label for="canton_no" class = "col-md-1" style="padding-top: 1%;padding-right: 10%">Cantón:</label>                            
-                                <div class="row" >                          
-                                    <div class="col-md-8">
-                                        <select name="canton_no" id="canton" class="form-control" >
-                                                <option value="0" selected>Seleccione</option>
+                                        <label for="ti_docide">Tipo de Documento de Identidad:</label>
+                                        <select class="form-control" name="ti_docide" id="ti_docide" required>
+                                            <option value="" >Seleccione</option>
+                                            <?php
+                                                $sql_cdi = "select * from tbl_documento_identidad";
+                                                $ejecutar = mysqli_query($con, $sql_cdi);//ejecutar consulta
+                                                
+                                                if (mysqli_num_rows($ejecutar) > 0) {
+                                                    while ($row2 = mysqli_fetch_array($ejecutar)) {                                                  
+                                                        $detalledocu = $row2['detalle'];
+                                                        $iddocu = $row2['id_docide'];
+                                                        echo "<option value='" . $iddocu. "' " .  ">" . ($detalledocu) . "</option>";
+                                                    }
+                                                } 
+                                            ?>
                                         </select>
                                     </div>
                                 </div>
-                                <br>
-                                   <label for="parroquia_ni" class = "col-md-1" style="padding-top: 1%;padding-right: 10%">Parroquia:</label>
-                                    <div class="row" >                          
-                                        <div class="col-md-8">
-                                            <select name="parroquia_ni" class="form-control" id="parroquia">
-                                                <option value="0" selected>Seleccione</option>                                        
-                                            </select>
-                                        </div>
+                            </div>   
+<!--............................................CI........................................................-->
+                            <div class="row">                             
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label for="ci">Número de Documento de Identificación:</label>
+                                        <input type="text" id="username" name="ci" class="form-control" maxlength="10" value="" placeholder="Ej:1234567890" required>
                                     </div>
-                        </div>    
-                    
-                </div>
+                                </div>
+                            </div>
+
+
+<!--............................................Apellidos........................................................-->
+                            <div class="row">                             
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label for="apellidos_n">Apellidos:</label>
+                                        <input type="text" id="apellidos_n" name="apellidos_n" class="form-control" value= "" placeholder="Apellidos" required>
+                                    </div>
+                                </div>
+                            </div>
+
+<!--............................................Nombre........................................................-->                    
+                            <div class="row">                             
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label for="nombres_n">Nombres :</label>                                   
+                                        <input type="text" id="nombres_n" name="nombres_n" class="form-control" value= "<?php
+                                        ?>" placeholder="Nombres" required>
+                                    </div>
+                                </div>
+                            </div>
+
+<!--............................................Fecha nacimiento........................................................-->
+                            <div class="row">                             
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label for="fecha_nac">Fecha de Nacimiento :</label>  
+                                        <input type="date"  name="fecha_nac" class="form-control" id="fecha_nac" required>
+                                    </div>
+                                </div>
+                            </div>
+
+<!--............................................Edad........................................................-->
+                           
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="input-group" id="calculafecha" required></div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="input-group" id="calculames" required></div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="input-group" id="calculadias" required></div>
+                                </div>
+                            </div>                    
+                                                          
+
+<!--............................................Lugar de Nacimiento........................................................-->
+                            <div class="row">                             
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label for="pais_n">Lugar de Nacimiento :</label> 
+
+                                        <script type="text/javascript">
+                                            function mostrar(a) {
+                                                if (a== "otro") {
+                                                    $("#otro").show();
+                                                    $("#Ecuador").hide();                                        
+                                                }
+
+                                                if (a == "1") {
+                                                    $("#otro").hide();
+                                                    $("#Ecuador").show();                                    
+                                                }                                   
+                                            }    
+                                        </script>    
+                            
+                                            <select  class="form-control" onChange="mostrar(this.value); " name="pais_nom" required >
+                                                    <option value="" >Seleccione</option>
+                                                    <option name="pais_nom" value="1">Ecuador</option>
+                                                    <option value="otro">Otro</option>                                        
+                                            </select>
+                            
+                                            <div id="otro" style="display: none;"> <br>                        
+                                                <div class="form-group" >
+                                                <label class = "col-md-3" style= padding-top: 1%;padding-right: 10% for="role">Seleccione el país:</label>  
+                                                    <div class="row" >                          
+                                                        <div class="col-md-8">                          
+                                                            <select class="form-control" name="pais_nom" id="pais_nom">
+                                                                <option value="seleccione" selected>Seleccione</option>
+                                                                <?php
+                                                                    $sql_genero = "select * from tbl_pais WHERE id_pais != 1";
+                                                                    $ejecutar = mysqli_query($con, $sql_genero);//ejecutar consulta
+                                                                    
+                                                                    if (mysqli_num_rows($ejecutar) > 0) {
+                                                                        while ($row2 = mysqli_fetch_array($ejecutar)) {  
+                                                                            
+                                                                            $genero_n = $row2['detalle'];
+
+                                                                            $id_genero = $row2['id_pais'];
+                                                                            echo "<option value='" . $id_genero. "' " .  ">" . ($genero_n) . "</option>";
+                                                                        }
+                                                                    } 
+                                                                ?>
+                                                            </select>
+                                                        </div>  
+                                                    </div>
+                                                </div>
+                                            </div>            
+                            
+                                            <div id="Ecuador" style="display: none;" >  <br>
+                                              <label for="provincia_n" class = "col-md-1" style="padding-top: 1%;padding-right: 10%" >Provincia:</label> 
+                                                <div class="row" >                          
+                                                    <div class="col-md-8"> 
+                                                        <select name="provincia_n" class="form-control" id="provincia">
+                                                            <option value="0" selected>Seleccione</option>  
+                                                            <?php
+                                                                $sql_provincia = "select * from tbl_provincia";
+                                                                $ejecutar_prov = mysqli_query($con, $sql_provincia);//ejecutar consulta
+                                                                
+                                                                if (mysqli_num_rows($ejecutar_prov) > 0) {
+                                                                    while ($row_prov = mysqli_fetch_array($ejecutar_prov)) {
+                                                                        
+                                                                        $nom_prov = $row_prov['detalle'];
+                                                                        $id_prov = $row_prov['id_provincia'];
+                                                                        echo "<option value='" . $id_prov. "' " .  ">" . ($nom_prov) . "</option>";
+                                                                    }
+                                                                } 
+                                                            ?>
+                                                        </select>
+                                                    </div>
+                                                </div><br>
+                                                <label for="canton_no" class = "col-md-1" style="padding-top: 1%;padding-right: 10%">Cantón:</label>                            
+                                                <div class="row" >                          
+                                                    <div class="col-md-8">
+                                                        <select name="canton_no" id="canton" class="form-control" >
+                                                                <option value="0" selected>Seleccione</option>
+                                                        </select>
+                                                    </div>
+                                                </div><br>
+                                                <label for="parroquia_ni" class = "col-md-1" style="padding-top: 1%;padding-right: 10%">Parroquia:</label>
+                                                <div class="row" >                          
+                                                    <div class="col-md-8">
+                                                        <select name="parroquia_ni" class="form-control" id="parroquia">
+                                                            <option value="0" selected>Seleccione</option>                                        
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>    
+                                    </div>
+                                </div>
+                            </div>
         
 
 <!--............................................Direccion domiciliaria........................................................-->
-                                <div class="form-group">
-                                    <label for="direcion_do">Dirección del domicilio:</label>
-                                    <input type="text" id="direcion_do" name="direcion_do" class="form-control" value= "<?php
-                                    ?>" placeholder="Dirección Domiciliaria" required>
+                            <div class="row">                             
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label for="direcion_do">Dirección del domicilio:</label>
+                                        <input type="text" id="direcion_do" name="direcion_do" class="form-control" value= "<?php
+                                        ?>" placeholder="Dirección Domiciliaria" required>
+                                    </div>
                                 </div>
-
+                            </div>
 
 <!--............................................Referencia de Unbicación........................................................-->
-                                <div class="form-group">
-                                    <label for="referencia_domi">Referencia del domicilio:</label>
-                                    <input type="text" id="referencia_domi" name="referencia_domi" class="form-control" value= "<?php
-                                    ?>" placeholder="Referencia de Unbicación" required>
+                            <div class="row">                             
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label for="referencia_domi">Referencia del domicilio:</label>
+                                        <input type="text" id="referencia_domi" name="referencia_domi" class="form-control" value= "<?php
+                                        ?>" placeholder="Referencia de Unbicación" required>
+                                    </div>
                                 </div>
+                            </div>
 
-<!--............................................Genero........................................................-->
-                       
-                               
+<!--............................................Genero........................................................-->                       
+                        <div class="row">                             
+                            <div class="col-md-8">
                                 <div class="form-group">
-                                    <label for="genero_n">Género :</label>
+                                      <label for="genero_n">Género :</label>
                                     <select class="form-control" name="genero_n" id="genero_n" required>
-                                     <option value="">Seleccione</option>
+                                        <option value="">Seleccione</option>
                                         <?php
                                         $sql_genero = "select * from tbl_genero";
                                         $ejecutar = mysqli_query($con, $sql_genero);//ejecutar consulta
@@ -505,13 +464,15 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                                             }
                                         } 
                                         ?>
-                                    </select>
-                                    
+                                    </select>                                    
                                 </div>
+                            </div>
+                        </div>
                          
 
-<!--............................................Etnia........................................................-->
-                        
+<!--............................................Etnia........................................................-->                       
+                        <div class="row">                             
+                            <div class="col-md-8">
                                 <div class="form-group">
                                     <label for="grupoetnico">Grupo Étnico</label>
                                     <select class="form-control" name="grupoetnico" id="grupoetnico" required>
@@ -532,250 +493,268 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                                         ?>
                                     </select>
                                 </div>
+                            </div>                                
+                        </div>
                             
 
 <!--............................................Discapacidad........................................................-->
+                        <div class="form-group">
+                          <label for="date">Discapacidad :</label> 
+                            <script type="text/javascript">
+                                function mostrar_discapacidad(a) {
+                                    if (a== "No") {
+                                        $("#no_discap").show();
+                                        $("#si_discap").hide();                                                
+                                    }
+                                    if (a == "Si") {
+                                        $("#no_discap").hide();
+                                        $("#si_discap").show();
+                                    }                 
+                                }    
+                            </script>    
 
-    <div class="form-group">
-                    <label for="date">Discapacidad :</label> 
-
-                    <script type="text/javascript">
-                        function mostrar_discapacidad(a) {
-                            if (a== "No") {
-                                $("#no_discap").show();
-                                $("#si_discap").hide();
-                                
-                            }
-
-                            if (a == "Si") {
-                                $("#no_discap").hide();
-                                $("#si_discap").show();
-                            }                 
-                        }    
-                    </script>    
-
-                    <div class="form-group">
-                      <label for="n_discap">¿Tiene algún tipo de discapacidad?</label> 
-                        <div class="row">
-                            <div class="col-md-3">
-                                <select class="form-control" id="n_discap" name="n_discap" onChange="mostrar_discapacidad(this.value);" required>
-                                    <option value="">Seleccione</option>
-                                    <option value="Si">Si</option>
-                                    <option value="No">No</option>
-                                
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                            
-                    
-                <div id="no_discap" style="display: none;">                        
-                    
-                    
-                    
-                        <div id="si_discap" style="display: none;">
-                          <label class = "col-md-1" style="padding-top: 1%;padding-right: 10%" for="n_tipo_disca">Especifíque:</label> 
-                          <div class="row" >                          
-                                <div class="col-md-8">
-                                    <select name="n_tipo_disca" class="form-control" id="especificar">
-                                    <option value="0" selected>Seleccione</option>  
-                                        <?php
-                                            $sql_tdiscap = "select * from tbl_tipos_discapacidad";
-                                            $ejecutar_tdiscap = mysqli_query($con, $sql_tdiscap);//ejecutar consulta
-                                            
-                                            if (mysqli_num_rows($ejecutar_tdiscap) > 0) {
-                                                while ($row_tdiscap = mysqli_fetch_array($ejecutar_tdiscap)) {
-                                                    
-                                                    $nom_tdiscap = $row_tdiscap['detalle'];
-                                                    $id_tdisca = $row_tdiscap['id_tipo_discapacidad'];
-                                                    echo "<option value='" . $id_tdisca. "' " .  ">" . ($nom_tdiscap) . "</option>";
-                                                }
-                                            } 
-                                        ?>
-
-                                    </select>
-                                </div>
-                          </div>                           
-                         
-                          <br>
-                                 <label class = "col-md-1" style="padding-top: 1%;padding-right: 10%" for="porcentaje_d">Porcentaje:</label>
+                            <div class="form-group">
+                              <label for="n_discap">¿Tiene algún tipo de discapacidad?</label> 
                                 <div class="row">
                                     <div class="col-md-3">
+                                        <select class="form-control" id="n_discap" name="n_discap" onChange="mostrar_discapacidad(this.value);" required>
+                                            <option value="">Seleccione</option>
+                                            <option value="Si">Si</option>
+                                            <option value="No">No</option>                                                
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>                            
+            
+                            <div id="no_discap" style="display: none;"></div>                  
+            
+                            <div id="si_discap" style="display: none;">
+                                <label class = "col-md-1" style="padding-top: 1%;padding-right: 10%" for="n_tipo_disca">Especifíque:</label> 
+                                <div class="row" >                          
+                                    <div class="col-md-6">
+                                        <select name="n_tipo_disca" class="form-control" id="especificar">
+                                            <option value="0" selected>Seleccione</option>  
+                                            <?php
+                                                $sql_tdiscap = "select * from tbl_tipos_discapacidad";
+                                                $ejecutar_tdiscap = mysqli_query($con, $sql_tdiscap);//ejecutar consulta
+                                                
+                                                if (mysqli_num_rows($ejecutar_tdiscap) > 0) {
+                                                    while ($row_tdiscap = mysqli_fetch_array($ejecutar_tdiscap)) {
+                                                        
+                                                        $nom_tdiscap = $row_tdiscap['detalle'];
+                                                        $id_tdisca = $row_tdiscap['id_tipo_discapacidad'];
+                                                        echo "<option value='" . $id_tdisca. "' " .  ">" . ($nom_tdiscap) . "</option>";
+                                                    }
+                                                } 
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div><br>
+                               
+<!--............................................Porcentaje........................................................-->
+                                <div class="form-group">
+                                    <label class = "col-md-1" style="padding-top: 1%;padding-right: 10%" for="porcentaje_d">Porcentaje:</label>
+                                    <div class="row">
+                                        <div class="col-md-3">
                                             <div class="input-group">
                                                 <input type="text" id="n_porcentaje" name="n_porcentaje" maxlength="3" type="range" class="form-control" value="" placeholder="Porcentaje">
                                                 <span class="input-group-addon">%</span>   
                                             </div>
+                                        </div>
                                     </div>
                                 </div>
-                                
-                                <br>
+
+<!--............................................CONADIS........................................................-->
                                 <div class="form-group">
-                                     <label class = "col-md-1" style="padding-top: 0%;padding-right: 10%" for="n_conadis">¿Carnet CONADIS?</label>
+                                    <label class = "col-md-1" style="padding-top: 0%;padding-right: 10%" for="n_conadis">¿Carnet CONADIS?</label>
                                     <div class="row">
-                                            <div class="col-md-3">
-                                                    <select name="n_conadis" id="n_conadis" class="form-control">
-                                                        <option value="Si">Si</option>
-                                                        <option value="No" selected>No</option>
-                                                    </select>
-                                            </div>
+                                        <div class="col-md-3">
+                                            <select name="n_conadis" id="n_conadis" class="form-control">
+                                                <option value="Si">Si</option>
+                                                <option value="No" selected>No</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
+                                </div>                               
 
-
+<!--............................................ESTABLECIMIENTO DISCAPACIDAD........................................................-->
                                 <script type="text/javascript">
-                        function mostrar_establecimiento_discapacidad(a) {
-                            if (a== "No") {
-                                $("#no_establecimiento").show();
-                                $("#si_establecimiento").hide();
-                            
-                            }
+                                    function mostrar_establecimiento_discapacidad(a) {
+                                        if (a== "No") {
+                                            $("#no_establecimiento").show();
+                                            $("#si_establecimiento").hide();
+                                        }
 
-                            if (a == "Si") {
-                                $("#no_establecimiento").hide();
-                                $("#si_establecimiento").show();
-                            }                 
-                        }    
-                    </script>    
+                                        if (a == "Si") {
+                                            $("#no_establecimiento").hide();
+                                            $("#si_establecimiento").show();
+                                        }                 
+                                    }    
+                                </script>    
 
-                    <div class="form-group">
-                      <label  for="n_establec_dis" style="padding-left: 2%" >¿Asiste a algún establecimiento de Educación Especial?</label> 
-                        <div class="row">
-                            <div class="col-md-3" style="padding-left: 4%">
-                                <select class="form-control" id="n_establec_dis" name="n_establec_dis" onChange="mostrar_establecimiento_discapacidad(this.value);">
-                                    <option value="Si">Si</option>
-                                    <option value="No" Selected>No</option>
-                                
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                            
+                                <div class="form-group">
+                                    <label  for="n_establec_dis" style="padding-left: 2%" >¿Asiste a algún establecimiento de Educación Especial?</label> 
+                                    <div class="row">
+                                        <div class="col-md-3" style="padding-left: 4%">
+                                            <select class="form-control" id="n_establec_dis" name="n_establec_dis" onChange="mostrar_establecimiento_discapacidad(this.value);">
+                                                <option value="Si">Si</option>
+                                                <option value="No" Selected>No</option>                                            
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>                            
+            
+                                <div id="no_establecimiento" style="display: none;"></div>                    
                     
-                    <div id="no_establecimiento" style="display: none;">                        
-                        <div class="form-group">
-                         <label for="n_establec_dis">***************No ASISTE NADIE***************</label>                             
-                        </div>
-                    </div>
-                    
-                    
-                        <div id="si_establecimiento" style="display: none;">
-                                <div class="form-group" style="padding-left: 4%">
-                                    <label for="nom_establec">Nombre/Lugar:</label>
-                                    <input type="text" id="nom_establec" name="nom_establec" class="form-control" value= "" placeholder="Nombre/Lugar">
-                                </div>
-
-
-                                </div>  
-                    </div>
+                                <div id="si_establecimiento" style="display: none;">
+                                    <div class="form-group" style="padding-left: 4%">
+                                        <div class="row">
+                                            <div class="col-md-7">
+                                                <label for="nom_establec">Nombre:</label>
+                                                <input type="text" id="nom_establec" name="nom_establec" class="form-control" value= "" placeholder="Nombre">
+                                            </div>
+                                        </div> 
+                                    </div> 
+                                </div> 
+                            </div>  
+                     
 
  <!--............................................Peso........................................................-->
-                           <label for="n_peso">Peso:</label>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                            <div class="input-group">
-                                            
+                                    <label for="n_peso">Peso:</label>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="input-group">                                                
                                                 <input type="text" id="n_peso" name="n_peso" maxlength="3" type="range" value="" min="1" max="100"class="form-control" value="" placeholder="Peso" required>
                                                 <span class="input-group-addon">kg</span>   
                                             </div>
+                                        </div>
                                     </div>
-                                </div>
 
 
 <!--............................................Talla........................................................-->
-                            <label for="n_talla">Talla:</label>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                            <div class="input-group">
-                                            
+                                    <label for="n_talla">Talla:</label>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="input-group">                                            
                                                 <input type="text" id="n_talla" name="n_talla" maxlength="3" type="range" value="" min="1" max="100"class="form-control" value="" placeholder="Talla" required>
                                                 <span class="input-group-addon">cm</span>   
                                             </div>
-                                    </div>
-                                </div>                            
+                                        </div>
+                                    </div>                            
 
-<!--............................................Nivel niño.......................................................-->
-                            
-                                <div class="form-group">
-                                    <label for="role">Nivel académico:</label>
-                                    <select class="form-control" name="ninio_nivel" id="ninio_nivel" required>
-                                      <option value="">Seleccione</option>
-                                        <?php
-                                        $sql_nivel_ninio = "select * from tbl_niveles_estudio_ninio";
-                                        $ejecutar = mysqli_query($con, $sql_nivel_ninio);//ejecutar consulta
-                                        
-                                        if (mysqli_num_rows($ejecutar) > 0) {
-                                            while ($row2 = mysqli_fetch_array($ejecutar)) {  
-                                                
-                                                $detalle_nivel = $row2['detalle'];
+<!--............................................Nivel niño.......................................................-->                            
+                                    <div class="row">                             
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                              <label for="role">Nivel académico:</label>
+                                                <select class="form-control" name="ninio_nivel" id="ninio_nivel" required>
+                                                  <option value="">Seleccione</option>
+                                                    <?php
+                                                    $sql_nivel_ninio = "select * from tbl_niveles_estudio_ninio";
+                                                    $ejecutar = mysqli_query($con, $sql_nivel_ninio);//ejecutar consulta
+                                                    
+                                                    if (mysqli_num_rows($ejecutar) > 0) {
+                                                        while ($row2 = mysqli_fetch_array($ejecutar)) {  
+                                                            
+                                                            $detalle_nivel = $row2['detalle'];
 
-                                                $id_nivel = $row2['id_niveles_ninio'];
-                                                echo "<option value='" . $id_nivel. "' " .  ">" . ($detalle_nivel) . "</option>";
-                                            }
-                                        } 
-                                        ?>
-                                    </select>
-                                </div>
-                            
+                                                            $id_nivel = $row2['id_niveles_ninio'];
+                                                            echo "<option value='" . $id_nivel. "' " .  ">" . ($detalle_nivel) . "</option>";
+                                                        }
+                                                    } 
+                                                    ?>
+                                                </select>
+                                            </div> 
+                                        </div> 
+                                    </div>                           
 
 <!--............................................Sobrenombre........................................................-->
-
-                                <div class="form-group">
-                                    <label for="sobrenombre_n">¿Como lo llaman en casa?</label>
-                                    <input type="text" id="sobrenombre_n" name="sobrenombre_n" class="form-control" value="" placeholder="Sobrenombre" required>
-                                </div>
-                                
+                                    <div class="row">                             
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label for="sobrenombre_n">¿Como lo llaman en casa?</label>
+                                                <input type="text" id="sobrenombre_n" name="sobrenombre_n" class="form-control" value="" placeholder="Sobrenombre" required>
+                                            </div>
+                                        </div>                                
+                                    </div>
 
 <!--............................................CDI.......................................................-->                                
-                                <div class="form-group">
-                                    <label for="role">Nombre del CDI:</label>
-                                    <select class="form-control" name="cdi" id="cdi" required>
-                                    <option value="">Seleccione</option>
-                                        <?php
-                                        $sql_cdi = "SELECT * FROM `tbl_cdi` WHERE id != 100 AND id != 101";
-                                        $ejecutar = mysqli_query($con, $sql_cdi);//ejecutar consulta
-                                        
-                                        if (mysqli_num_rows($ejecutar) > 0) {
-                                            while ($row2 = mysqli_fetch_array($ejecutar)) {  
-                                                
-                                                $cdi = $row2['nombre'];
+                                    <div class="row">                             
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label for="role">Nombre del CDI:</label>
+                                                <select class="form-control" name="cdi" id="cdi" required>
+                                                <option value="">Seleccione</option>
+                                                    <?php
+                                                    $sql_cdi = "SELECT * FROM `tbl_cdi` WHERE id = '$_nom_cdi' AND id != 100 AND id != 101";
+                                                    $ejecutar = mysqli_query($con, $sql_cdi);//ejecutar consulta
+                                                    
+                                                    if (mysqli_num_rows($ejecutar) > 0) {
+                                                        while ($row2 = mysqli_fetch_array($ejecutar)) {  
+                                                            
+                                                            $cdi = $row2['nombre'];
 
-                                                $idcdi = $row2['id'];
-                                                echo "<option value='" . $idcdi. "' " .  ">" . ($cdi) . "</option>";
-                                            }
-                                        } 
-                                        ?>
-                                    </select>
-                                </div>
-                                
+                                                            $idcdi = $row2['id'];
+                                                            echo "<option value='" . $idcdi. "' " .  ">" . ($cdi) . "</option>";
+                                                        }
+                                                    } 
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+<!--............................................PEriodo........................................................-->                       
+                                    <div class="row">                             
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label for="periodo_ni">Período académico:</label>
+                                                <select class="form-control" name="periodo_ni" id="periodo_ni" required>
+                                                    <option value="">Seleccione</option>
+                                                    <?php
+                                                    $sql_periodo_n = "select * from tbl_periodo WHERE id_periodo = $_nom_periodo";
+                                                    $ejecutar = mysqli_query($con, $sql_periodo_n);//ejecutar consulta
+                                                    
+                                                    if (mysqli_num_rows($ejecutar) > 0) {
+                                                        while ($row2 = mysqli_fetch_array($ejecutar)) {                                                           
+                                                            $periodo_ini = $row2['inicio'];
+                                                            $periodo_fin = $row2['fin'];
+                                                            $id_periodo_n = $row2['id_periodo'];
+                                                            echo "<option value='" . $id_periodo_n. "' " .  ">" . ("$periodo_ini $periodo_fin") . "</option>";
+                                                        }
+                                                    } 
+                                                    ?>
+                                                </select>                                    
+                                            </div>
+                                        </div>
+                                    </div>                                    
 <!--............................................estado........................................................-->
 
-                       <input type="hidden" name="estado_n" class="form-control" value= "Activo">
+                                    <input type="hidden" name="estado_n" class="form-control" value= "Activo">
                                    
 
 <!--............................................Imagen........................................................-->
-                                <div class="form-group">
-                                    <label for="image">Fotografía</label>
-                                    <input type="file" id="image" name="image">
-                                </div>
-
+                                    <div class="form-group">
+                                        <label for="image">Fotografía</label>
+                                        <input type="file" id="image" name="image">
+                                    </div>
+                                
                                 <input type="submit" value="Agregar Datos Personales del Niño(a)" name="submit" class="btn btn-primary">
                                 <a href="menuprincipaldatosninio.php">
-                                            <button type="button" class="btn btn-primary">Regresar</button>
+                                    <button type="button" class="btn btn-primary">Regresar</button>
                                 </a>
-                            </form>
-
-                        </div>
-                                    <div class="col-md-4">
-                                        <?php
-                                        if (isset($check_image)) {
-                                            echo "<img src='img/$check_image' width='50%'>";
-                                        }
-                                        ?>
-                                    </div>
-                    </div>
+                    </form>
                 </div>
+                                <!--    <div class="col-md-4">  -->
+                                        <?php
+                                        //if (isset($check_image)) {
+                                        //   echo "<img src='img/$check_image' width='50%'>";
+                                        //}
+                                        ?>
+                                <!--    </div>   -->
             </div>
         </div>
-
-
-        <?php require_once('inc/footer.php'); ?>
+    </div>
+    
+<?php require_once('inc/footer.php'); ?>
+    

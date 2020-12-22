@@ -45,6 +45,7 @@ $_nom_cdi = $_SESSION['tipo_cdi'];
                         $password =($_POST['password']);
                         $cdi = ($_POST['cdi']);
                         $periodo_academic = ($_POST['periodo_acad']);
+                        $estado_us_ni = ($_POST['estado_us_n']);
                         $image = $_FILES['image']['name'];
                         $image_temp = $_FILES['image']['tmp_name'];
                         if($image == null){
@@ -60,7 +61,7 @@ $_nom_cdi = $_SESSION['tipo_cdi'];
                         if (empty($first_name) or empty($last_name) or empty($username) or empty($email) or empty($password)) {   //username
                             $error = "Todos los (*) Campos son requeridos";
                         } else {
-                            $insert_query = "INSERT INTO `tbl_usuario` ( `id_usuario`,`id_docide`,`ci`,`apellidos`,`nombres`,`fecha_ingreso`,`tipo`,`direccion_dom`,`telefono`,`correo_e`,`contrasenia`,`id_cdi`, id_periodo_usuario,`imagen_usuario`) values('id_usuario','$tipo_docide','$username','$last_name','$first_name','$fecha_ingreso','$role','$dir','$telef','$email','$password','$cdi', $periodo_academic,'$image')";
+                            $insert_query = "INSERT INTO `tbl_usuario` ( `id_usuario`,`id_docide`,`ci`,`apellidos`,`nombres`,`fecha_ingreso`,`tipo`,`direccion_dom`,`telefono`,`correo_e`,`contrasenia`,`id_cdi`, id_periodo_usuario, `estado_us`, `imagen_usuario`) values('id_usuario','$tipo_docide','$username','$last_name','$first_name','$fecha_ingreso','$role','$dir','$telef','$email','$password','$cdi', $periodo_academic, '$estado_us_ni', '$image')";
                             if (mysqli_query($con, $insert_query)) {
                                 $msg = "Usuario ingresado";
                                 $path="img/$image";
@@ -234,14 +235,19 @@ $_nom_cdi = $_SESSION['tipo_cdi'];
                                     </select>
                                 </div>
                                 
+<!--............................................estado........................................................-->
 
+                                    <input type="hidden" name="estado_us_n" class="form-control" value= "activo">
+
+
+<!--............................................Fotografia........................................................-->
                                 <div class="form-group">
                                     <label for="image">Fotografía:</label>
                                     <input type="file" id="image" name="image">
                                 </div>
 
                                 <input type="submit" value="Agregar Usuario" name="submit" class="btn btn-primary">
-                            </form>
+                        </form>
                         </div>
                             <div class="col-md-4">
                                 <?php

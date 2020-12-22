@@ -135,7 +135,7 @@ $get_comment_run = mysqli_query($con, $get_comment);
             </div>
              <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
                <div class="card-body">
-                  <a href="niniosregistrados_se.php" class="list-group-item">
+                  <a href="niniosregistrados_ing_se.php" class="list-group-item">
                     <i class="fa fa-folder-open"></i> Ingrese Información Socio Económica
                   </a>
                   <a href="nisocioeconomico.php" class="list-group-item">
@@ -384,6 +384,78 @@ $get_comment_run = mysqli_query($con, $get_comment);
  
         <?php } ?>
 </div>
+<!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX MENU ADMIN SISTEMA XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
+<div class="list-group rojo"  >
+      <?php
+       if ($session_role1 == '1') {
+      ?>
+      <a href="../admin/index.php" class="list-group-item active" style="background-color:#595757">
+        <i class="fas fa-home"></i>  Menu principal
+      </a>
+ 
+   
+        <!--<a href="comments.php" class="list-group-item">
+            <?php
+              if ($num_of_rows > 0) {
+                echo "<span class='badge'>$num_of_rows</span>";
+              }
+            ?>
+              <i class="fa fa-comment"></i> Comentarios Realizados
+               </a>-->
+       
+              <a href="../superadministrador/add-user_cg.php" class="list-group-item">
+                <i class="fas fa-user-plus"></i> Agregar Coordinador General
+              </a>   
+
+              <a href="../superadministrador/users_cg.php" class="list-group-item">
+                  <i class="fa fa-users"></i> Coordinador General Registrado
+              </a>
+
+              <a href="../superadministrador/add-user_vs.php" class="list-group-item">
+                <i class="fas fa-user-plus"></i> Agregar Trabajadora Social
+              </a>   
+
+              <a href="users_vs.php" class="list-group-item">
+                  <i class="fa fa-users"></i> Trabajadora Social Registrada
+              </a>
+              
+              <div class="list-group-item">
+                      <div class="card-header quitarespaciosidebar" id="headingTwo">
+                        <h5 class="letrasmenuficha">
+                        <i class="fas fa-university"></i>
+                          <button class="btn collapsed" style="color:#555555" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                            Centros de desarrollo Infantil
+                          </button>
+                        </h5>
+                      </div>
+                          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                            <div class="card-body">
+                              <a href="../superadmin/menu_cdi1.php" class="list-group-item">
+                                <i class="fa fa-folder-open"></i> CDI 1
+                              </a>
+                              <a href="nientrevistaregistrada.php" class="list-group-item">
+                                <i class="fa fa-folder-open"></i> CDI 2
+                              </a>
+                              <a href="nientrevistaregistrada.php" class="list-group-item">
+                                <i class="fa fa-folder-open"></i> CDI 3
+                              </a>
+                              <a href="nientrevistaregistrada.php" class="list-group-item">
+                                <i class="fa fa-folder-open"></i> CDI 4
+                              </a>
+                              <a href="nientrevistaregistrada.php" class="list-group-item">
+                                <i class="fa fa-folder-open"></i> CDI 5
+                              </a>
+                              <a href="nientrevistaregistrada.php" class="list-group-item">
+                                <i class="fa fa-folder-open"></i> CDI 6
+                              </a>
+                            </div>
+                          </div>
+                    </div>
+              
+ 
+        <?php } ?>
+</div>
+
 
 
 

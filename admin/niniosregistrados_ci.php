@@ -2,7 +2,11 @@
 <?php
 if (!isset($_SESSION['username'])) {
     header('Location: login.php');
-} 
+}
+$_nom_cdi = $_SESSION['tipo_cdi'];
+//echo $_nom_cdi; 
+$_nom_periodo = $_SESSION['periodo_ac'];
+//echo $_nom_periodo;
 
 if (isset($_GET['del'])) {
     $del_id = $_GET['del'];
@@ -60,11 +64,35 @@ if (isset($_GET['del'])) {
                         <li class="active"><i class="fa fa-users"></i> Información de Entrevista Inicial</li>
                     </ol>
                     <?php
-                    $query = "SELECT * FROM tbl_datos_personales_ninio Where estado='Activo'";
+                    $query = "SELECT * FROM tbl_datos_personales_ninio Where estado='Activo' AND id_cdi = $_nom_cdi AND id_periodo_ninio = $_nom_periodo ORDER BY apellidos ASC";
                     $run = mysqli_query($con, $query);
                     if (mysqli_num_rows($run) > 0) {
                         ?>
-                        <form action="" method="post">
+
+            <form action="" method="post">
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <div class="row">
+                                        <div class="col-xs-4">
+                                            <div class="form-group">
+                                                <select name="bulk-options" id="" class="form-control">
+                                                    
+                                                    <option value="">Seleccionar</option>
+                                                    <option value="delete">Eliminar</option>
+                                                    <option value="author">Subir</option>
+                                                    <option value="admin">Bajar</option> 
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-8">
+                                            <input type="submit" class="btn btn-success" value="Aplicar cambios">
+                                            <a href="ing_dp_ninio.php" class="btn btn-primary">Agregar Nuevo</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        
                             
                             <?php
                             if (isset($error)) {
@@ -135,7 +163,7 @@ if (isset($_GET['del'])) {
                                             <td><?php echo $first_name; ?></td>
                                           
                                             <td><a href="ing_entrevista_i.php?edit=<?php echo $idninio; ?>"><i class="far fa-file-alt"></i></a></td>
-                                            <td><a href="niniosregistrados.php?del=<?php echo $idninio; ?>"><i class="fas fa-trash-alt"></i></a></td> 
+                                            <td><a href="niniosregistrados_ci.php?del=<?php echo $idninio; ?>" onclick="return confirm('¿Desea Borrar?');"><i class="fas fa-trash-alt"></i></a></td> 
                                             
                                                         
                                         </tr>
