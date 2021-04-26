@@ -7,15 +7,27 @@ if (!isset($_SESSION['username'])) {
     header('Location: index.php');
 }*/
 
+$tipo_user = $_SESSION['roleSS'];
+//echo $tipo_user;
+
 if (isset($_GET['edit'])) {
     $edit_id = $_GET['edit'];
 }
 
+$sql="SELECT * FROM `tbl_usuario_nombre` WHERE  id_usuario_nombre = $tipo_user;";
+        
+        $check_username_run = mysqli_query($con, $sql);//ejecutar consulta 
+        $row = mysqli_fetch_array($check_username_run); //atratpa todos los valores de la fila
+        $db_id_us_nivel = $row['id_usuario_nombre'];
+        $db_detalle = $row['detalle'];
+        $db_nivel_permisos = $row['nivel_permisos'];
+ //echo $db_id_us_nivel;
+
 if (isset($_GET['del'])) {
     $del_id = $_GET['del'];
 
-    echo($_SESSION['roleSS']);
-    if ( $_SESSION['roleSS'] == 'Coordinador') {
+    
+    if ( $db_id_us_nivel == $tipo_user) {
         $del_query = "DELETE FROM tbl_alergias WHERE id_alergias = '$del_id'";
         if (mysqli_query($con, $del_query)) {
             $del_msg = "Alergia ha sido eliminada";
@@ -146,7 +158,7 @@ if (isset($_POST['update'])) {
                         </div>
                         <div class="col-md-6"><br>
                             <?php
-                            $get_query = "SELECT * FROM tbl_alergias ORDER BY id_alergias DESC";
+                            $get_query = "SELECT * FROM tbl_alergias ORDER BY detalle ASC";
                             $get_run = mysqli_query($con, $get_query);
                             if (mysqli_num_rows($get_run) > 0) {
 
@@ -158,7 +170,8 @@ if (isset($_POST['update'])) {
                                 ?>
 
 
-                                <table class="table table-hover table-bordered table-striped">
+                                <table class="table table-bordered table-striped table-hover" id="example" >
+
                                     <thead>
                                         <tr>
                                             <th>Número</th>
@@ -169,12 +182,14 @@ if (isset($_POST['update'])) {
                                     </thead>
                                     <tbody>
                                         <?php
+                                        $cont = 0;
                                         while ($get_row = mysqli_fetch_array($get_run)) {
                                             $alergias_id = $get_row['id_alergias'];
                                             $detallealergia_name = $get_row['detalle'];
+                                            $cont++;
                                             ?>
                                             <tr>
-                                                <td><?php echo $alergias_id; ?></td>
+                                                <td><?php echo $cont; ?></td>
                                                 <td><?php echo ($detallealergia_name); ?></td>
                                                 <td><a href="proalergias.php?edit=<?php echo $alergias_id; ?>"><i class="far fa-edit"></i></a></td>
                                                 <td><a href="proalergias.php?del=<?php echo $alergias_id; ?>" onclick="return confirm('¿Desea Borrar?');  "><i class="fas fa-trash-alt"></i></a></td>

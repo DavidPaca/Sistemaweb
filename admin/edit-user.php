@@ -14,8 +14,9 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
    // if (mysqli_num_rows($edit_query_run) > 0) {/*if numero de filas es mayor q 0*/
         $edit_row = mysqli_fetch_array($edit_query_run);//fetch array sirve para que tu atrapestoda la fila de una table... fetch assoc.
         //$row = mysqli_fetch_array($run)
+        //$idninio = $edit_row['id_ninio'];
         $tipo_docum = $edit_row['id_docide'];
-        $ci=$edit_row['ci'];
+        //$ci=$edit_row['ci'];
         $apellidos=$edit_row['apellidos'];
         $nombre = $edit_row['nombres'];
         $fecha_ing = $edit_row['fecha_ingreso'];
@@ -41,7 +42,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
         <div class="container-fluid body-section">
             <div class="row">
                 <div class="col-md-3">
-                    <?php require_once('inc/sidebar.php'); ?>
+                <?php require_once('../admin/inc/sidebar.php'); ?>
                 </div>
                 <div class="col-md-9">
                     <h1><i class="fa fa-user-plus"></i> Editar<small> Usuario</small></h1><hr>
@@ -51,26 +52,36 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                     </ol>
                     <?php
                     if (isset($_POST['submit'])) {//si se ha presionado el boton subbmit
-                        //$date = time();
+                        
                         $tipo_docide = ($_POST['tipo_docid']);
                         $first_name = ( $_POST['first-name']);
                         $last_name = ( $_POST['last-name']);
-                        $username = ( $_POST['ci']);
+                        //$username = ( $_POST['ci']);
                         $fecha_ingreso = ($_POST['fecha_ing']);
-                        $password = ( $_POST['password']);
-                        $role = ($_POST['role']);
+                        //$password = ( $_POST['password']);
+                        //$role = ($_POST['role']);
                         $email = ($_POST['email']);
                         $telef = ($_POST['telef']);
                         $dir = ($_POST['dir']);
-                        $cdi = ($_POST['cdi']);
+                        //$cdi = ($_POST['cdi']);
 
-                        echo($tipo_docide.$first_name.$last_name.$username.$fecha_ingreso.$password.$role.$email.$telef.$dir.$cdi);
+                        //echo($tipo_docide.$first_name.$last_name.$username.$fecha_ingreso.$password.$role.$email.$telef.$dir.$cdi);
 
 
-                        $consulta="update tbl_usuario set id_docide='$tipo_docide', ci='$username',apellidos='$last_name',nombres='$first_name', fecha_ingreso='$fecha_ingreso', tipo='$role',correo_e='$email',direccion_dom='$dir',telefono='$telef',contrasenia='$password',id_cdi='$cdi' where id_usuario = '$edit_id'";
-                        $ejecutar = mysqli_query($con, $consulta);//ejecutar consulta
-                        header("location: users.php");
-                        
+                        $consulta="UPDATE tbl_usuario set id_docide='$tipo_docide', apellidos='$last_name',nombres='$first_name', fecha_ingreso='$fecha_ingreso', correo_e='$email',direccion_dom='$dir',telefono='$telef' where id_usuario = '$edit_id'";
+                        //$ejecutar = mysqli_query($con, $consulta);//ejecutar consulta
+                        //header("location: users.php");
+                        if (mysqli_query($con, $consulta)) {
+
+                            
+                        //header('location: ../admin/index.php');
+                          //     $msg = "Usuario ingresado";
+                           $msg = "Información actualizada";                          
+                           header("Location: ../admin/index.php"); /*para poder volver al blog o login*/
+                         } 
+                         else {
+                           $error = "Información no actualizada";
+                         }
                         
                         //$password = crypt($password, $salt);
 
@@ -79,15 +90,21 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                     ?>
                     <div class="row">
                         <div class="col-md-8">
-                            <form action="" method="post" enctype="multipart/form-data">
+                        <form action="" method="post" enctype="multipart/form-data">
                              
+                            <?php
+                            //    if (isset($error)) {
+                              //      echo "<span style='color:red;' class='pull-right'>$error</span>";
+                                //} else if (isset($msg)) {
+                                  //  echo "<span style='color:green;' class='pull-right'>$msg</span>";
+                               // }
+                            ?>
 
                                 <div class="form-group">
                                     <label for="role">Tipo de Documento de Identidad:</label>
                                     <select class="form-control" name="tipo_docid" id="categories">
                                     
-                                      <?php
-                                        
+                                      <?php                                    
 
                                         $sql_tdocu = "select * from tbl_documento_identidad ";
                                         $ejecutar = mysqli_query($con, $sql_tdocu);//ejecutar consulta
@@ -115,11 +132,16 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                             </div>
                                 
                                 
-                                <div class="form-group">
-                                    <label for="username">Número de documento de identidad:</label>
-                                    <input type="text" id="username" name="ci" class="form-control" value="<?php echo($ci);
-                                    
-                                    ?>" >
+                            <div class="form-group">
+                                    <div class="row">                                       
+                                        <div class="col-md-9">
+                                            <label for="ci">Número de documento de identidad:</label>
+                                            <input type="text" id="ci" name="ci" class="form-control" value= "Número de documento de identidad" disabled>
+                                        </div>
+                                        <a href="edit_user_num_cedula.php?edit=<?php echo $edit_id; ?>">
+                                            <button type="button" style="margin-top: 3%" class="btn btn-primary">Editar </button>
+                                        </a>
+                                    </div>
                                 </div>
 
 
@@ -134,32 +156,19 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
 
 
                                 <div class="form-group">
-                                    <label for="first-name">Nombres:</label>
-                                    
+                                    <label for="first-name">Nombres:</label>                                    
                                     <input type="text" id="first-name" name="first-name" class="form-control" value="<?php echo($nombre);   
                                     if (isset($first_name)) {
                                         echo $first_name;
                                     }
                                     ?>">
-                                </div>
-
-                                
+                                </div>                                
 
                                 
                                 <div class="form-group">
                                     <label for="date">Fecha de Ingreso :</label>  
                                     <input type="date"  name="fecha_ing" class="form-control" value="<?php echo($fecha_ing);?>">
-                                </div>
-                                
-
-                                <div class="form-group">
-                                    <label for="role">Tipo de Ususario:</label>
-                                    <select name="role" id="role" class="form-control" value="<?php echo($tipo); ?>" >
-                                        <option value="Coordinador">Coordinador</option>
-                                        <option value="Parvulario">Parvulario</option>
-                                        
-                                    </select>
-                                </div>
+                                </div>             
 
 
                                 <div class="form-group">
@@ -169,7 +178,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
 
                                 <div class="form-group">
                                     <label for="telef">Teléfono:</label>
-                                    <input type="text" id="telef" name="telef" maxlength="10" class="form-control" value="<?php echo($telefono);?>"  placeholder="Teléfono">
+                                    <input type="text" id="telef" name="telef" class="form-control" value="<?php echo($telefono);?>"  placeholder="Teléfono" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                                 </div>
 
 
@@ -181,62 +190,20 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                     }
                                     ?> >
                                 </div>
-
-                                <div class="form-group">
-                                    <label for="Password">Contraseña:</label>
-                                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" value="<?php echo($contrasenia);?>"> 
-                                </div>
-
-
-                                <div class="form-group">
-                                    <label for="role">Centro de Desarrollo Infantil:</label>
-                                    <select class="form-control" name="cdi" id="categories">
-                                        <?php
-                                            $sql_cdi = "SELECT * FROM `tbl_cdi` WHERE id != 100 AND id !=101";
-                                            $ejecutar = mysqli_query($con, $sql_cdi);//ejecutar consulta
-                                            $sql_llenarcdi = "SELECT tbl_usuario.id_cdi,tbl_cdi.nombre FROM tbl_usuario INNER JOIN tbl_cdi ON tbl_usuario.id_cdi = tbl_cdi.id Where id_usuario = $edit_id";
-                                            $ejecutarllenarcdi = mysqli_query($con, $sql_llenarcdi);
-                                            $row3 = mysqli_fetch_array($ejecutarllenarcdi);
-                                                 $idllcdic=$row3['id'];
-                                                 $detallellcdi=$row3['nombre'];
-                                                echo "<option value='" . $idllcdic. "' " .  " selected>" . ($detallellcdi) . "</option>";
-                                           
-                                                if (mysqli_num_rows($ejecutar) > 0) {
-                                                while ($row2 = mysqli_fetch_array($ejecutar)) {
-                                                    
-                                                    $cdi = $row2['nombre'];
-                                                    $idcdi = $row2['id'];
-                                                    echo "<option value='" . $idcdi. "' " .  ">" . ($cdi) . "</option>";
-                                                }
-                                            } else {
-                                                echo "<center><h6>Categoría no disponible</h6></center>";
-                                            }
-                                        ?>
-                                    </select>
-                                </div>
+                               
+                                <input type="submit" value="Actualizar información" name="submit" class="btn btn-primary">
                                 
+                                <!--     <a href="profile_users_adm_sist.php?edit=<?php echo $edit_id; ?>">
+                                  <button type="button" class="btn btn-primary">Regresar</button>
+                                </a>  -->
 
-                                <div class="form-group">
-                                    <label for="image">Fotografía:</label>
-                                    <input type="file" id="image" name="image">
-                                </div>
-
-                                <input type="submit" value="Terminar Edición" name="submit" class="btn btn-primary">
-                                <a href="users.php">
-                                            <button type="button" class="btn btn-primary">Cancelar</button>
-                                </a>
                                 <a href="profile_users.php?edit=<?php echo $edit_id; ?>">
-                                            <button type="button" class="btn btn-primary">Regresar</button>
+                                  <button type="button" class="btn btn-primary">Regresar</button>
                                 </a>
-                            </form>
+                        </form>
+                            
                         </div>
-                                <div class="col-md-4">
-                                    <?php
-                                    if (isset($check_image)) {
-                                        echo "<img src='img/$check_image' width='50%'>";
-                                    }
-                                    ?>
-                                </div>
+                                
                     </div>
                 </div>
             </div>

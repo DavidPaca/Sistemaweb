@@ -96,9 +96,9 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                
                         //$password = crypt($password, $salt);
 /*----------------------empty =vacio--------------------------*/
-                        if (empty($tipo_docide_se) or empty( $num_ci_se) ) { //or empty($username) or empty($email) or empty($password)) {
-                            $error = "Todos los (*) Campos son requeridos";
-                        } else {
+                     //   if ( empty( $num_ci_se) ) { //or empty($username) or empty($email) or empty($password)) {
+                       //     $error = "Todos los (*) Campos son requeridos";
+                       // } else {
                             $insert_query = "INSERT INTO `tbl_socio_economica` (`id_ninio_se`, `id_tipo_docum`, `num_documide`, `apellidos_se`, `nombres_se`, 
                             `edad_se`,`estado_civil_se`, `etnia_se`, `parentesco_se`, `direccion_dom_se`, `telefono_dom_se`, 
                             `instruccion_se`, `ocupación_se`, `vinculo_laboral`, `direccion_laboral_se`, `telefono_trabajo_se`, `vivienda_acupa_es`,
@@ -113,6 +113,9 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                             '$num_hijos_varones_se', '$num_hijas_mujeres_se', '$consume_alcohol_se', '$ud_fuma_se', '$familiar_discapacidad_se','$asisten_al_manuela_esp_se', 
                             '$miembros_trabajan_se', '$ingreso_mensual_se', '$egreso_mensual_se',  '$otra_actv_gene_ing_se', '$especifique_actividad_se', '$nivel_vida_12_se', 
                             '$ing_mensual_emp_mejo_se')";
+
+                            $del_query = "UPDATE tbl_datos_personales_ninio SET estado_se ='1' WHERE id_ninio= $edit_id";
+                            $consulta = mysqli_query($con, $del_query);
 
                             //$insert_query = "INSERT INTO tbl_usuario (ci,apellidos,nombres,tipo,correo_e,direccion_dom,telefono,contrasenia,id_cdi,referencia_cdi,imagen_usuario) values('$username','$last_name','$first_name','$role','$email','$dir','$telef','$password','$cdi','referencia','$image')";
                             if (mysqli_query($con, $insert_query)) {
@@ -132,14 +135,15 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                             } else {
                                 $error = "Información Socio económica No Ingresada";
                             }
-                        }
+                       // }
                     }
                     ?>
 
 <!--------------------------------------------------Tamaño cajones------------------------------------------------------------>
                     
                     <form action="" method="post" enctype="multipart/form-data">     
-                            
+
+                       
 
 <!--............................................Numero_ci/Apellidos/Nombres........................................................-->
                                         <div class="form-group">
@@ -166,12 +170,37 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
 
 <!--*********************************************** DATOS REPRESENTANTE **************************************************** -->                                             
                                         <div class="row">
-                                            <label for="nom_dpr" style="font-size:1.5rem">DATOS PERSONALES DEL REPRESENTANTE</label>
+                                            <label for="nom_dpr" style="font-size:1.5rem; color:#2174AB">DATOS PERSONALES DEL REPRESENTANTE</label>
                                         </div>
                                         
 
 <!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ID PRINCIPAL DEL NIÑO XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
                         <input type="hidden" name="id_de_ninios_se" id = "id_de_ninios_se" value= "<?php echo $edit_id ?>">
+
+<!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX PARENTESCO XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-8" >
+                                            <label for="parentesco_repre">Parentesco :</label>
+                                            <select class="form-control" name="parentesco_repre" id="parentesco_repre" >
+                                                <option value="">Seleccione</option>
+                                                <?php
+                                                $sql_parentesco_repre = "select * from tbl_parentesco order by detalle asc";
+                                                $ejecutar = mysqli_query($con, $sql_parentesco_repre);//ejecutar consulta
+                                                
+                                                if (mysqli_num_rows($ejecutar) > 0) {
+                                                    while ($row2 = mysqli_fetch_array($ejecutar)) {  
+                                                        
+                                                        $detalle_parent_repre = $row2['detalle'];
+                                                        $id_parent_repre = $row2['id_parentesco'];
+                                                        echo "<option value='" . $id_parent_repre. "' " .  ">" . ($detalle_parent_repre) . "</option>";
+                                                    }
+                                                } 
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
 
 
 <!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Tipo Documento XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
@@ -180,10 +209,10 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                     <div class="row">
                                           
                                          <label for="tipo_docide_se">Tipo de Documento de Identificación :</label>
-                                        <select class="form-control" name="tipo_docide_se" id="tipo_docide_se" required>
+                                        <select class="form-control" name="tipo_docide_se" id="tipo_docide_se" >
                                             <option value="" >Seleccione</option>
                                             <?php
-                                                $sql_t_doc_repre = "select * from tbl_documento_identidad";
+                                                $sql_t_doc_repre = "select * from tbl_documento_identidad order by detalle asc";
                                                 $ejecutar = mysqli_query($con, $sql_t_doc_repre);//ejecutar consulta
                                                 
                                                 if (mysqli_num_rows($ejecutar) > 0) {
@@ -204,28 +233,28 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                     <div class="row">
                                         <div class="col-md-8">  
                                             <label for="ci_se">Número de Documento de Identificación :</label>
-                                            <input type="text" id="ci_se" name="ci_se" class="form-control" maxlength="10" value="" placeholder="Ej:1234567890" required>
+                                            <input type="text" id="ci_se" name="ci_se" class="form-control" value="" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="Ej:1234567890" >
                                         </div>
                                     </div>    
                                 </div>
 
-<!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX DOCUMENTO IDENTIDAD XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+<!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX APELLIDOS XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-8">  
                                             <label for="apellidos_repre">Apellidos :</label>
-                                            <input type="text" id="apellidos_repre" name="apellidos_repre" class="form-control" value= "" placeholder="Apellidos" required>
+                                            <input type="text" id="apellidos_repre" name="apellidos_repre" class="form-control" value= "" placeholder="Apellidos" >
                                         </div>
                                     </div>
                                 </div>
 
-<!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX DOCUMENTO IDENTIDAD XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+<!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX NOMBRES XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-8"> 
                                             <label for="nombres_repre">Nombres :</label>                                   
                                             <input type="text" id="nombres_repre" name="nombres_repre" class="form-control" value= "<?php
-                                            ?>" placeholder="Nombres" required>
+                                            ?>" placeholder="Nombres" >
                                         </div>
                                     </div>
                                 </div>
@@ -236,7 +265,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                     <div class="row">
                                         <div class="col-md-3">
                                             <div class="input-group">
-                                                <input type="number" id="edad_repre" name="edad_repre" maxlength="3" class="form-control" value="" placeholder="Edad" required>
+                                                <input type="text" id="edad_repre" name="edad_repre" maxlength="3" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control" value="" placeholder="Edad" >
                                                 <span class="input-group-addon">años</span>   
                                             </div>
                                         </div>
@@ -248,10 +277,10 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                     <div class="row">
                                         <div class="col-md-8">
                                               <label for="estado_civ_repre">Estado Civil :</label>
-                                            <select class="form-control" name="estado_civ_repre" id="estado_civ_repre" required>
+                                            <select class="form-control" name="estado_civ_repre" id="estado_civ_repre" >
                                                   <option value="">Seleccione</option>
                                                 <?php
-                                                $sql_est_civil_repre = "select * from tbl_estado_civil";
+                                                $sql_est_civil_repre = "select * from tbl_estado_civil order by detalle asc";
                                                 $ejecutar = mysqli_query($con, $sql_est_civil_repre);//ejecutar consulta                                        
                                                 if (mysqli_num_rows($ejecutar) > 0) {
                                                     while ($row2 = mysqli_fetch_array($ejecutar)) {                                                  
@@ -271,10 +300,10 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                     <div class="row">
                                         <div class="col-md-8">
                                               <label for="g_etnico_repre">Grupo Étnico :</label>
-                                            <select class="form-control" name="g_etnico_repre" id="g_etnico_repre" required>
+                                            <select class="form-control" name="g_etnico_repre" id="g_etnico_repre" >
                                                   <option value="">Seleccione</option>
                                                 <?php
-                                                $sql_etnia_repre = "select * from tbl_etnia";
+                                                $sql_etnia_repre = "select * from tbl_etnia order by detalle asc";
                                                 $ejecutar = mysqli_query($con, $sql_etnia_repre);//ejecutar consulta                                        
                                                 if (mysqli_num_rows($ejecutar) > 0) {
                                                     while ($row2 = mysqli_fetch_array($ejecutar)) {                                                  
@@ -289,30 +318,6 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                     </div>
                                 </div>
 
-<!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX PARENTESCO XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-8" >
-                                            <label for="parentesco_repre">Parentesco :</label>
-                                            <select class="form-control" name="parentesco_repre" id="parentesco_repre" required>
-                                            <option value="">Seleccione</option>
-                                                <?php
-                                                $sql_parentesco_repre = "select * from tbl_parentesco";
-                                                $ejecutar = mysqli_query($con, $sql_parentesco_repre);//ejecutar consulta
-                                                
-                                                if (mysqli_num_rows($ejecutar) > 0) {
-                                                    while ($row2 = mysqli_fetch_array($ejecutar)) {  
-                                                        
-                                                        $detalle_parent_repre = $row2['detalle'];
-                                                        $id_parent_repre = $row2['id_parentesco'];
-                                                        echo "<option value='" . $id_parent_repre. "' " .  ">" . ($detalle_parent_repre) . "</option>";
-                                                    }
-                                                } 
-                                                ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
 
 <!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Direccion dom XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
                                 <div class="form-group">
@@ -320,7 +325,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                         <div class="col-md-8" >
                                             <label for="direcion_do_repre">Dirección del domicilio :</label>
                                             <input type="text" id="direcion_do_repre" name="direcion_do_repre" class="form-control" value= "<?php
-                                            ?>" placeholder="Dirección del domicilio" required>
+                                            ?>" placeholder="Dirección del domicilio" >
                                         </div>
                                     </div>
                                 </div>
@@ -331,7 +336,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                         <div class="col-md-8" >
                                             <label for="tlefono_repre">Teléfono :</label>
                                             <input type="text" id="tlefono_repre" name="tlefono_repre" class="form-control" value= "<?php
-                                            ?>" placeholder="Ej: 123456789" required>
+                                            ?>" placeholder="Ej: 123456789" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57' >
                                         </div>
                                     </div>
                                 </div>
@@ -341,10 +346,10 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                     <div class="row">
                                         <div class="col-md-8" >
                                             <label for="instruccion_repre">Instrucción :</label>
-                                            <select class="form-control" name="instruccion_repre" id="instruccion_repre" required>
-                                            <option value="">Seleccione</option>
+                                            <select class="form-control" name="instruccion_repre" id="instruccion_repre" >
+                                                <option value="">Seleccione</option>
                                                 <?php
-                                                $sql_instruccion_repre = "select * from tbl_instruccion";
+                                                $sql_instruccion_repre = "select * from tbl_instruccion order by detalle asc";
                                                 $ejecutar = mysqli_query($con, $sql_instruccion_repre);//ejecutar consulta
                                                 
                                                 if (mysqli_num_rows($ejecutar) > 0) {
@@ -366,10 +371,10 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                     <div class="row">
                                         <div class="col-md-8" >
                                             <label for="ocupacion_repre">Ocupación :</label>
-                                            <select class="form-control" name="ocupacion_repre" id="ocupacion_repre" required>
-                                            <option value="">Seleccione</option>
+                                            <select class="form-control" name="ocupacion_repre" id="ocupacion_repre" >
+                                                <option value="">Seleccione</option>
                                                 <?php
-                                                $sql_ocupacion_repre = "select * from tbl_ocupacion";
+                                                $sql_ocupacion_repre = "select * from tbl_ocupacion order by detalle asc";
                                                 $ejecutar = mysqli_query($con, $sql_ocupacion_repre);//ejecutar consulta
                                                 
                                                 if (mysqli_num_rows($ejecutar) > 0) {
@@ -391,7 +396,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                 <div class="row">                                  
                                     <div class="col-md-8">
                                         <label for="vinculo_laboral_se">Vínculo laboral:</label>
-                                        <input type="text" id="vinculo_laboral_se" name="vinculo_laboral_se" class="form-control" value="" placeholder="Vínculo laboral" required>
+                                        <input type="text" id="vinculo_laboral_se" name="vinculo_laboral_se" class="form-control" value="" placeholder="Vínculo laboral" >
                                     </div>
                                 </div>
                             </div>                                 
@@ -401,7 +406,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                     <div class="row">
                                         <div class="col-md-8" >
                                             <label for="direcion_trabajo_repre">Dirección del trabajo :</label>
-                                            <input type="text" id="direcion_trabajo_repre" name="direcion_trabajo_repre" class="form-control" value= "" placeholder="Dirección del domicilio" required>
+                                            <input type="text" id="direcion_trabajo_repre" name="direcion_trabajo_repre" class="form-control" value= "" placeholder="Dirección del trabajo" >
                                         </div>
                                     </div>
                                 </div>
@@ -412,14 +417,14 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                         <div class="col-md-8" >
                                             <label for="tlefono_tabajo_repre">Teléfono del trabajo :</label>
                                             <input type="text" id="tlefono_tabajo_repre" name="tlefono_tabajo_repre" class="form-control" value= "<?php
-                                            ?>" placeholder="Ej: 123456789" required>
+                                            ?>" placeholder="Ej: 123456789" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                                         </div>
                                     </div>
                                 </div>
                                 
 <!--*********************************************** DATOS DE VIVIENDA Y HOGAR **************************************************** -->                                             
                                         <div class="row">
-                                            <label for="nom_dpr" style="font-size:1.5rem">DATOS DE VIVIENDA Y HOGAR</label>
+                                            <label for="nom_dpr" style="font-size:1.5rem; color:#2174AB">DATOS DE VIVIENDA Y HOGAR</label>
                                         </div>
 
 <!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Vivienda (arrendada prestada propia) XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->                                                                                                                          
@@ -427,10 +432,10 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                     <div class="row">
                                         <div class="col-md-8" >
                                             <label for="vivienda_ocupa">La vivienda que ocupa es:</label>
-                                            <select class="form-control" name="vivienda_ocupa" id="vivienda_ocupa" required>
-                                            <option value="">Seleccione</option>
+                                            <select class="form-control" name="vivienda_ocupa" id="vivienda_ocupa" >
+                                                <option value="">Seleccione</option>
                                                 <?php
-                                                $sql_vivienda_ocupa = "select * from tbl_vivienda";
+                                                $sql_vivienda_ocupa = "select * from tbl_vivienda order by detalle asc";
                                                 $ejecutar = mysqli_query($con, $sql_vivienda_ocupa);//ejecutar consulta
                                                 
                                                 if (mysqli_num_rows($ejecutar) > 0) {
@@ -452,10 +457,10 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                     <div class="row">
                                         <div class="col-md-8" >
                                             <label for="vivienda_tipo">Su vivienda es:</label>
-                                            <select class="form-control" name="vivienda_tipo" id="vivienda_tipo" required>
-                                            <option value="">Seleccione</option>
+                                            <select class="form-control" name="vivienda_tipo" id="vivienda_tipo" >
+                                                <option value="">Seleccione</option>
                                                 <?php
-                                                $sql_vivienda_tipo = "select * from tbl_tipo_vivienda";
+                                                $sql_vivienda_tipo = "select * from tbl_tipo_vivienda order by detalle asc";
                                                 $ejecutar = mysqli_query($con, $sql_vivienda_tipo);//ejecutar consulta
                                                 
                                                 if (mysqli_num_rows($ejecutar) > 0) {
@@ -478,7 +483,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                              <label for="numer_habitaciones">¿Cuántos cuartos tiene su vivienda?</label> 
                                                 <div class="row">
                                                     <div class="col-md-3">
-                                                        <select class="form-control" id="numer_habitaciones" name="numer_habitaciones" required>
+                                                        <select class="form-control" id="numer_habitaciones" name="numer_habitaciones" >
                                                             <option value="seleccione">Seleccione</option>
                                                             <option value="1">1</option>
                                                             <option value="2">2</option>
@@ -510,10 +515,10 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                     <div class="row">
                                         <div class="col-md-8" >
                                             <label for="piso_tipo">El piso de su casa es:</label>
-                                            <select class="form-control" name="piso_tipo" id="piso_tipo" required>
-                                            <option value="">Seleccione</option>
+                                            <select class="form-control" name="piso_tipo" id="piso_tipo" >
+                                                <option value="">Seleccione</option>
                                                 <?php
-                                                $sql_piso_tipo = "select * from tbl_tipo_piso";
+                                                $sql_piso_tipo = "select * from tbl_tipo_piso order by detalle asc";
                                                 $ejecutar = mysqli_query($con, $sql_piso_tipo);//ejecutar consulta
                                                 
                                                 if (mysqli_num_rows($ejecutar) > 0) {
@@ -535,10 +540,10 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                     <div class="row">
                                         <div class="col-md-8" >
                                             <label for="paredes_tipo">Las paredes de su casa son:</label>
-                                            <select class="form-control" name="paredes_tipo" id="paredes_tipo" required>
-                                            <option value="">Seleccione</option>
+                                            <select class="form-control" name="paredes_tipo" id="paredes_tipo" >
+                                                <option value="">Seleccione</option>
                                                 <?php
-                                                $sql_pared_tipo = "select * from tbl_tipo_pared";
+                                                $sql_pared_tipo = "select * from tbl_tipo_pared order by detalle asc";
                                                 $ejecutar = mysqli_query($con, $sql_pared_tipo);//ejecutar consulta
                                                 
                                                 if (mysqli_num_rows($ejecutar) > 0) {
@@ -560,10 +565,10 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                     <div class="row">
                                         <div class="col-md-8" >
                                             <label for="techo_tipo">El techo de su casa es:</label>
-                                            <select class="form-control" name="techo_tipo" id="techo_tipo" required>
+                                            <select class="form-control" name="techo_tipo" id="techo_tipo" >
                                             <option value="">Seleccione</option>
                                                 <?php
-                                                $sql_techo_tipo = "select * from tbl_tipo_techo";
+                                                $sql_techo_tipo = "select * from tbl_tipo_techo order by detalle asc";
                                                 $ejecutar = mysqli_query($con, $sql_techo_tipo);//ejecutar consulta
                                                 
                                                 if (mysqli_num_rows($ejecutar) > 0) {
@@ -660,7 +665,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                                 <select class="form-control" name="serv_basic" id="serv_basic">
                                                                   <option value="seleccione">Seleccione</option>
                                                                     <?php
-                                                                    $sql_ser_bas = "select * from tbl_servicios_basicos";
+                                                                    $sql_ser_bas = "select * from tbl_servicios_basicos order by detalle asc";
                                                                     $ejecutar = mysqli_query($con, $sql_ser_bas);//ejecutar consulta
                                                                     
                                                                     if (mysqli_num_rows($ejecutar) > 0) {
@@ -688,7 +693,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
 
 <!--*********************************************** BONO DE DESARROLLO HUMANO **************************************************** -->                                             
                                         <div class="row">
-                                            <label for="nom_dpr" style="font-size:1.5rem">BONO DE DESARROLLO HUMANO</label>
+                                            <label for="nom_dpr" style="font-size:1.5rem; color:#2174AB">BONO DE DESARROLLO HUMANO</label>
                                         </div>
 
 <!--*********************************************************** Recibe vono ******************************************************************-->
@@ -696,7 +701,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                   <label for="recibe_bono_dh">¿Recibe bono de desarrollo humano?</label> 
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <select class="form-control" id="recibe_bono_dh" name="recibe_bono_dh" required>
+                                            <select class="form-control" id="recibe_bono_dh" name="recibe_bono_dh" >
                                                 <option value="">Seleccione</option>
                                                 <option value="Si">Si</option>
                                                 <option value="No">No</option>                                
@@ -707,15 +712,15 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
 
 <!--*********************************************** MIEMBROS DEL HOGAR Y EDUCACIÓN **************************************************** -->                                             
                                         <div class="row">
-                                            <label for="nom_dpr" style="font-size:1.5rem">MIEMBROS DEL HOGAR Y EDUCACIÓN</label>
+                                            <label for="nom_dpr" style="font-size:1.5rem; color:#2174AB">MIEMBROS DEL HOGAR Y EDUCACIÓN</label>
                                         </div>
 
-<!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Num habitaciones XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+<!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Num miembros XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
                                             <div class="form-group">
                                              <label for="miembros_h_familia">¿Cuátos miembros de su hogar componen su familia?</label> 
                                                 <div class="row">
                                                     <div class="col-md-3">
-                                                        <select class="form-control" id="miembros_h_familia" name="miembros_h_familia" required>
+                                                        <select class="form-control" id="miembros_h_familia" name="miembros_h_familia" >
                                                             <option value="seleccione">Seleccione</option>
                                                             <option value="0">0</option>
                                                             <option value="1">1</option>
@@ -743,13 +748,13 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                 </div>
                                             </div>  
 
-<!--............................................Numero_ci/Apellidos/Nombres........................................................-->
+<!--............................................Numero_hijos........................................................-->
                                         <div class="form-group">
                                         <label for="num_hijos_varones">Número de hijos:</label>
                                             <div class="row">                                  
                                                 <label class = "col-md-1" style="padding-top: 1%;padding-right: 10%" for="num_hijos_varones">Hombres:</label>  
                                                 <div class="col-md-3">
-                                                    <select class="form-control" id="num_hijos_varones" name="num_hijos_varones" required>
+                                                    <select class="form-control" id="num_hijos_varones" name="num_hijos_varones" >
                                                         <option value="seleccione">Seleccione</option>
                                                         <option value="0">0</option>
                                                         <option value="1">1</option>
@@ -776,7 +781,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                 </div>
                                                 <label class = "col-md-1" style="padding-top: 1%;padding-right: 10%" for="num_hijas_mujeres">Mujeres:</label> 
                                                 <div class="col-md-3">
-                                                    <select class="form-control" id="num_hijas_mujeres" name="num_hijas_mujeres" required>
+                                                    <select class="form-control" id="num_hijas_mujeres" name="num_hijas_mujeres" >
                                                         <option value="seleccione">Seleccione</option>
                                                         <option value="0">0</option>
                                                         <option value="1">1</option>
@@ -887,6 +892,15 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                                 'ajax_estado_seco_mh':estado_seco_mh,
                                                             },
                                                           success: function (respuesta){
+                                                            document.getElementById("parentesco_mh").value = "Seleccione";
+                                                            document.getElementById("apellido_mh").value = "";
+                                                            document.getElementById("nombre_mh").value = "";
+                                                            document.getElementById("edad_mh").value = "";
+                                                            document.getElementById("instruccion_mh").value = "Seleccione";
+                                                            document.getElementById("ocupacion_mh").value = "Seleccione";
+                                                            document.getElementById("vinculo_lab_mh").value = "";
+                                                            document.getElementById("dir_trab_mh").value = "";
+                                                            document.getElementById("tlf_trab_mh").value = "";
                                                               //alert(respuesta);
                                                             list_miembros_hogar();
                                                           },
@@ -900,11 +914,15 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                   });  
                                                 });
 
+                                               
+
                                             </script>
+
+                                            
 
 <!-------------------------------------------------- Inputs - selects -Miembros del hogar ------------------------------------------------------------>                             
                                     <div class="form-group">
-                                            <label for="miembros_hog">Registro de los miembros del hogar:</label> 
+                                            <label for="miembros_hog">Registro de los miembros del hogar (No volver a ingresar datos del representante):</label> 
                                     <!--    <form id="frmajax" method="POST">     -->
                                             <div class="row">
                                                 <label class = "col-md-1" style="padding-top: 1%;padding-right: 10%" for="parentesco_mh">Parentesco:</label> 
@@ -912,7 +930,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                     <select class="form-control" name="parentesco_mh" id="parentesco_mh">
                                                         <option value="seleccione">Seleccione</option>
                                                         <?php
-                                                        $sql_parentesco_mh = "select * from tbl_parentesco";
+                                                        $sql_parentesco_mh = "select * from tbl_parentesco order by detalle asc";
                                                         $ejecutar = mysqli_query($con, $sql_parentesco_mh);//ejecutar consulta
                                                         
                                                         if (mysqli_num_rows($ejecutar) > 0) {
@@ -931,14 +949,14 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                             <div class="row">                                  
                                                 <label class = "col-md-1" style="padding-top: 1%;padding-right: 10%" for="apellido_mh">Apellidos:</label>  
                                                 <div class="col-md-8">
-                                                    <input name="apellido_mh" id= "apellido_mh" class="form-control" value="" placeholder="Apellidos" required>
+                                                    <input name="apellido_mh" id= "apellido_mh" class="form-control" value="" placeholder="Apellidos" >
                                                 </div>
                                             </div> <br> 
 
                                             <div class="row">                                  
                                                 <label class = "col-md-1" style="padding-top: 1%;padding-right: 10%" for="nombre_mh">Nombres:</label>  
                                                 <div class="col-md-8">
-                                                    <input type="text" id="nombre_mh" name="nombre_mh" class="form-control" value="" placeholder="Nombres" required>
+                                                    <input type="text" id="nombre_mh" name="nombre_mh" class="form-control" value="" placeholder="Nombres" >
                                                 </div>
                                             </div> <br>
 
@@ -946,7 +964,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                 <label class = "col-md-1" style="padding-top: 1%;padding-right: 10%" for="edad_mh">Edad:</label>  
                                                 <div class="col-md-3">
                                                     <div class="input-group">
-                                                        <input type="text" id="edad_mh" name="edad_mh" maxlength="3" class="form-control" value="" placeholder="Edad">
+                                                        <input type="text" id="edad_mh" name="edad_mh" maxlength="3" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control" value="" placeholder="Edad">
                                                         <span class="input-group-addon">años</span>
                                                     </div>
                                                 </div>
@@ -958,7 +976,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                     <select class="form-control" name="instruccion_mh" id="instruccion_mh">
                                                         <option value="seleccione">Seleccione</option>
                                                         <?php
-                                                        $sql_instruccion_mh = "select * from tbl_instruccion";
+                                                        $sql_instruccion_mh = "select * from tbl_instruccion order by detalle asc";
                                                         $ejecutar = mysqli_query($con, $sql_instruccion_mh);//ejecutar consulta
                                                         
                                                         if (mysqli_num_rows($ejecutar) > 0) {
@@ -980,7 +998,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                     <select class="form-control" name="ocupacion_mh" id="ocupacion_mh">
                                                         <option value="seleccione">Seleccione</option>
                                                         <?php
-                                                        $sql_ocupacion_mh = "select * from tbl_ocupacion";
+                                                        $sql_ocupacion_mh = "select * from tbl_ocupacion order by detalle asc";
                                                         $ejecutar = mysqli_query($con, $sql_ocupacion_mh);//ejecutar consulta
                                                         
                                                         if (mysqli_num_rows($ejecutar) > 0) {
@@ -999,21 +1017,21 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                             <div class="row">                                  
                                                 <label class = "col-md-1" style="padding-top: 0%;padding-right: 10%" for="vinculo_lab_mh">Vínculo laboral:</label>  
                                                 <div class="col-md-8">
-                                                    <input type="text" id="vinculo_lab_mh" name="vinculo_lab_mh" class="form-control" value="" placeholder="Vínculo laboral" required>
+                                                    <input type="text" id="vinculo_lab_mh" name="vinculo_lab_mh" class="form-control" value="" placeholder="Vínculo laboral" >
                                                 </div>
                                             </div> <br>
 
                                             <div class="row">                                  
                                                 <label class = "col-md-1" style="padding-top: 0%;padding-right: 10%" for="dir_trab_mh">Dirección trabajo:</label>  
                                                 <div class="col-md-8">
-                                                    <input type="text" id="dir_trab_mh" name="dir_trab_mh" class="form-control" value="" placeholder="Dirección trabajo" required>
+                                                    <input type="text" id="dir_trab_mh" name="dir_trab_mh" class="form-control" value="" placeholder="Dirección trabajo" >
                                                 </div>
                                             </div> <br>
 
                                             <div class="row">                                  
                                                 <label class = "col-md-1" style="padding-top: 0%;padding-right: 10%" for="tlf_trab_mh">Teléfono:</label>  
                                                 <div class="col-md-8">
-                                                    <input type="text" id="tlf_trab_mh" name="tlf_trab_mh" class="form-control" value="" placeholder="Teléfono trabajo" required>
+                                                    <input type="text" id="tlf_trab_mh" name="tlf_trab_mh" class="form-control" value="" placeholder="Teléfono trabajo" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                                                 </div>
                                                 <button type="button" class="btn btn-primary" id="btn_miembros_hogar">Agregar</button>
                                             <!--    <input type="submit" value="Agregar" name="frmajax" class="btn btn-primary">  -->
@@ -1022,7 +1040,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                             
                                             <input type="hidden" id = "estado_seco" name="estado_seco" class="form-control" value= "Activo">
                                                                           
-                                            </div> 
+                                             
                                                 <div class="row" >
                                                     <div class="card" style="width: 100%;">
                                                         <div class="card-body">                                       
@@ -1031,13 +1049,13 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                         </div>
                                                     </div>
                                                 </div>
-                                             
+                                    </div>         
                                     <!--    </form>  -->
                                       
 
 <!--*********************************************** PRESENCIA DE ENFERMEDADES **************************************************** -->                                             
                                         <div class="row">
-                                            <label for="nom_dpr" style="font-size:1.5rem">PRESENCIA DE ENFERMEDADES</label>
+                                            <label for="nom_dpr" style="font-size:1.5rem; color:#2174AB">PRESENCIA DE ENFERMEDADES</label>
                                         </div>
 
 <!--*********************************************************** Bebidas alcoholicas ******************************************************************-->
@@ -1045,7 +1063,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                   <label for="consume_alcohol">¿Consume bebidas alcohólicas?</label> 
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <select class="form-control" id="consume_alcohol" name="consume_alcohol" required>
+                                            <select class="form-control" id="consume_alcohol" name="consume_alcohol" >
                                                 <option value="">Seleccione</option>
                                                 <option value="Si">Si</option>
                                                 <option value="No">No</option>                                
@@ -1059,7 +1077,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                   <label for="ud_fuma">¿Usted fuma?</label> 
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <select class="form-control" id="ud_fuma" name="ud_fuma" required>
+                                            <select class="form-control" id="ud_fuma" name="ud_fuma" >
                                                 <option value="">Seleccione</option>
                                                 <option value="Si">Si</option>
                                                 <option value="No">No</option>                                
@@ -1073,7 +1091,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                   <label for="familiar_discapacidad">¿Sufre algún miembro de la familia alguna discapacidad?</label> 
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <select class="form-control" id="familiar_discapacidad" name="familiar_discapacidad" required>
+                                            <select class="form-control" id="familiar_discapacidad" name="familiar_discapacidad" >
                                                 <option value="">Seleccione</option>
                                                 <option value="Si">Si</option>
                                                 <option value="No">No</option>                                
@@ -1087,7 +1105,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                   <label for="asisten_al_manuela_esp">¿El/los miembro(s) de la familia con discapacidad accede a la Misión Manuela Espejo?</label> 
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <select class="form-control" id="asisten_al_manuela_esp" name="asisten_al_manuela_esp" required>
+                                            <select class="form-control" id="asisten_al_manuela_esp" name="asisten_al_manuela_esp">
                                                 <option value="">Seleccione</option>
                                                 <option value="Si">Si</option>
                                                 <option value="No">No</option>                                
@@ -1098,7 +1116,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
 
 <!--*********************************************** INGRESO FAMILIAR **************************************************** -->                                             
                                         <div class="row">
-                                            <label for="nom_dpr" style="font-size:1.5rem">INGRESO FAMILIAR</label>
+                                            <label for="nom_dpr" style="font-size:1.5rem; color:#2174AB">INGRESO FAMILIAR</label>
                                         </div> 
 
 <!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Num habitaciones XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
@@ -1106,7 +1124,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                              <label for="miembros_trabajan">¿Cuátos miembros del hogar trabajan?</label> 
                                                 <div class="row">
                                                     <div class="col-md-3">
-                                                        <select class="form-control" id="miembros_trabajan" name="miembros_trabajan" required>
+                                                        <select class="form-control" id="miembros_trabajan" name="miembros_trabajan" >
                                                             <option value="seleccione">Seleccione</option>
                                                             <option value="1">1</option>
                                                             <option value="2">2</option>
@@ -1139,8 +1157,8 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                     <div class="row">
                                         <div class="col-md-3">
                                             <div class="input-group">
-                                            <span class="input-group-addon">$</span>
-                                                <input type="number" step="0.01" id="ingreso_mensual" name="ingreso_mensual" class="form-control" value="" placeholder="000,00" required>
+                                                <span class="input-group-addon">$</span>
+                                                <input type="number" step="0.01" id="ingreso_mensual" name="ingreso_mensual" class="form-control" value="" placeholder="000,00" >
                                                    
                                             </div>
                                         </div>
@@ -1153,8 +1171,8 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                     <div class="row">
                                         <div class="col-md-3">
                                             <div class="input-group">
-                                            <span class="input-group-addon">$</span>
-                                                <input step="0.01" type="number" id="egreso_mensual" name="egreso_mensual" class="form-control" value="" placeholder="000,00" required>
+                                                <span class="input-group-addon">$</span>
+                                                <input step="0.01" type="number" id="egreso_mensual" name="egreso_mensual" class="form-control" value="" placeholder="000,00" >
                                                    
                                             </div>
                                         </div>
@@ -1179,7 +1197,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                              <label for="otra_actv_gene_ing">¿Realiza otra actividad que le generan ingresos?</label> 
                                                 <div class="row">
                                                     <div class="col-md-3">
-                                                        <select class="form-control" id="otra_actv_gene_ing" name="otra_actv_gene_ing" onChange="mostrar_otra_actividad_genera_ingresos(this.value);" required>
+                                                        <select class="form-control" id="otra_actv_gene_ing" name="otra_actv_gene_ing" onChange="mostrar_otra_actividad_genera_ingresos(this.value);" >
                                                             <option value="seleccione">Seleccione</option>
                                                             <option value="Si">Si</option>
                                                             <option value="No">No</option>
@@ -1197,7 +1215,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                     <label class = "col-md-1" style="padding-top: 1%;padding-right: 10%" for="especifique_actividad">Especifíque:</label>  
                                                     <div class="row" >                          
                                                         <div class="col-md-8">
-                                                            <input type="text" id="especifique_actividad" name="especifique_actividad" class="form-control" value="" placeholder="Dirección trabajo" required>
+                                                            <input type="text" id="especifique_actividad" name="especifique_actividad" class="form-control" value="" placeholder="Dirección trabajo" >
                                                         </div>
                                                     </div>
                                                 </div>      
@@ -1206,22 +1224,24 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
 <!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX Ultimos 12 meses XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
                                             <div class="form-group">
                                              <label for="nivel_vida_12">En los útimos 12 meses, su nivel de vida:</label> 
-                                                <div class="form-group" style="padding-left: 1%">
-                                                    <input type="radio" id="nivel_vida_12" name="nivel_vida_12" value="Mejoró">
-                                                    <label for="nivel_vida_12" > Mejoró</label><br>  
-                                                    <input type="radio" id="nivel_vida_12" name="nivel_vida_12" value="Empeoró">
-                                                    <label for="nivel_vida_12" > Empeoró</label><br>
-                                                    <input type="radio" id="nivel_vida_12" name="nivel_vida_12" value="Mantiene">
-                                                    <label for="nivel_vida_12" > Mantiene</label><br>
-                                                </div>   
-                                            </div> 
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <select class="form-control" id="nivel_vida_12" name="nivel_vida_12" >
+                                                            <option value="seleccione">Seleccione</option>
+                                                            <option value="Mejoró">Mejoró</option>
+                                                            <option value="Empeoró">Empeoró</option>                                                                                                                    
+                                                            <option value="Mantiene">Mantiene</option>                                                                                                                    
+                                                        </select>
+                                                    </div>                                                
+                                                </div>
+                                            </div>
 
 <!--*********************************************************** CREE DEL INGRESO MENSUAL ******************************************************************-->
                                 <div class="form-group">
                                   <label for="ing_mensual_emp_mejo">Considera usted, que los ingresos mensuales de su hogar son:</label> 
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <select class="form-control" id="ing_mensual_emp_mejo" name="ing_mensual_emp_mejo" required>
+                                            <select class="form-control" id="ing_mensual_emp_mejo" name="ing_mensual_emp_mejo" >
                                                 <option value="">Seleccione</option>
                                                 <option value="Suficientes">Suficientes para cubrir los gastos básicos</option>
                                                 <option value="Insuficientes">Insuficientes para cubrir los gastos básicos</option>                                
@@ -1232,12 +1252,12 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
 
 
 <!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX FIN FORM XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+
                                     <input type="submit" value="Agregar" name="submit" class="btn btn-primary">
                                     
                                     <a href="niniosregistrados_ci.php">
                                     <button type="button" class="btn btn-primary">Regresar</button>
                                     </a>  
-
                         </form>
                     
                 

@@ -6,17 +6,36 @@ if (!isset($_SESSION['username'])) {
 
 $_nom_cdi = $_SESSION['tipo_cdi'];
 //echo $_nom_cdi; 
+$_nom_periodo = $_SESSION['periodo_ac'];
+//echo $_nom_periodo;
 
 if (isset($_GET['del'])) {
     $del_id = $_GET['del'];
    // $del_check_query = "SELECT * FROM tbl_datos_personales_ninio ORDER BY id_ninio DESC";
     //$del_check_run = mysqli_query($con, $del_check_query);
    // if (mysqli_num_rows($del_check_run) > 0) {
-        $del_query = "UPDATE tbl_datos_personales_ninio SET estado='Inactivo' WHERE id_ninio= $del_id";
+        $del_query = "UPDATE tbl_datos_personales_ninio SET estado_se= 0 WHERE id_ninio= $del_id";
 
    //     $query_documento_identidad = "SELECT detalle FROM tbl_documento_identidad WHERE id = $idTipodocumento ";
         //if (isset($_SESSION['username']) && $_SESSION['role'] == 'admin') {
             if (mysqli_query($con, $del_query)) {
+                //header('Location: niniosregistrados.php');
+                $msg = "Registro eliminado";
+            } else {
+                $error = "Registro no eliminado";
+            }     
+}
+
+if (isset($_GET['del'])) {
+    $del_id = $_GET['del'];
+   // $del_check_query = "SELECT * FROM tbl_datos_personales_ninio ORDER BY id_ninio DESC";
+    //$del_check_run = mysqli_query($con, $del_check_query);
+   // if (mysqli_num_rows($del_check_run) > 0) {
+    $del_query_se = "DELETE FROM tbl_socio_economica WHERE tbl_socio_economica.id_ninio_se = $del_id";
+
+   //     $query_documento_identidad = "SELECT detalle FROM tbl_documento_identidad WHERE id = $idTipodocumento ";
+        //if (isset($_SESSION['username']) && $_SESSION['role'] == 'admin') {
+            if (mysqli_query($con, $del_query_se)) {
                 //header('Location: niniosregistrados.php');
                 $msg = "Registro eliminado";
             } else {
@@ -63,7 +82,7 @@ if (isset($_GET['del'])) {
                         <li class="active"><i class="fa fa-users"></i> Información Socio Económica Registrada</li>
                     </ol>
                     <?php
-                    $query = "SELECT * FROM tbl_datos_personales_ninio WHERE estado='Activo' AND id_cdi = '$_nom_cdi'";
+                    $query = "SELECT * FROM tbl_datos_personales_ninio Where estado='Activo' AND id_cdi = $_nom_cdi AND id_periodo_ninio = $_nom_periodo ORDER BY apellidos ASC";
                     $run = mysqli_query($con, $query);
                     if (mysqli_num_rows($run) > 0) {
                         ?>
@@ -71,7 +90,7 @@ if (isset($_GET['del'])) {
                             <div class="row">
                                 <div class="col-sm-8">
                                     <div class="row">
-                                        <div class="col-xs-4">
+                                    <!--    <div class="col-xs-4">
                                             <div class="form-group">
                                                 <select name="bulk-options" id="" class="form-control">
                                                     
@@ -85,7 +104,7 @@ if (isset($_GET['del'])) {
                                         <div class="col-xs-8">
                                             <input type="submit" class="btn btn-success" value="Aplicar cambios">
                                             <a href="ing_socio_eco.php" class="btn btn-primary">Agregar Nuevo</a>
-                                        </div>
+                                        </div>  -->
                                     </div>
                                 </div>
                             </div>
@@ -130,6 +149,7 @@ if (isset($_GET['del'])) {
                                         $c_i = $row['numero_docide'];
                                         $last_name = ($row['apellidos']);
                                         $first_name = ($row['nombres']);
+                                        $estado_socio_ec = $row['estado_se'];
                                         //$fecha_nac = $row['fecha_nac'];
                                        // $anio_ninio = $row['anio'];
                                        // $mes_ninio = $row['mes'];
@@ -179,9 +199,22 @@ if (isset($_GET['del'])) {
                                             <td><?php// echo $cdi; ?></td> -->
                                            <!-- <td><?php// echo $imagen_n; ?></td> -->
                                            <!--  <td><img src="img/<?php //echo $imagen_n; ?>" width="50px"></td>  -->
-                                           <td><a href="profile_entrevista_inicial.php?edit=<?php echo $idninio; ?>"><i class="far fa-file-alt"></i></a></td>
-                                            <td><a href="editar_datos_ninio.php?edit=<?php echo $idninio; ?>"><i class="far fa-edit"></i></a></td>
-                                            <td><a href="niniosregistrados.php?del=<?php echo $idninio; ?>" onclick="return confirm('¿Desea Borrar?');"><i class="fas fa-trash-alt"></i></a></td>
+                                           <?php
+                                           if ($estado_socio_ec == 1){ ?>
+                                           <td><a href="profile_socio_eco.php?edit=<?php echo $idninio; ?>"><i class="far fa-file-alt"></i></a></td>  
+                                            <?php  } else{ ?>
+                                               <td><i id = "block_edit" class="far fa-file-alt"></i></td> 
+                                               <?php    }  ?>
+                                               <?php
+                                        if ($estado_socio_ec == 1){ ?>
+                                   <td><a href="editar_socio_eco.php?edit=<?php echo $idninio; ?>"><i class="far fa-edit"></i></a></td>
+                                    <?php  } else{ ?>
+                                        <td><i id = "block_edit" class="far fa-file-alt"></i></td> 
+                                        <?php    }  ?>
+
+                                           
+                                            
+                                            <td><a href="nisocioeconomico.php?del=<?php echo $idninio; ?>" onclick="return confirm('¿Desea Borrar?');"><i class="fas fa-trash-alt"></i></a></td>
                                         
                                         
                                       

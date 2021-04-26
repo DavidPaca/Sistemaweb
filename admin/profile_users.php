@@ -6,12 +6,14 @@ if (!isset($_SESSION['username'])) {
 
 if (isset($_GET['edit'])) {//si esque hay la variable edit
     $edit_id = $_GET['edit'];//get y post sirven para atrapar datos.
+//echo  $edit_id;
 
 //$session_username = $_SESSION['username'];
 //echo($session_username);
 
 $query = "SELECT   tbl_usuario.id_usuario, tbl_usuario.ci,  tbl_usuario.apellidos,  tbl_usuario.nombres,  tbl_usuario.fecha_ingreso,  tbl_usuario.tipo,  tbl_usuario.direccion_dom,  tbl_usuario.telefono,  tbl_usuario.correo_e,  tbl_usuario.contrasenia,  tbl_usuario.imagen_usuario,  tbl_usuario.id_docide, tbl_documento_identidad.detalle AS detalle_di,
-tbl_usuario.id_cdi, tbl_cdi.nombre AS detalle_cdi, tbl_periodo.inicio, tbl_periodo.fin
+tbl_usuario.id_cdi, tbl_cdi.nombre AS detalle_cdi, tbl_periodo.inicio, tbl_periodo.fin, tbl_usuario_nombre.detalle AS detalle_nivel_us,
+tbl_usuario_nombre.detalle AS detalle_permisos
                    FROM  tbl_usuario 
                    INNER JOIN tbl_documento_identidad 
                    ON  tbl_usuario.id_docide = tbl_documento_identidad.id_docide 
@@ -19,6 +21,8 @@ tbl_usuario.id_cdi, tbl_cdi.nombre AS detalle_cdi, tbl_periodo.inicio, tbl_perio
                    ON  tbl_usuario.id_cdi = tbl_cdi.id
                    INNER JOIN tbl_periodo
                    ON tbl_periodo.id_periodo = tbl_usuario.id_periodo_usuario
+                   INNER JOIN tbl_usuario_nombre
+                   ON tbl_usuario_nombre.id_usuario_nombre = tbl_usuario.tipo                
                    Where  tbl_usuario.id_usuario = $edit_id";
 $run = mysqli_query($con, $query);
 $row = mysqli_fetch_array($run);
@@ -28,7 +32,7 @@ $row = mysqli_fetch_array($run);
         $apellidos=$row['apellidos'];
         $nombre = $row['nombres'];
         $fecha_ing = $row['fecha_ingreso'];
-        $tipo = $row['tipo'];
+        $tipo = $row['detalle_nivel_us'];
         $direccion = $row['direccion_dom'];
         $correo = $row ['correo_e'];
         $telefono = $row['telefono'];
@@ -68,7 +72,7 @@ $row = mysqli_fetch_array($run);
                                 <h3>Información</h3>
                             </center>
 
-                            <?php echo $_GET['edit']; ?>
+                            <?php //echo $_GET['edit']; ?>
                             
                             
                             
@@ -111,8 +115,8 @@ $row = mysqli_fetch_array($run);
                             </table>
                             <center> <a href="edit-user.php?edit=<?php echo $edit_id; ?>" class="btn btn-primary">Editar Perfil</a>
                             <a href="users.php">
-                                            <button type="button" class="btn btn-primary">Regresar</button>
-                                </a></center>
+                                <button type="button" class="btn btn-primary">Regresar</button>
+                            </a></center>
                         </div>
                     </div>
                 </div>

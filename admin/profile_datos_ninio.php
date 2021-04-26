@@ -196,22 +196,44 @@ $row = mysqli_fetch_array($run);
                                 <tr>
                                     <td width="20%"><b>Centro de Desarrollo Infantil:</b></td>
                                     <td width="30%"><?php echo $cdi; ?></td>
+                                    <td width="20%"><b>Apellidos/Nombres del representante:</b></td>
+                                    <?php 
+                                    $sql_datosrepre = "SELECT * FROM tbl_socio_economica WHERE id_ninio_se = $edit_id ";
+                                    $run = mysqli_query($con, $sql_datosrepre);
+                                    $row = mysqli_fetch_array($run);                                    
+                                        $apellidos_se = $row['apellidos_se']; 
+                                        $nombres_se = $row['nombres_se']; 
+                                        $telefono_dom_se = $row['telefono_dom_se']; 
+
+                                    ?>
+                                    <td width="30%"><?php echo "$apellidos_se $nombres_se"; ?></td>
+                                </tr>
+                                <tr>
+                                    <td width="20%"><b>Teléfono:</b></td>
+                                    <td width="30%"><?php echo $telefono_dom_se; ?></td>
                                 </tr>
                             </table>
 
                             <center>
                             <a href="editar_datos_ninio.php?edit=<?php echo $idninio; ?>" class="btn btn-primary">Editar</a>
+                            <a href="editar_ninio_fotografia.php?edit=<?php echo $idninio; ?>">
+                                <button type="button" class="btn btn-primary">Editar fotografía</button>
+                            </a>
                             <a href="niniosregistrados.php">
                                 <button type="button" class="btn btn-primary">Regresar</button>
                             </a>
+                            <a href="../reportes_pdf/pdf_impri_datos_personales_ninio.php?edit=<?php echo $idninio; ?>" target="_blank">
+                                <button type="button" class="btn btn-primary">Imprimir</button>
+                            </a>
                             </center>
                             
-                           
-                        </div>
+                        </div> 
                     </div>
-                </div>
+                
             </div>
         </div>
+    </div>
         
 
         <?php require_once('inc/footer.php'); ?>
+        

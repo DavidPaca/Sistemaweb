@@ -14,7 +14,7 @@ if (isset($_POST['submit'])) {//if hicieron clic en submit
     //echo($ci);
     //echo($password);
     //echo($cdia);
-    echo($periodo_users);
+    //echo($periodo_users);
 
     
 
@@ -87,9 +87,9 @@ if (isset($_POST['submit'])) {//if hicieron clic en submit
              
              
             // $_SESSION['author_image'] = $db_author_image;
-         }
+        }
 
-         if ($ci == $db_ci && $password == $db_password && $db_tipo_role == "1" && $periodo_users == $db_periodo_academ) {
+         if ($ci == $db_ci && $password == $db_password && $db_tipo_role == "1" /*&& $periodo_users == $db_periodo_academ*/) {
             ("estoy adentro");
         
             header('Location: index.php');//enviar a la pagina q deseas
@@ -100,7 +100,20 @@ if (isset($_POST['submit'])) {//if hicieron clic en submit
              
              
             // $_SESSION['author_image'] = $db_author_image;
-         }
+        }
+
+        if ($ci == $db_ci && $password == $db_password && $db_tipo_role == "6" ) {
+            ("estoy adentro");
+        
+            header('Location: index.php');//enviar a la pagina q deseas
+             $_SESSION['username'] = $db_ci;
+             $_SESSION['roleSS'] = $db_tipo_role;
+             $_SESSION['tipo_cdi'] = $db_tipo_cdi;
+             $_SESSION['periodo_ac'] = $db_periodo_academ;
+             
+             
+            // $_SESSION['author_image'] = $db_author_image;
+        }
     } 
 }
     else {
@@ -159,7 +172,7 @@ if (isset($_POST['submit'])) {//if hicieron clic en submit
                         <label for="categories">Seleccione CDI:</label>                        
                         <select class="form-control" name="cdi" id="categories">
                             <?php
-                            $sql_cdi = "select * from tbl_cdi";
+                            $sql_cdi = "select * from tbl_cdi where id !=102";
                             $ejecutar = mysqli_query($con, $sql_cdi);//ejecutar consulta
                             
                             if (mysqli_num_rows($ejecutar) > 0) {

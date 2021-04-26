@@ -158,7 +158,7 @@ if (isset($_POST['update'])) {
                                 ?>
 
 
-                                <table class="table table-hover table-bordered table-striped">
+                                <table class="table table-bordered table-striped table-hover" id="example" >
                                     <thead>
                                         <tr>
                                             <th>Número</th>

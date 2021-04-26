@@ -48,7 +48,7 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                 <li><a><i class="fa fa-user"></i> <?php echo ($db_Apellido.' '.$db_nombre); ?></a></li>
                 <li><a><i class="far fa-user-circle fa-1x"></i> <?php echo ($db_nivel_usuario); ?></a></li>
 
-                <li><a><i class=""></i> <?php echo ($db_nombre_cdi); ?></a></li>  
+            <!--    <li><a><i class=""></i> <?php //echo ($db_nombre_cdi); ?></a></li>  -->
 
                 <li><a href="profile.php"><i class="" title="Ver Perfil"></i>Ver Perfil</a></li>
                 <li><a href="logout.php"><i class="fas fa-sign-out-alt" title="Salir"></i></a></li>
@@ -60,23 +60,23 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
 <!--    <nav class="navbar navbar-default navbar-fixed-top " style="background-color:#595757">
     <div class="container-fluid">
         <div class="navbar-header">
-            <!--***************************LOGO ADMIN *****************************-
+            ***************************LOGO ADMIN *****************************-
          <a class="navbar-brand" href="../admin/index.php"><img src="img/logoescudoGADM.png" class="img-responsive" style="width: 170px; height: 45px; margin-top: -10px"></a> <!--para el logo de la empresa
         </div>
         <div class="navbar-collapse collapse" id="navbar">
             <ul class="nav navbar-nav">
-                <!--<li><a href="add-post.php"><i class="fa fa-plus-square" title="Agregar Noticia"></i> Ver Noticia</a></li>
+                <li><a href="add-post.php"><i class="fa fa-plus-square" title="Agregar Noticia"></i> Ver Noticia</a></li>
                 <?php
                // if ($session_role2 == '2') {
                     ?>
-              <!--      <li><a href="add-user.php"><i class="fa fa-user-plus" title="Agregar Usuario"></i>Agregar Usuario</a></li>    
+                   <li><a href="add-user.php"><i class="fa fa-user-plus" title="Agregar Usuario"></i>Agregar Usuario</a></li>    
                 <?php// } ?>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a><i class="fa fa-user"></i> <?php //echo ($db_Apellido.' '.$db_nombre); ?></a></li>
                 <li><a><i class="far fa-user-circle fa-1x"></i> <?php //echo ($db_nivel_usuario); ?></a></li>
 
-             <!--   <li><a><i class="far fa-user-circle fa-1x"></i> <?php // echo ($db_nombre_cdi); ?></a></li>     
+               <li><a><i class="far fa-user-circle fa-1x"></i> <?php // echo ($db_nombre_cdi); ?></a></li>     
 
                 <li><a href="profile.php"><i class="fa fa-user" title="Ver Perfil"></i>Ver Perfil</a></li>
                 <li><a href="logout.php"><i class="fas fa-sign-out-alt" title="Salir"></i></a></li>
@@ -88,12 +88,12 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
 <nav class="navbar navbar-default navbar-fixed-top " style="background-color:#595757">
     <div class="container-fluid">
         <div class="navbar-header">
-            <!--***************************LOGO ADMIN *****************************
+            ***************************LOGO ADMIN *****************************
          <a class="navbar-brand" href="../admin/index.php"><img src="img/logoescudoGADM.png" class="img-responsive" style="width: 170px; height: 45px; margin-top: -10px"></a> <!--para el logo de la empresa
         </div>
         <div class="navbar-collapse collapse" id="navbar">
             <ul class="nav navbar-nav">
-                <!--<li><a href="add-post.php"><i class="fa fa-plus-square" title="Agregar Noticia"></i> Ver Noticia</a></li>-->
+                <li><a href="add-post.php"><i class="fa fa-plus-square" title="Agregar Noticia"></i> Ver Noticia</a></li>-->
                 <?php
                // if ($session_role2 == '3') {
                     ?>
@@ -104,7 +104,7 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
                 <li><a><i class="fa fa-user"></i> <?php //echo ($db_Apellido.' '.$db_nombre); ?></a></li>
                 <li><a><i class="far fa-user-circle fa-1x"></i> <?php //echo ($db_nivel_usuario); ?></a></li>
 
-             <!--   <li><a><i class="far fa-user-circle fa-1x"></i> <?php // echo ($db_nombre_cdi); ?></a></li>     
+                <li><a><i class="far fa-user-circle fa-1x"></i> <?php // echo ($db_nombre_cdi); ?></a></li>     
 
                 <li><a href="profile.php"><i class="fa fa-user" title="Ver Perfil"></i>Ver Perfil</a></li>
                 <li><a href="logout.php"><i class="fas fa-sign-out-alt" title="Salir"></i></a></li>

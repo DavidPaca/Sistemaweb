@@ -54,7 +54,7 @@ $row = mysqli_fetch_array($run);
                     <?php require_once('inc/sidebar.php'); ?>
                 </div>
                 <div class="col-md-9">
-                    <h1><i class="fa fa-user"></i> Datos<small> Personales</small></h1><hr>
+                    <h1><i class="fa fa-user"></i> Mi<small> Perfil</small></h1><hr>
                     <ol class="breadcrumb">
                         <li><a href="index.php"><i class="fas fa-home"></i> Menú</a></li>
                         <li class="active"><i class="fa fa-user"></i> Perfil</li>
@@ -103,14 +103,24 @@ $row = mysqli_fetch_array($run);
                                 <tr>
                                     <td width="20%"><b>Teléfono:</b></td>
                                     <td width="30%"><?php echo $telefono; ?></td>
+                                <?php                               
+                                    if ($session_role2 == '1') {
+                                ?>
+                                    <td width="20%"><b></b></td>
+                                    <td width="30%"></td>
+                                <?php } else {?>
                                     <td width="20%"><b><b>Nombre de CDI:</b></b></td>
                                     <td width="30%"><?php echo $id_cdi; ?></td>
+                                <?php }?>
+                                    <
                                 </tr>
                             </table>
-                            <center> <a href="edit-profile.php?edit=<?php echo $id_usuario; ?>" class="btn btn-primary">Editar Perfil</a>
-                            <a href="index.php">
-                                            <button type="button" class="btn btn-primary">Regresar</button>
-                                </a></center>
+                            <center> 
+                                <a href="edit-profile.php?edit=<?php echo $id_usuario; ?>" class="btn btn-primary">Actualizar Fotografía</a>
+                                <a href="edit-profile_cambiar_contraseña.php?edit=<?php echo $id_usuario; ?>" class="btn btn-primary">Cambiar contraseña</a>
+                                <a href="index.php">
+                                    <button type="button" class="btn btn-primary">Regresar</button></a>
+                            </center>
                            
                         </div>
                     </div>

@@ -1,27 +1,18 @@
 <?php require_once('inc/header.php'); ?>
 <?php require_once('inc/Slider.php'); ?>
 
-<!-- banner-bottom -->
+
 <div class="banner-bottom">
     <div class="container">	
         <div class="agileits_banner_bottom">
 
-<!------------------------------------------TExto antes de los iconos de reunion y asesoria---------------------------------------------------->   
 
             <h3><span>LA DIRECCIÓN DE GESTION SOCIAL Y HUMANO TE DA LA BIENVENIDA</span> Encuentra toda la información necesaría
             </h3>
         </div>
         <div class="w3ls_banner_bottom_grids reunion"style="align=center;">
             <ul class="cbp-ig-grid " >
-                <!--<li>
-    
-               <!-- <div class="w3_grid_effect">
-                        <span class="cbp-ig-icon w3_cube"></span>
-                        <h4 class="cbp-ig-title">OFICINA
-                        </h4>
-                        <span class="cbp-ig-category">GADM Riobamba</span>
-                    </div> 
-                </li>-->
+                
                 <li>
                     <div class="w3_grid_effect">
                         <span class="cbp-ig-icon w3_users"></span>
@@ -29,14 +20,7 @@
                         <span class="cbp-ig-category">GADM Riobamba</span>
                     </div>
                 </li>
-                <!--<li>
-                <!-- <div class="w3_grid_effect">
-                        <span class="cbp-ig-icon w3_ticket"></span>
-                        <h4 class="cbp-ig-title">COBERTURA WIFI
-                        </h4>
-                        <span class="cbp-ig-category">GADM Riobamba</span>
-                    </div> --
-                </li>-->
+               
                 <li>
                     <div class="w3_grid_effect">
                         <span class="cbp-ig-icon w3_cube"></span>

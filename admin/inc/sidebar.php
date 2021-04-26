@@ -1,87 +1,64 @@
 <?php
 $session_role1 = $_SESSION['roleSS'];
-//echo('hola');
-//echo($session_role1);
+
+
 $get_comment = "SELECT * FROM comments WHERE status = 'pendiente'";
 $get_comment_run = mysqli_query($con, $get_comment);
-//$num_of_rows = mysqli_num_rows($get_comment_run);
+
 ?>
 
 
-<div class="list-group rojo"  >
+<!--<div class="list-group rojo"  >
       <?php
-       if ($session_role1 == '4') {
+      // if ($session_role1 == '4') {
       ?>
       <a href="index.php" class="list-group-item active" style="background-color:#595757">
         <i class="fas fa-home"></i>  Menu principal
       </a>
  
-   
-        <!--<a href="comments.php" class="list-group-item">
-            <?php
-              if ($num_of_rows > 0) {
-                echo "<span class='badge'>$num_of_rows</span>";
-              }
-            ?>
-              <i class="fa fa-comment"></i> Comentarios Realizados
-               </a>-->
+                 
        
               <a href="add-user.php" class="list-group-item">
-                <i class="fa fa-users"></i> Agregar Usuario
+                <i class="fa fa-users"></i> Agregar Parvularia
               </a>
 
               <a href="users.php" class="list-group-item">
-                  <i class="fa fa-users"></i> Usuarios Registrados
+                  <i class="fa fa-users"></i> Parvularias Registradas
               </a>
     
-              <a href="categories.php" class="list-group-item">
-                  <i class="fa fa-folder-open"></i> Categoría de Eventos
-              </a>
-              
-              <a href="añadirInformación.php" class="list-group-item">
-                <i class="fa fa-indent"></i> Agregar Eventos
-              </a>
-              <a href="posts.php" class="list-group-item">
-                  <i class="fas fa-outdent"></i> Eventos Publicados
-              </a>
+           
+        <?php // } 
 
-               <a href="media.php" class="list-group-item">
-                  <i class="fa fa-database"></i> Imágenes
-               </a>
- 
-        <?php } ?>
-</div>
+$_nom_cdi = $_SESSION['tipo_cdi'];
+//echo $_nom_cdi;
+$_nom_periodo = $_SESSION['periodo_ac'];
+//echo $_nom_periodo;
+
+      $sql = "SELECT * FROM `tbl_cdi` WHERE id = $_nom_cdi";
+      $run = mysqli_query($con, $sql);
+          while ($row = mysqli_fetch_assoc($run)) {                                                 
+          $recha_ali = $row['nombre']; 
+          //echo $recha_ali,", ";
+      
+      }  
+        
+        
+        
+        ?>
+</div>  -->
 
 
-
-                   <!--xxxxxxxxxxxxxxxxxxxxxxxxx MENU FICHAS NIÑOS COORDINADOR xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
-
+<!--xxxxxxxxxxxxxxxxxxxxxxxxx MENU FICHAS NIÑOS ADMINISTRADORA DEL SISTEMA xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
 <div class="list-group rojo" >
 
       <?php
        if ($session_role1 == '4') {
       ?>
         <a href="index.php" class="list-group-item active" style="background-color:#595757">  
-            <i class="fas fa-home"></i>  Fichas de los Niños 
+            <i class="fas fa-home"></i>  Fichas de los Niños - <?php echo $recha_ali;  ?>
         </a>
-    
-           
-                <!--<a href="comments.php" class="list-group-item">
-            <?php
-              if ($num_of_rows > 0) {
-               echo "<span class='badge'>$num_of_rows</span>";
-              }
-            ?>
-        
-          <a href="reportePdfDocumentos.php" class="list-group-item">
-              <i class="fas fa-print"></i> Reportes Documentos
-          </a>-->
 
-
-                 
-  
-
-      <div id="accordion">
+        <div id="accordion">
             <div class="list-group-item">
                 <div class="card-header quitarespaciosidebar" id="headingOne">
                   <h5 class=" letrasmenuficha">
@@ -91,8 +68,8 @@ $get_comment_run = mysqli_query($con, $get_comment);
                   </h5>
                 </div>
 
+                
                   <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                    <!--<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion"> -->
                     <div class="card-body">
                       <a href="ing_dp_ninio.php" class="list-group-item">
                         <i class="fa fa-users"></i> Ingrese los Datos Personales del Niño(a) 
@@ -149,6 +126,33 @@ $get_comment_run = mysqli_query($con, $get_comment);
           <div class="list-group-item">
             <div class="card-header quitarespaciosidebar" id="headingFour">
               <h5 class="letrasmenuficha">
+                <a href="niniosregistrados_acta_compromiso.php" >
+                  <button class="btn collapsed" style="color:#555555" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    ACTA DE COMPROMISO
+                  </button>
+                </a>
+                
+              </h5>
+            </div>
+          </div> 
+
+
+          <div class="list-group-item">
+            <div class="card-header quitarespaciosidebar" id="headingFour">
+              <h5 class="letrasmenuficha">
+                <a href="niniosregistrados_vacunas.php" >
+                  <button class="btn collapsed" style="color:#555555" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    VACUNAS
+                  </button>
+                </a>
+                
+              </h5>
+            </div>
+          </div> 
+
+          <div class="list-group-item">
+            <div class="card-header quitarespaciosidebar" id="headingFour">
+              <h5 class="letrasmenuficha">
                 <a href="menuprincipalprocesos.php" >
                   <button class="btn collapsed" style="color:#555555" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
                     PROCESOS
@@ -157,7 +161,20 @@ $get_comment_run = mysqli_query($con, $get_comment);
                 
               </h5>
             </div>
-            </div>      
+          </div>
+
+          <div class="list-group-item">
+            <div class="card-header quitarespaciosidebar" id="headingFour">
+              <h5 class="letrasmenuficha">
+                <a href="menuprincipal_reportes.php" >
+                  <button class="btn collapsed" style="color:#555555" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    REPORTES
+                  </button>
+                </a>
+                
+              </h5>
+            </div>
+          </div> 
         
       </div>
         <?php } ?>
@@ -269,61 +286,24 @@ $get_comment_run = mysqli_query($con, $get_comment);
       <?php
        if ($session_role1 == '2') {
       ?>
+
+
       <a href="../admin/index.php" class="list-group-item active" style="background-color:#595757">
         <i class="fas fa-home"></i>  Menu principal
       </a>
-    
-        <!--<a href="comments.php" class="list-group-item">
-            <?php
-              if ($num_of_rows > 0) {
-                echo "<span class='badge'>$num_of_rows</span>";
-              }
-            ?>
-              <i class="fa fa-comment"></i> Comentarios Realizados
-               </a>-->
+                  
        
-              <a href="../superadmin/add-user.php" class="list-group-item">
-                <i class="fa fa-users"></i> Agregar Coordinador
+              <a href="../superadministrador/add-user_COR.php" class="list-group-item">
+                <i class="fa fa-users"></i> Agregar Administradora
               </a>  
 
-              <a href="../superadmin/users.php" class="list-group-item">
-                  <i class="fa fa-users"></i> Coordinadores Registrados
+              <a href="../superadministrador/users__COR.php" class="list-group-item">
+                  <i class="fa fa-users"></i> Administradoras Registradas
               </a>
 
-                           
-              <div class="list-group-item">
-                      <div class="card-header quitarespaciosidebar" id="headingTwo">
-                        <h5 class="letrasmenuficha">
-                        <i class="fas fa-university"></i>
-                          <button class="btn collapsed" style="color:#555555" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                            Centros de desarrollo Infantil
-                          </button>
-                        </h5>
-                      </div>
-                          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                            <div class="card-body">
-                              <a href="../superadmin/menu_cdi1.php" class="list-group-item">
-                                <i class="fa fa-folder-open"></i> CDI 1
-                              </a>
-                              <a href="nientrevistaregistrada.php" class="list-group-item">
-                                <i class="fa fa-folder-open"></i> CDI 2
-                              </a>
-                              <a href="nientrevistaregistrada.php" class="list-group-item">
-                                <i class="fa fa-folder-open"></i> CDI 3
-                              </a>
-                              <a href="nientrevistaregistrada.php" class="list-group-item">
-                                <i class="fa fa-folder-open"></i> CDI 4
-                              </a>
-                              <a href="nientrevistaregistrada.php" class="list-group-item">
-                                <i class="fa fa-folder-open"></i> CDI 5
-                              </a>
-                              <a href="nientrevistaregistrada.php" class="list-group-item">
-                                <i class="fa fa-folder-open"></i> CDI 6
-                              </a>
-                            </div>
-                          </div>
-                    </div>
- 
+
+
+
         <?php } ?>
 </div>
 
@@ -345,45 +325,54 @@ $get_comment_run = mysqli_query($con, $get_comment);
             ?>
               <i class="fa fa-comment"></i> Comentarios Realizados
                </a>-->
-       
+               <a href="../superadministrador/users_VIS.php" class="list-group-item">
+                  <i class="fa fa-users"></i> Trabajadora Social Registrada
+              </a>
               
 
                            
-              <div class="list-group-item">
-                      <div class="card-header quitarespaciosidebar" id="headingTwo">
-                        <h5 class="letrasmenuficha">
-                        <i class="fas fa-university"></i>
-                          <button class="btn collapsed" style="color:#555555" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                            Centros de desarrollo Infantil
-                          </button>
-                        </h5>
-                      </div>
-                          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                            <div class="card-body">
-                              <a href="../superadmin_vs/menu_cdi1_vs.php" class="list-group-item">
-                                <i class="fa fa-folder-open"></i> CDI 1
-                              </a>
-                              <a href="nientrevistaregistrada.php" class="list-group-item">
-                                <i class="fa fa-folder-open"></i> CDI 2
-                              </a>
-                              <a href="nientrevistaregistrada.php" class="list-group-item">
-                                <i class="fa fa-folder-open"></i> CDI 3
-                              </a>
-                              <a href="nientrevistaregistrada.php" class="list-group-item">
-                                <i class="fa fa-folder-open"></i> CDI 4
-                              </a>
-                              <a href="nientrevistaregistrada.php" class="list-group-item">
-                                <i class="fa fa-folder-open"></i> CDI 5
-                              </a>
-                              <a href="nientrevistaregistrada.php" class="list-group-item">
-                                <i class="fa fa-folder-open"></i> CDI 6
-                              </a>
-                            </div>
-                          </div>
-                    </div>
+          
  
         <?php } ?>
 </div>
+
+
+
+
+
+
+<!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX MENU VISITADOR SOCIAL XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
+
+<div class="list-group rojo"  >
+
+
+
+      <?php
+       if ($session_role1 == '6') {
+      ?>
+
+
+      <a href="../admin/index.php" class="list-group-item active" style="background-color:#595757">
+        <i class="fas fa-home"></i>  Menu principal
+      </a>
+    
+        
+            <?php
+              if ($num_of_rows > 0) {
+                echo "<span class='badge'>$num_of_rows</span>";
+              }
+            ?>
+              
+
+               <a href="../superadministrador/users_up.php" class="list-group-item">
+                  <i class="fa fa-users"></i> Unidad de Proyectos Registrada
+              </a>
+
+
+
+        <?php } ?>
+</div>
+
 <!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX MENU ADMIN SISTEMA XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
 <div class="list-group rojo"  >
       <?php
@@ -391,18 +380,8 @@ $get_comment_run = mysqli_query($con, $get_comment);
       ?>
       <a href="../admin/index.php" class="list-group-item active" style="background-color:#595757">
         <i class="fas fa-home"></i>  Menu principal
-      </a>
- 
-   
-        <!--<a href="comments.php" class="list-group-item">
-            <?php
-              if ($num_of_rows > 0) {
-                echo "<span class='badge'>$num_of_rows</span>";
-              }
-            ?>
-              <i class="fa fa-comment"></i> Comentarios Realizados
-               </a>-->
-       
+      </a>  
+             
               <a href="../superadministrador/add-user_cg.php" class="list-group-item">
                 <i class="fas fa-user-plus"></i> Agregar Coordinador General
               </a>   
@@ -415,44 +394,18 @@ $get_comment_run = mysqli_query($con, $get_comment);
                 <i class="fas fa-user-plus"></i> Agregar Trabajadora Social
               </a>   
 
-              <a href="users_vs.php" class="list-group-item">
+              <a href="../superadministrador/users_vs.php" class="list-group-item">   
                   <i class="fa fa-users"></i> Trabajadora Social Registrada
               </a>
-              
-              <div class="list-group-item">
-                      <div class="card-header quitarespaciosidebar" id="headingTwo">
-                        <h5 class="letrasmenuficha">
-                        <i class="fas fa-university"></i>
-                          <button class="btn collapsed" style="color:#555555" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                            Centros de desarrollo Infantil
-                          </button>
-                        </h5>
-                      </div>
-                          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                            <div class="card-body">
-                              <a href="../superadmin/menu_cdi1.php" class="list-group-item">
-                                <i class="fa fa-folder-open"></i> CDI 1
-                              </a>
-                              <a href="nientrevistaregistrada.php" class="list-group-item">
-                                <i class="fa fa-folder-open"></i> CDI 2
-                              </a>
-                              <a href="nientrevistaregistrada.php" class="list-group-item">
-                                <i class="fa fa-folder-open"></i> CDI 3
-                              </a>
-                              <a href="nientrevistaregistrada.php" class="list-group-item">
-                                <i class="fa fa-folder-open"></i> CDI 4
-                              </a>
-                              <a href="nientrevistaregistrada.php" class="list-group-item">
-                                <i class="fa fa-folder-open"></i> CDI 5
-                              </a>
-                              <a href="nientrevistaregistrada.php" class="list-group-item">
-                                <i class="fa fa-folder-open"></i> CDI 6
-                              </a>
-                            </div>
-                          </div>
-                    </div>
-              
- 
+
+              <a href="../superadministrador/add-user_up.php" class="list-group-item">
+                  <i class="fa fa-users"></i> Agregar Unidad de Proyectos     
+              </a>
+
+              <a href="../superadministrador/users_up.php" class="list-group-item">
+                  <i class="fa fa-users"></i> Unidad de Proyectos Registrada    
+              </a>
+           
         <?php } ?>
 </div>
 

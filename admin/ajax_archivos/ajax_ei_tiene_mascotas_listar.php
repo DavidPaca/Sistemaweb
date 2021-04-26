@@ -4,7 +4,7 @@ require_once('../../inc/db.php');//CONEXION CON BASE DE DATOS
 $id_ninio_masco = $_POST["id_ajax_ninio_list_masc"];
 //echo $id_ninio_masco;
 
-$sql = "SELECT tbl_inter_ei_tiene_mascotas.id_tiene_mascotas, tbl_datos_personales_ninio.id_ninio, tbl_mascotas.detalle
+$sql = "SELECT tbl_inter_ei_tiene_mascotas.id_tiene_mascotas, tbl_inter_ei_tiene_mascotas.nombre_mascotita, tbl_datos_personales_ninio.id_ninio, tbl_mascotas.detalle
 FROM tbl_inter_ei_tiene_mascotas
 INNER JOIN tbl_datos_personales_ninio ON tbl_datos_personales_ninio.id_ninio = tbl_inter_ei_tiene_mascotas.id_ninio_tm
 INNER JOIN tbl_mascotas ON tbl_mascotas.id_mascota = tbl_inter_ei_tiene_mascotas.id_mascotas_tm
@@ -16,6 +16,7 @@ echo "
             <thead>
                 <tr>
                     <th>Descripción</th>
+                    <th>Nombre</th>
                     <th>Eliminar</th>                    
                 </tr>
             </thead>    
@@ -24,6 +25,7 @@ echo "
                 echo"
                     <tr>
                         <td>".$tm["detalle"]."</td>
+                        <td>".$tm["nombre_mascotita"]."</td>
                         <td><button id='eliminar_mascota' data-id_eliminar_tm='".$tm["id_tiene_mascotas"]."'>Eliminar</button></td>
                     </tr>               
                 ";

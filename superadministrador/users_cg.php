@@ -9,36 +9,31 @@ $cdi_perimisos = $_SESSION['tipo_cdi'];
 
 if (isset($_GET['del'])) {
     $del_id = $_GET['del'];
-    echo  $del_id;
+    //echo  $del_id;
+    //echo  "HOLA";
     //$del_check_query = "SELECT * FROM users WHERE id = $del_id";
     //$del_check_run = mysqli_query($con, $del_check_query);
    // if (mysqli_num_rows($del_check_run) > 0) {
-        $del_query = "DELETE FROM `tbl_usuario` WHERE `id_usuario` = $del_id";
+        $del_query = "UPDATE tbl_usuario SET estado_us ='Inactivo' WHERE id_usuario= $del_id";
+        
      //  if (isset($_SESSION['username']) && $_SESSION['role'] == 'admin') {
             if (mysqli_query($con, $del_query)) {
-                header('Location: users.php');
+                header('Location: users_cg.php');
             } 
         //}
      
 }
 
 if (isset($_POST['checkboxes'])) {
-
-    foreach ($_POST['checkboxes'] as $id_ni) {
-        echo $id_ni;
+    //echo $id_ni;
+    foreach ($_POST['checkboxes'] as $del_id) {
+       
         $bulk_option = $_POST['bulk-options'];
 
         if ($bulk_option == 'delete') {
-            $bulk_del_query = "DELETE FROM `tbl_usuario` WHERE `id_usuario` = $id_ni";
-            
+            $bulk_del_query = "UPDATE tbl_usuario SET estado_us ='Inactivo' WHERE id_usuario= $del_id";
             mysqli_query($con, $bulk_del_query);
-        } else if ($bulk_option == 'editar') {
-            $bulk_author_query = "UPDATE `tbl_usuario` SET `tipo` = 'Coordinador' WHERE `tbl_usuario`.`id_usuario` = $id_ni";
-            mysqli_query($con, $bulk_author_query);
-        } else if ($bulk_option == 'parv') {
-            $bulk_admin_query = "UPDATE `tbl_usuario` SET `tipo` = 'Parvulario' WHERE `tbl_usuario`.`id_usuario` = $id_ni";
-            mysqli_query($con, $bulk_admin_query);
-        }
+        } 
     }
 }
 
@@ -52,13 +47,13 @@ if (isset($_POST['checkboxes'])) {
         <div class="container-fluid body-section">
             <div class="row">
                 <div class="col-md-3">
-                    <?php require_once('inc/sidebar.php'); ?>
+                <?php require_once('../admin/inc/sidebar.php'); ?>
                 </div>
                 <div class="col-md-9">
-                    <h1><i class="fa fa-users"></i> Usuarios <small>Ver todos</small></h1><hr>
+                    <h1><i class="fa fa-users"></i> Usuarios: Coordinador General <small>Ver todos</small></h1><hr>
                     <ol class="breadcrumb">
-                       <li><a href="index.php"><i class="fas fa-home"></i> Menú</a></li>    
-                        <li class="active"><i class="fa fa-users"></i> Usuarios</li>
+                       <li><a href="../admin/index.php"><i class="fas fa-home"></i> Menú</a></li>    
+                        <li class="active"><i class="fa fa-users"></i> Coordinador General</li>
                     </ol>
                     <?php
                     $query = "SELECT tbl_usuario.id_usuario, tbl_usuario.id_docide, tbl_usuario.ci, tbl_usuario.apellidos, tbl_usuario.nombres, tbl_usuario.fecha_ingreso,
@@ -68,7 +63,7 @@ if (isset($_POST['checkboxes'])) {
                     FROM tbl_usuario
                     INNER JOIN tbl_usuario_nombre ON tbl_usuario_nombre.id_usuario_nombre = tbl_usuario.tipo
                     INNER JOIN tbl_cdi ON tbl_cdi.id = tbl_usuario.id_cdi
-                    WHERE tbl_usuario.tipo = '2' ORDER BY id_usuario ASC";
+                    WHERE tbl_usuario.tipo = '2' AND estado_us = 'Activo' ORDER BY apellidos ASC";
                     $run = mysqli_query($con, $query);
                     if (mysqli_num_rows($run) > 0) {
                         ?>
@@ -82,14 +77,13 @@ if (isset($_POST['checkboxes'])) {
                                                     
                                                     <option value="">Seleccionar</option>
                                                     <option value="delete">Eliminar</option>
-                                                    <option value="editar">Editar</option>
-                                                    <option value="parv">Exportar</option>
+                                                    
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-xs-8">
                                             <input type="submit" class="btn btn-success" value="Aplicar cambios">
-                                            <a href="add-user.php" class="btn btn-primary">Agregar Nuevo</a>
+                                            <a href="add-user_cg.php" class="btn btn-primary">Agregar Nuevo</a>
                                         </div>
                                     </div>
                                 </div>
@@ -149,8 +143,8 @@ if (isset($_POST['checkboxes'])) {
                                             <td><?php echo $tlf; ?></td>
                                             <td><?php echo $email; ?></td>
                                             <td><a href="profile_users_adm_sist.php?edit=<?php echo $id_ni; ?>"><i class="far fa-file-alt"></i></a></td>
-                                            <td><a href="edit-user.php?edit=<?php echo $id_ni; ?>"><i class="far fa-edit"></i></a></td>
-                                            <td><a href="users.php?del=<?php echo $id_ni; ?>" onclick="return confirm('¿Desea Borrar?');" ><i class="fas fa-trash-alt"></i></a></td>
+                                            <td><a href="edit_user_cg_vs.php?edit=<?php echo $id_ni; ?>"><i class="far fa-edit"></i></a></td>
+                                            <td><a href="users_cg.php?del=<?php echo $id_ni; ?>" onclick="return confirm('¿Desea Borrar?');" ><i class="fas fa-trash-alt"></i></a></td>
                                         </tr>
                                     <?php } ?>
                                 </tbody>

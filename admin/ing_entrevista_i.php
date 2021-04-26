@@ -34,7 +34,7 @@ if (isset($_SESSION['username'])) {//si esque hay la variable edit
 
 if (isset($_GET['edit'])) {//si esque hay la variable edit
     $edit_id = $_GET['edit'];//get y post sirven para atrapar datos.
-    //echo($edit_id);
+   // echo($edit_id);
 
 
 
@@ -132,8 +132,9 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                         $nombre_entrevistado_ei = ( $_POST['nombre_entrevistado_ninio']);
                         $parentesc_entrevistado_ei = ( $_POST['parentesco_entrevistado']);
                         $nombres_usuario_ei = ( $_POST['nombres_user']);
-                        $tipo_usuario_ei = ( $_POST['role_user']);
+                        $tipo_usuario_ei = ( $_POST['rol_usuario']);
                         $fecha_inscripcion_ei = ( $_POST['fecha_inscrip']);
+                        $estado_entrev_ini = ( $_POST['estado_ent_inicial']);
                         
                         //echo $nombres_usuario_ei;
                         //echo "Hola";                          
@@ -154,13 +155,19 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                             `usa_audifonos`, `duerme_solo`, `hora_acostarse`, `hora_despertarse`, `vocabulario_ninio`, `Expresa_gestos_palabras`, `dependencia_adultos`,
                             `esta_contacto_otros_ninios`, `sociable_actitud_negativa`, `comparte_juguete`, `tiene_mascotas`,`llora_con_facilidad`,`miedo_a_algo`, `alguien_lee_cuentos`,
                             `referencia_del_cdi_n`, `experiencia_cdi`, `acuerdo_contribucion_cdi`, `nombre_entrevistado`, `parentesco`, `nombre_entrevistador`,
-                            `tipo_usuario`, `fecha_entrevista`) 
+                            `tipo_usuario`, `fecha_entrevista`, `estado_ei`) 
                              VALUES ('$id_ninio_ei', '$tiene_alergia', '$rechaza_alimentos', '$come_solo_n', '$usa_mamadera_n', '$cont_esfinteres_n', '$banio_solo_n',
                              '$tiene_enfer_graves', '$interven_quirurgica', '$toma_medicamento_ni', '$presenta_alergias', '$tiene_accidentes', '$padecio_enfer_n', 
                              '$lado_predominante_n', '$gateo_el_ni', '$problem_vista_ni', '$usa_lentes_ni', '$problem_oido_ni', '$usa_audifonos_ni',  '$duerme_solo_ninio', 
                              '$hora_se_acuesta', '$hora_se_despierta', '$vocabulario_nin', '$expresa_nin', '$dependencia_nin', '$contacto_nin', '$sociable_act_neg_nin', 
                              '$comparte_sus_jueguetes', '$tiene_mascotas_ninio', '$facilmente_llora', '$miedos_ninio_a_algo','$quien_le_lee_cuentos',  '$refer_de_cdi', '$elec_cdi_ninio', 
-                             '$acuer_contribucion_ninio', '$nombre_entrevistado_ei', '$parentesc_entrevistado_ei', '$nombres_usuario_ei', '$tipo_usuario_ei', '$fecha_inscripcion_ei') ";
+                             '$acuer_contribucion_ninio', '$nombre_entrevistado_ei', '$parentesc_entrevistado_ei', '$nombres_usuario_ei', '$tipo_usuario_ei', '$fecha_inscripcion_ei', '$estado_entrev_ini') ";
+
+                            $del_query = "UPDATE tbl_datos_personales_ninio SET estado_ei='1' WHERE id_ninio= $edit_id";
+                            $consulta = mysqli_query($con, $del_query);
+                                //header('Location: niniosregistrados.php');
+                              
+
 
                             if (mysqli_query($con, $insert_query)) {
                                $msg = "Entrevista actual Ingresada";
@@ -181,6 +188,9 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                     
                             <form action="" method="post" enctype="multipart/form-data">     
                             
+
+<!--............................................Numero_ci/Apellidos/Nombres........................................................-->
+                            <input type="hidden" name="estado_ent_inicial" class="form-control" value= "Activo">
 
 <!--............................................Numero_ci/Apellidos/Nombres........................................................-->
                                         <div class="form-group">
@@ -306,7 +316,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                 <label for="alergias_ninio">¿Tiene alérgia a algún(os) alimento(s)?</label> 
                                                 <div class="row">
                                                     <div class="col-md-3">
-                                                        <select class="form-control" id="alergias_ninio" name="alergias_ninio" onChange="mostrar_nombre_alergias(this.value);" required>
+                                                        <select class="form-control" id="alergias_ninio" name="alergias_ninio" onChange="mostrar_nombre_alergias(this.value);">
                                                             <option value="seleccione">Seleccione</option>
                                                             <option value="Si">Si</option>
                                                             <option value="No">No</option>
@@ -330,7 +340,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                                 <select class="form-control" name="ninio_alergia" id="ninio_alergia">
                                                                   <option value="seleccione">Seleccione</option>
                                                                     <?php
-                                                                    $sql_alrgia_ninio = "select * from tbl_alimentos";
+                                                                    $sql_alrgia_ninio = "select * from tbl_alimentos order by detalle asc";
                                                                     $ejecutar = mysqli_query($con, $sql_alrgia_ninio);//ejecutar consulta
                                                                     
                                                                     if (mysqli_num_rows($ejecutar) > 0) {
@@ -448,7 +458,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                              <label for="rechaza_alimentos_ninio">¿Rechaza algún(os) alimento(s)?</label> 
                                                 <div class="row">
                                                     <div class="col-md-3">
-                                                        <select class="form-control" id="rechaza_alimentos_ninio" name="rechaza_alimentos_ninio" onChange="mostrar_nombre_rechaza_alimentos_ninio(this.value);" required>
+                                                        <select class="form-control" id="rechaza_alimentos_ninio" name="rechaza_alimentos_ninio" onChange="mostrar_nombre_rechaza_alimentos_ninio(this.value);" >
                                                             <option value="seleccione">Seleccione</option>
                                                             <option value="Si">Si</option>
                                                             <option value="No">No</option>
@@ -470,7 +480,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                                 <select class="form-control" name="rechaza_alimentos" id="rechaza_alimentos">
                                                                 <option value="seleccione">Seleccione</option>
                                                                     <?php
-                                                                    $sql_rechaza_alim = "select * from tbl_alimentos";
+                                                                    $sql_rechaza_alim = "select * from tbl_alimentos order by detalle asc";
                                                                     $ejecutar = mysqli_query($con, $sql_rechaza_alim);//ejecutar consulta
                                                                     
                                                                     if (mysqli_num_rows($ejecutar) > 0) {
@@ -504,7 +514,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                   <label for="come_solo_ei">¿Come solo?</label> 
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <select class="form-control" id="come_solo_ei" name="come_solo_ei" required>
+                                            <select class="form-control" id="come_solo_ei" name="come_solo_ei" >
                                                 <option value="">Seleccione</option>
                                                 <option value="Si">Si</option>
                                                 <option value="No">No</option>                                
@@ -518,7 +528,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                   <label for="usa_mamadera_ei">¿Usa mamadera?</label> 
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <select class="form-control" id="usa_mamadera_ei" name="usa_mamadera_ei" required>
+                                            <select class="form-control" id="usa_mamadera_ei" name="usa_mamadera_ei" >
                                                 <option value="">Seleccione</option>
                                                 <option value="Si">Si</option>
                                                 <option value="No">No</option>                                
@@ -532,7 +542,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                   <label for="cont_esfinteres_ei">¿Control de esfínteres?</label> 
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <select class="form-control" id="cont_esfinteres_ei" name="cont_esfinteres_ei" required>
+                                            <select class="form-control" id="cont_esfinteres_ei" name="cont_esfinteres_ei" >
                                                 <option value="">Seleccione</option>
                                                 <option value="Si">Si</option>
                                                 <option value="No">No</option>                                
@@ -546,7 +556,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                   <label for="banio_solo_ei">¿Actualemnte va al baño solo?</label> 
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <select class="form-control" id="banio_solo_ei" name="banio_solo_ei" required>
+                                            <select class="form-control" id="banio_solo_ei" name="banio_solo_ei" >
                                                 <option value="">Seleccione</option>
                                                 <option value="Si">Si</option>
                                                 <option value="No">No</option>                                
@@ -651,7 +661,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                              <label for="enfermedades_graves_ninio">¿Ha tenido alguna enfermedad grave?</label> 
                                                 <div class="row">
                                                     <div class="col-md-3">
-                                                        <select class="form-control" id="enfermedades_graves_ninio" name="enfermedades_graves_ninio" onChange="mostrar_nombre_enfermedades_graves_ninio(this.value);" required>
+                                                        <select class="form-control" id="enfermedades_graves_ninio" name="enfermedades_graves_ninio" onChange="mostrar_nombre_enfermedades_graves_ninio(this.value);" >
                                                             <option value="seleccione">Seleccione</option>
                                                             <option value="Si">Si</option>
                                                             <option value="No">No</option>
@@ -674,7 +684,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                                 <select class="form-control" name="pre_enfermedades_graves" id="pre_enfermedades_graves">
                                                                 <option value="seleccione">Seleccione</option>
                                                                     <?php
-                                                                    $sql_enfermedades_graves = "select * from tbl_enfermedades";
+                                                                    $sql_enfermedades_graves = "select * from tbl_enfermedades order by detalle asc";
                                                                     $ejecutar = mysqli_query($con, $sql_enfermedades_graves);//ejecutar consulta
                                                                     
                                                                     if (mysqli_num_rows($ejecutar) > 0) {
@@ -793,7 +803,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                              <label for="intervensiones_quirurg">¿Ha tenido alguna intervensión quirúrgica?</label> 
                                                 <div class="row">
                                                     <div class="col-md-3">
-                                                        <select class="form-control" id="intervensiones_quirurg" name="intervensiones_quirurg" onChange="mostrar_nombre_intervensionesq_ninio(this.value);" required>
+                                                        <select class="form-control" id="intervensiones_quirurg" name="intervensiones_quirurg" onChange="mostrar_nombre_intervensionesq_ninio(this.value);" >
                                                             <option value="seleccione">Seleccione</option>
                                                             <option value="Si">Si</option>
                                                             <option value="No">No</option>
@@ -816,7 +826,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                                 <select class="form-control" name="intervenciones_quir" id="intervenciones_quir">
                                                                 <option value="seleccione">Seleccione</option>
                                                                     <?php
-                                                                    $sql_intervensiones_q = "select * from tbl_intervensionesq";
+                                                                    $sql_intervensiones_q = "select * from tbl_intervensionesq order by detalle asc";
                                                                     $ejecutar = mysqli_query($con, $sql_intervensiones_q);//ejecutar consulta
                                                                     
                                                                     if (mysqli_num_rows($ejecutar) > 0) {
@@ -935,7 +945,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                              <label for="tom_medicamentos">¿Toma algún tipo de medicamentos de forma regular?</label> 
                                                 <div class="row">
                                                     <div class="col-md-3">
-                                                        <select class="form-control" id="tom_medicamentos" name="tom_medicamentos" onChange="mostrar_nombre_medicamento_ninio(this.value);" required>
+                                                        <select class="form-control" id="tom_medicamentos" name="tom_medicamentos" onChange="mostrar_nombre_medicamento_ninio(this.value);" >
                                                             <option value="seleccione">Seleccione</option>
                                                             <option value="Si">Si</option>
                                                             <option value="No">No</option>
@@ -958,7 +968,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                                 <select class="form-control" name="_toma_medicamentos" id="_toma_medicamentos">
                                                                 <option value="seleccione">Seleccione</option>
                                                                     <?php
-                                                                    $sql_medicamentos = "select * from tbl_medicamentos";
+                                                                    $sql_medicamentos = "select * from tbl_medicamentos order by detalle asc";
                                                                     $ejecutar = mysqli_query($con, $sql_medicamentos);//ejecutar consulta
                                                                     
                                                                     if (mysqli_num_rows($ejecutar) > 0) {
@@ -1077,7 +1087,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                              <label for="tiene_alergias">¿Es alérgico?</label> 
                                                 <div class="row">
                                                     <div class="col-md-3">
-                                                        <select class="form-control" id="tiene_alergias" name="tiene_alergias" onChange="mostrar_nombre_alergia_del_ninio(this.value);" required>
+                                                        <select class="form-control" id="tiene_alergias" name="tiene_alergias" onChange="mostrar_nombre_alergia_del_ninio(this.value);" >
                                                             <option value="seleccione">Seleccione</option>
                                                             <option value="Si">Si</option>
                                                             <option value="No">No</option>
@@ -1100,7 +1110,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                                 <select class="form-control" name="es_alergico" id="es_alergico">
                                                                 <option value="seleccione">Seleccione</option>
                                                                     <?php
-                                                                    $sql_alergia = "select * from tbl_alergias";
+                                                                    $sql_alergia = "select * from tbl_alergias order by detalle asc";
                                                                     $ejecutar = mysqli_query($con, $sql_alergia);//ejecutar consulta
                                                                     
                                                                     if (mysqli_num_rows($ejecutar) > 0) {
@@ -1219,7 +1229,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                              <label for="sufrio_accidentes">¿Ha sufrido algún tipo de accidente?</label> 
                                                 <div class="row">
                                                     <div class="col-md-3">
-                                                        <select class="form-control" id="sufrio_accidentes" name="sufrio_accidentes" onChange="mostrar_nombre_accidente_del_ninio(this.value);" required>
+                                                        <select class="form-control" id="sufrio_accidentes" name="sufrio_accidentes" onChange="mostrar_nombre_accidente_del_ninio(this.value);" >
                                                             <option value="seleccione">Seleccione</option>
                                                             <option value="Si">Si</option>
                                                             <option value="No">No</option>
@@ -1242,7 +1252,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                                 <select class="form-control" name="accidentes" id="accidentes">
                                                                 <option value="seleccione">Seleccione</option>
                                                                     <?php
-                                                                    $sql_accidentes = "select * from tbl_accidentes";
+                                                                    $sql_accidentes = "select * from tbl_accidentes order by detalle asc";
                                                                     $ejecutar = mysqli_query($con, $sql_accidentes);//ejecutar consulta
                                                                     
                                                                     if (mysqli_num_rows($ejecutar) > 0) {
@@ -1361,7 +1371,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                              <label for="enfermedad_padece_ninio">¿Alguna enfermedad que padeció?</label> 
                                                 <div class="row">
                                                     <div class="col-md-3">
-                                                        <select class="form-control" id="enfermedad_padece_ninio" name="enfermedad_padece_ninio" onChange="mostrar_nombre_enfer_padece_del_ninio(this.value);" required>
+                                                        <select class="form-control" id="enfermedad_padece_ninio" name="enfermedad_padece_ninio" onChange="mostrar_nombre_enfer_padece_del_ninio(this.value);" >
                                                             <option value="seleccione">Seleccione</option>
                                                             <option value="Si">Si</option>
                                                             <option value="No">No</option>
@@ -1384,14 +1394,14 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                                 <select class="form-control" name="enfer_padece" id="enfer_padece">
                                                                 <option value="seleccione">Seleccione</option>
                                                                     <?php
-                                                                    $sql_enf_padece = "select * from tbl_enfermedades_padecio";
+                                                                    $sql_enf_padece = "select * from tbl_enfermedades order by detalle asc";
                                                                     $ejecutar = mysqli_query($con, $sql_enf_padece);//ejecutar consulta
                                                                     
                                                                     if (mysqli_num_rows($ejecutar) > 0) {
                                                                         while ($row2 = mysqli_fetch_array($ejecutar)) {  
                                                                             
                                                                             $detalle_enf_padece = $row2['detalle'];
-                                                                            $id_enf_padece = $row2['id_enfermedades_padecio'];
+                                                                            $id_enf_padece = $row2['id_enfermedades'];
                                                                             echo "<option value='" . $id_enf_padece. "' " .  ">" . ($detalle_enf_padece) . "</option>";
                                                                         }
                                                                     } 
@@ -1418,7 +1428,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                              <label for="lado_predominante">¿Cuál es su lado predominante?</label> 
                                                 <div class="row">
                                                     <div class="col-md-3">
-                                                        <select class="form-control" id="lado_predominante" name="lado_predominante" required>
+                                                        <select class="form-control" id="lado_predominante" name="lado_predominante" >
                                                             <option value="seleccione">Seleccione</option>
                                                             <option value="Derecho">Derecho</option>
                                                             <option value="Izquierdo">Izquierdo</option>
@@ -1433,7 +1443,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                              <label for="gatea_ninio">¿Ha gateado?</label> 
                                                 <div class="row">
                                                     <div class="col-md-3">
-                                                        <select class="form-control" id="gatea_ninio" name="gatea_ninio" required>
+                                                        <select class="form-control" id="gatea_ninio" name="gatea_ninio" >
                                                             <option value="seleccione">Seleccione</option>
                                                             <option value="Si">Si</option>
                                                             <option value="No">No</option>                                                                                                                    
@@ -1459,7 +1469,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                              <label for="problema_vista">¿Tiene problemas de vista?</label> 
                                                 <div class="row">
                                                     <div class="col-md-3">
-                                                        <select class="form-control" id="problema_vista" name="problema_vista" onChange="mostrar_problemas_vista_del_ninio(this.value);" required>
+                                                        <select class="form-control" id="problema_vista" name="problema_vista" onChange="mostrar_problemas_vista_del_ninio(this.value);" >
                                                             <option value="seleccione">Seleccione</option>
                                                             <option value="Si">Si</option>
                                                             <option value="No">No</option>
@@ -1505,7 +1515,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                              <label for="problemas_oido">¿Tiene problemas de oído?</label> 
                                                 <div class="row">
                                                     <div class="col-md-3">
-                                                        <select class="form-control" id="problemas_oido" name="problemas_oido" onChange="mostrar_problemas_oido_del_ninio(this.value);" required>
+                                                        <select class="form-control" id="problemas_oido" name="problemas_oido" onChange="mostrar_problemas_oido_del_ninio(this.value);" >
                                                             <option value="seleccione">Seleccione</option>
                                                             <option value="Si">Si</option>
                                                             <option value="No">No</option>
@@ -1531,7 +1541,144 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                         </div>                                                
                                                     </div>
                                                 </div>      
-                                            </div>  
+                                            </div> 
+
+
+<!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX VACUNASS (No esta en la tabla EI) XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->                                        
+                                            <script type = "text/javascript"> 
+                                                    var listar_vacunas_ninio = function(){
+                                                        //$(document).ready(function(){
+                                                         var id_ninio_list_vacs = $("#id_de_ninios").val();
+                                                         //alert(id_ninio_list_habitos); 
+                                                         $.ajax({
+                                                             type: 'POST',
+                                                             url: 'ajax_archivos/ajax_ei_vacunas_listar.php',
+                                                             data: {
+                                                                 'id_ajax_ninio_list_vacs': id_ninio_list_vacs,
+                                                             },
+                                                             success: function(data){
+                                                                 //alert(data);
+                                                                 $('#list_vacunas').empty().html(data);
+                                                             }
+                                                         })
+                                                     } 
+
+                                                //eliminar
+                                                $(document).on("click","#eliminar_vacuna_ninio",function(){
+                                                     if(confirm("Está seguro que desea eliminar")){
+                                                         var id_eliminar_vacunas_ninio = $(this).data("id_eliminar_vacun");
+                                                         //alert(id_eliminar_vacunas_ninio);
+                                                         $.ajax({
+                                                             type: 'POST',
+                                                             url: 'ajax_archivos/ajax_ei_vacunas_eliminar.php',
+                                                             data: {
+                                                                'id_ajax_eliminar_vacunas_ninio': id_eliminar_vacunas_ninio,
+                                                             },
+                                                             success: function(respuesta){
+                                                                 //alert(respuesta);
+                                                                 listar_vacunas_ninio();
+                                                             },
+                                                             error:function(){
+                                                             alert("error")
+                                                            }
+                                                         });
+                                                         return false;
+                                                     };
+                                                 } )              
+                                                //fin eliminar
+                                               
+                                                $(document).ready(function(){
+                                                  $("#btn_vacunas").click(function (){
+                                                      var id_vakunas = $("#vacunas_ninio").val();
+                                                      var id_ninio_vac = $("#id_de_ninios").val();
+                                                      var id_fecha_vacuna = $("#fecha_vacuna").val();
+                                                      var id_obcervaciones_vacunas = $("#obcervacion_vacuna").val();
+                                                     // alert(id_vakunas);
+                                                     // alert(id_ninio_vac);
+                                                     // alert(id_fecha_vacuna);
+                                                     // alert(id_obcervaciones_vacunas);
+                                                      $.ajax({
+                                                          type: 'POST',
+                                                          url: 'ajax_archivos/ajax_ei_vacunas_guardar.php',
+                                                          data: {
+                                                                'id_ajax_ninio_vac':id_ninio_vac,
+                                                                'id_ajax_vacunas':id_vakunas,
+                                                                'id_ajax_fecha_vacunas':id_fecha_vacuna,
+                                                                'id_ajax_obcervaciones_vacunas':id_obcervaciones_vacunas,
+                                                            },
+                                                          success: function (respuesta){
+                                                              //alert(respuesta);
+                                                              document.getElementById("vacunas_ninio").value = "Seleccione";
+                                                              document.getElementById("fecha_vacuna").value = "";
+                                                              document.getElementById("obcervacion_vacuna").value = "";
+                                                            listar_vacunas_ninio();
+                                                          },
+                                                          error: function (){
+                                                              
+                                                              alert("Error");
+                                                          }
+
+                                                      });
+                                                      return false;
+                                                  });  
+                                                });
+
+                                            </script>
+
+<!-------------------------------------------------- Tabla de Vacunas ------------------------------------------------------------>                             
+                                            <div class="form-group">
+                                             <label for="vacunas_ninio">Vacunas del niño</label> 
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <select class="form-control" name="vacunas_ninio" id="vacunas_ninio">
+                                                            <option value="seleccione">Seleccione</option>
+                                                            <?php
+                                                            $sql_habitos = "select * from tbl_vacunas order by detalle asc";
+                                                            $ejecutar = mysqli_query($con, $sql_habitos);//ejecutar consulta
+                                                            
+                                                            if (mysqli_num_rows($ejecutar) > 0) {
+                                                                while ($row2 = mysqli_fetch_array($ejecutar)) {  
+                                                                    
+                                                                    $detalle_vacunass = $row2['detalle'];
+                                                                    $id_vacunass = $row2['id_vacunas'];
+                                                                    echo "<option value='" . $id_vacunass. "' " .  ">" . ($detalle_vacunass) . "</option>";
+                                                                }
+                                                            } 
+                                                            ?>
+                                                        </select>
+                                                    </div>
+                                                </div>          
+                                            </div> 
+
+<!--............................................Fecha de la vacuna........................................................-->
+                                                <div class="form-group">
+                                                  <label class = "col-md-3" style="padding-top: 1%; padding-left: 0%; Width: 16%"  for="fecha_vacuna">Fecha de la vacuna:</label>  
+                                                    <div class="row" >                          
+                                                        <div class="col-md-6">
+                                                        <input type="date"  name="fecha_vacuna" class="form-control" id="fecha_vacuna" >
+                                                        </div>                                                
+                                                    </div>
+                                                </div>
+
+<!--............................................Obcervacion vacuna........................................................-->
+                                                <div class="form-group">
+                                                  <label class = "col-md-3" style="padding-top: 1%; padding-left: 0%; Width: 16%"  for="obcervacion_vacuna">Obcervaciones:</label>  
+                                                    <div class="row" >                          
+                                                        <div class="col-md-6">                                                       
+                                                            <textarea rows="4" cols="92" name="obcervacion_vacuna" class="form-control" id="obcervacion_vacuna" ></textarea>
+                                                        </div>
+                                                        <button type="button" class="btn btn-primary" id="btn_vacunas">Agregar</button>                                                
+                                                    </div>
+                                                </div>                                          
+                                                     
+                                                    <div class="row" >
+                                                        <div class="card" style="width: 100%;">
+                                                            <div class="card-body">                                       
+                                                                <div class="div" id="list_vacunas">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>                                                         
 
 <!--*********************************************** TITULO SUEÑO **************************************************** -->                                             
                                 <div class="row">
@@ -1543,7 +1690,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                             <label for="duerme_solo_ni">¿Duerme solo?</label> 
                                             <div class="row">
                                                 <div class="col-md-3">
-                                                    <select class="form-control" id="duerme_solo_ni" name="duerme_solo_ni" required>
+                                                    <select class="form-control" id="duerme_solo_ni" name="duerme_solo_ni" >
                                                         <option value="seleccione">Seleccione</option>
                                                         <option value="Si">Si</option>
                                                         <option value="No">No</option>                                                                                                                    
@@ -1557,7 +1704,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                             <div class="row">                               
                                                 <div class="col-md-3"> 
                                                     <label for="fecha_nac">Hora de acostarse :</label>                                       
-                                                    <input type="time" class="form-control" name="h_acostarse" id="h_acostarse" required>
+                                                    <input type="time" class="form-control" name="h_acostarse" id="h_acostarse" >
                                                 </div>
                                             </div>
                                         </div>
@@ -1567,7 +1714,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                             <div class="row">                               
                                                 <div class="col-md-3"> 
                                                     <label for="fecha_nac">Hora de despertarse :</label>                                       
-                                                    <input type="time" class="form-control" name="h_despertarse" id="h_despertarse" required>
+                                                    <input type="time" class="form-control" name="h_despertarse" id="h_despertarse" >
                                                 </div>
                                             </div>
                                         </div>    
@@ -1657,7 +1804,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                                 <select class="form-control" name="habitos_ninio" id="habitos_ninio">
                                                                   <option value="seleccione">Seleccione</option>
                                                                     <?php
-                                                                    $sql_habitos = "select * from tbl_habitos";
+                                                                    $sql_habitos = "select * from tbl_habitos order by detalle asc";
                                                                     $ejecutar = mysqli_query($con, $sql_habitos);//ejecutar consulta
                                                                     
                                                                     if (mysqli_num_rows($ejecutar) > 0) {
@@ -1693,10 +1840,10 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                              <label for="vocabulario_ninio">Tipo de vocabulario</label> 
                                                 <div class="row">
                                                     <div class="col-md-8">
-                                                        <select class="form-control" name="vocabulario_ninio" id="vocabulario_ninio" required>
+                                                        <select class="form-control" name="vocabulario_ninio" id="vocabulario_ninio" >
                                                             <option value="seleccione">Seleccione</option>
                                                             <?php
-                                                            $sql_vocabulario = "select * from tbl_vocabulario";
+                                                            $sql_vocabulario = "select * from tbl_vocabulario order by detalle asc";
                                                             $ejecutar = mysqli_query($con, $sql_vocabulario);//ejecutar consulta
                                                             
                                                             if (mysqli_num_rows($ejecutar) > 0) {
@@ -1718,10 +1865,11 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                              <label for="expresa_ninio">La mayoría de veces se expresa con:</label> 
                                                 <div class="row">
                                                     <div class="col-md-8">
-                                                        <select class="form-control" id="expresa_ninio" name="expresa_ninio" required>
+                                                        <select class="form-control" id="expresa_ninio" name="expresa_ninio" >
                                                             <option value="seleccione">Seleccione</option>
                                                             <option value="Gestos">Gestos</option>
                                                             <option value="Palabras">Palabras</option>
+                                                            <option value="Las_dos_formas">Las dos formas</option>
                                                         </select>
                                                     </div>                                                
                                                 </div>
@@ -1812,7 +1960,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                                 <select class="form-control" name="parentesco_ninio" id="parentesco_ninio">
                                                                   <option value="seleccione">Seleccione</option>
                                                                     <?php
-                                                                    $sql_vocabulario = "select * from tbl_parentesco";
+                                                                    $sql_vocabulario = "select * from tbl_parentesco order by detalle asc";
                                                                     $ejecutar = mysqli_query($con, $sql_vocabulario);//ejecutar consulta
                                                                     
                                                                     if (mysqli_num_rows($ejecutar) > 0) {
@@ -1843,7 +1991,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                              <label for="dependencia_adultos_n">¿Se muestra dependiente de los adultos?</label> 
                                                 <div class="row">
                                                     <div class="col-md-3">
-                                                        <select class="form-control" id="dependencia_adultos_n" name="dependencia_adultos_n" required>
+                                                        <select class="form-control" id="dependencia_adultos_n" name="dependencia_adultos_n" >
                                                             <option value="seleccione">Seleccione</option>
                                                             <option value="Si">Si</option>
                                                             <option value="No">No</option>                                                                                                                    
@@ -1857,7 +2005,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                              <label for="contacto_con_ninios">¿Está en contacto con otros niños?</label> 
                                                 <div class="row">
                                                     <div class="col-md-3">
-                                                        <select class="form-control" id="contacto_con_ninios" name="contacto_con_ninios" required>
+                                                        <select class="form-control" id="contacto_con_ninios" name="contacto_con_ninios" >
                                                             <option value="seleccione">Seleccione</option>
                                                             <option value="Si">Si</option>
                                                             <option value="No">No</option>                                                                                                                    
@@ -1871,7 +2019,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                              <label for="sociable_act_neg">¿Es sociable o presenta una actitud negativa?</label> 
                                                 <div class="row">
                                                     <div class="col-md-3">
-                                                        <select class="form-control" id="sociable_act_neg" name="sociable_act_neg" required>
+                                                        <select class="form-control" id="sociable_act_neg" name="sociable_act_neg" >
                                                             <option value="seleccione">Seleccione</option>
                                                             <option value="Sociable">Sociable</option>
                                                             <option value="ActitudNegativa">Actitud negativa</option>                                                                                                                    
@@ -1962,7 +2110,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                         <select class="form-control" name="juegos_del_ninio" id="juegos_del_ninio">
                                                             <option value="seleccione">Seleccione</option>
                                                             <?php
-                                                            $sql_juegos_ninio = "select * from tbl_juegos";
+                                                            $sql_juegos_ninio = "select * from tbl_juegos order by detalle asc";
                                                             $ejecutar = mysqli_query($con, $sql_juegos_ninio);//ejecutar consulta
                                                             
                                                             if (mysqli_num_rows($ejecutar) > 0) {
@@ -2068,7 +2216,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                                 <select class="form-control" name="con_quien_juegan" id="con_quien_juegan">
                                                                   <option value="seleccione">Seleccione</option>
                                                                     <?php
-                                                                    $sql_pqjn = "select * from tbl_personas_que_juega";
+                                                                    $sql_pqjn = "select * from tbl_personas_que_juega order by detalle asc";
                                                                     $ejecutar = mysqli_query($con, $sql_pqjn);//ejecutar consulta
                                                                     
                                                                     if (mysqli_num_rows($ejecutar) > 0) {
@@ -2099,7 +2247,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                              <label for="Comparte_juguetes">¿Comparte con dificultad sus juguetes?</label> 
                                                 <div class="row">
                                                     <div class="col-md-3">
-                                                        <select class="form-control" id="Comparte_juguetes" name="Comparte_juguetes" required>
+                                                        <select class="form-control" id="Comparte_juguetes" name="Comparte_juguetes" >
                                                             <option value="seleccione">Seleccione</option>
                                                             <option value="Si">Si</option>
                                                             <option value="No">No</option>                                                                                                                    
@@ -2139,7 +2287,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                                 'id_ajax_eliminar_mascota': id_eliminar_mascota,
                                                              },
                                                              success: function(respuesta){
-                                                                 alert(respuesta);
+                                                               //  alert(respuesta);
                                                                  listar_las_mascotas();
                                                              },
                                                              error:function(){
@@ -2155,6 +2303,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                   $("#btn_tiene_mascotas").click(function (){
                                                       var id_mascotas_del_ninio = $("#mascotas_ninio").val();
                                                       var id_ninio_mascota = $("#id_de_ninios").val();
+                                                      var nombre_mascotita = $("#nombre_macotita").val();
                                                       //alert(id_mascotas_del_ninio);
                                                       //alert(id_ninio_mascota);
                                                       $.ajax({
@@ -2163,9 +2312,11 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                           data: {
                                                                 'id_ajax_ninio_mascota':id_ninio_mascota,
                                                                 'id_ajax_mascotas_del_ninio':id_mascotas_del_ninio,
+                                                                'id_ajax_nombre_mascotita':nombre_mascotita,
                                                           },
                                                           success: function (respuesta){
                                                               //alert(respuesta);
+                                                              document.getElementById("nombre_macotita").value = "";
                                                             listar_las_mascotas();
                                                           },
                                                           error: function (){
@@ -2198,7 +2349,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                              <label for="tiene_mascotas_ninio">¿Tiene mascotas?</label> 
                                                 <div class="row">
                                                     <div class="col-md-3">
-                                                        <select class="form-control" id="tiene_mascotas_ninio" name="tiene_mascotas_ninio" onChange="mostrar_nombre_mascota_del_ninio(this.value);" required>
+                                                        <select class="form-control" id="tiene_mascotas_ninio" name="tiene_mascotas_ninio" onChange="mostrar_nombre_mascota_del_ninio(this.value);" >
                                                             <option value="seleccione">Seleccione</option>
                                                             <option value="Si">Si</option>
                                                             <option value="No">No</option>
@@ -2214,14 +2365,14 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                             <div id="Si_tiene_mascotas" style="display: none;">
                                                 
                                                     <div class="form-group">
-                                                    <label class = "col-md-1" style="padding-top: 1%;padding-right: 10%" for="role">Especifíque:</label>  
+                                                      <label class = "col-md-1" style="padding-top: 1%;padding-right: 10%" for="role">Especifíque:</label>  
                                                         <div class="row" >                          
-                                                            <div class="col-md-8">
+                                                            <div class="col-md-7">
 
                                                                 <select class="form-control" name="mascotas_ninio" id="mascotas_ninio">
                                                                 <option value="seleccione">Seleccione</option>
                                                                     <?php
-                                                                    $sql_mascotas = "select * from tbl_mascotas";
+                                                                    $sql_mascotas = "select * from tbl_mascotas order by detalle asc";
                                                                     $ejecutar = mysqli_query($con, $sql_mascotas);//ejecutar consulta
                                                                     
                                                                     if (mysqli_num_rows($ejecutar) > 0) {
@@ -2236,9 +2387,21 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                                 </select>
                                                                 
                                                             </div>
-                                                            <button type="button" class="btn btn-primary" id="btn_tiene_mascotas">Agregar</button>
+                                                            
                                                         </div>   
                                                     </div>
+
+<!--............................................Nombre mascota........................................................-->
+                                                    <div class="form-group">
+                                                      <label class = "col-md-1" style="padding-top: 1%;padding-right: 10%" for="nombre_macotita">Nombre:</label>  
+                                                        <div class="row">                          
+                                                            <div class="col-md-6">
+                                                            <input type="text"  name="nombre_macotita" class="form-control" id="nombre_macotita" >
+                                                            </div>
+                                                            <button type="button" class="btn btn-primary" id="btn_tiene_mascotas">Agregar</button>                                                
+                                                        </div>
+                                                    </div>
+
                                                     <div class="row" >
                                                         <div class="card" style="width: 100%;">
                                                             <div class="card-body">                                       
@@ -2259,7 +2422,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                              <label for="llora_facilmente">¿Llora con facilidad?</label> 
                                                 <div class="row">
                                                     <div class="col-md-3">
-                                                        <select class="form-control" id="llora_facilmente" name="llora_facilmente" required>
+                                                        <select class="form-control" id="llora_facilmente" name="llora_facilmente" >
                                                             <option value="seleccione">Seleccione</option>
                                                             <option value="Si">Si</option>
                                                             <option value="No">No</option>                                                                                                                    
@@ -2348,7 +2511,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                                 <select class="form-control" name="q_le_gusta" id="q_le_gusta">
                                                                   <option value="seleccione">Seleccione</option>
                                                                     <?php
-                                                                    $sql_gustos = "select * from tbl_gustos_disgustos";
+                                                                    $sql_gustos = "select * from tbl_gustos_disgustos order by detalle asc";
                                                                     $ejecutar = mysqli_query($con, $sql_gustos);//ejecutar consulta
                                                                     
                                                                     if (mysqli_num_rows($ejecutar) > 0) {
@@ -2454,7 +2617,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                                 <select class="form-control" name="q_le_disgusta_ninio" id="q_le_disgusta_ninio">
                                                                   <option value="seleccione">Seleccione</option>
                                                                     <?php
-                                                                    $sql_gustos = "select * from tbl_gustos_disgustos";
+                                                                    $sql_gustos = "select * from tbl_gustos_disgustos order by detalle asc";
                                                                     $ejecutar = mysqli_query($con, $sql_gustos);//ejecutar consulta
                                                                     
                                                                     if (mysqli_num_rows($ejecutar) > 0) {
@@ -2570,7 +2733,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                              <label for="miedos_del_ninio">¿Tiene miedo a algo?</label> 
                                                 <div class="row">
                                                     <div class="col-md-3">
-                                                        <select class="form-control" id="miedos_del_ninio" name="miedos_del_ninio" onChange="mostrar_los_miedos_del_ninio(this.value);" required>
+                                                        <select class="form-control" id="miedos_del_ninio" name="miedos_del_ninio" onChange="mostrar_los_miedos_del_ninio(this.value);" >
                                                             <option value="seleccione">Seleccione</option>
                                                             <option value="Si">Si</option>
                                                             <option value="No">No</option>
@@ -2615,7 +2778,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                                     <select class="form-control" name="miedos_ninio" id="miedos_ninio">
                                                                     <option value="seleccione">Seleccione</option>
                                                                         <?php
-                                                                        $sql_miedos = "select * from tbl_miedos";
+                                                                        $sql_miedos = "select * from tbl_miedos order by detalle asc";
                                                                         $ejecutar = mysqli_query($con, $sql_miedos);//ejecutar consulta
                                                                         
                                                                         if (mysqli_num_rows($ejecutar) > 0) {
@@ -2652,7 +2815,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                              <label for="leen_cuentos">¿Le leen cuentos?</label> 
                                                 <div class="row">
                                                     <div class="col-md-3">
-                                                        <select class="form-control" id="leen_cuentos" name="leen_cuentos" required>
+                                                        <select class="form-control" id="leen_cuentos" name="leen_cuentos" >
                                                             <option value="seleccione">Seleccione</option>
                                                             <option value="Si">Si</option>
                                                             <option value="No">No</option>                                                                                                                    
@@ -2675,7 +2838,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                              <label for="referencia_cdi_ninio">¿Cuál fue el motivo de su elección?</label> 
                                                 <div class="row">
                                                     <div class="col-md-5">
-                                                        <select class="form-control" id="referencia_cdi_ninio" name="referencia_cdi_ninio" required>
+                                                        <select class="form-control" id="referencia_cdi_ninio" name="referencia_cdi_ninio" >
                                                             <option value="seleccione">Seleccione</option>
                                                             <option value="Cercanía">Cercanía</option>
                                                             <option value="Buenas_referencias">Buenas referencias</option>                                                                                                                    
@@ -2688,20 +2851,19 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
 <!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ELECCION CDI XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
                                             <div class="form-group">
                                              <label for="eleccion_cdi">¿Cómo calificaría de acuerdo a su experiencia? El Centro de Desarrollo Infantil es:</label> 
-                                                <div class="form-group" style="padding-left: 1%">
-                                                    <input type="radio" id="eleccion_cdi" name="eleccion_cdi" value="Excelente">
-                                                    <label for="eleccion_cdi" > Excelente</label><br>  
-                                                    <input type="radio" id="eleccion_cdi" name="eleccion_cdi" value="Muy_bueno">
-                                                    <label for="eleccion_cdi" > Muy bueno</label><br>
-                                                    <input type="radio" id="eleccion_cdi" name="eleccion_cdi" value="Bueno">
-                                                    <label for="eleccion_cdi" > Bueno</label><br>
-                                                    <input type="radio" id="eleccion_cdi" name="eleccion_cdi" value="Regular">
-                                                    <label for="eleccion_cdi" > Regular</label><br>
-                                                    <input type="radio" id="eleccion_cdi" name="eleccion_cdi" value="Insuficiente">
-                                                    <label for="eleccion_cdi" > Insuficiente</label><br>
-                                                    <input type="radio" id="eleccion_cdi" name="eleccion_cdi" value="Reprobado">
-                                                    <label for="eleccion_cdi" > Reprobado</label><br>  
-                                                </div>   
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <select class="form-control" id="eleccion_cdi" name="eleccion_cdi" >
+                                                            <option value="seleccione">Seleccione</option>
+                                                            <option value="Excelente">Excelente</option>
+                                                            <option value="Muy_bueno">Muy bueno</option>                                                                                                                    
+                                                            <option value="Bueno">Bueno</option>                                                                                                                    
+                                                            <option value="Regular">Regular</option>                                                                                                                    
+                                                            <option value="Insuficiente">Insuficiente</option>                                                                                                                    
+                                                            <option value="Reprobado">Reprobado</option>                                                                                                                    
+                                                        </select>
+                                                    </div>                                                
+                                                </div>
                                             </div>
 
 <!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ACUERDO CONTRIBUCION CDI XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
@@ -2710,7 +2872,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                                                y para el mejoramiento de las instalaciones del Centro de Desarrollo Infantil</label> 
                                                 <div class="row">
                                                     <div class="col-md-8">
-                                                        <select class="form-control" id="acuerdos_de_contribucion" name="acuerdos_de_contribucion" required>
+                                                        <select class="form-control" id="acuerdos_de_contribucion" name="acuerdos_de_contribucion" >
                                                             <option value="seleccione">Seleccione</option>
                                                             <option value="Acuerdo">Si estoy de acuerdo</option>
                                                             <option value="Desacuerdo">No estoy de acuerdo</option>                                                                                                                    
@@ -2724,7 +2886,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                 <div class="row">
                                                     <div class="col-md-8" >
                                                         <label for="nombre_entrevistado_ninio">Nombre del entrevistado(a):</label>
-                                                        <input type="text" id="nombre_entrevistado_ninio" name="nombre_entrevistado_ninio" class="form-control" value= "" placeholder="Nombre del entrevistado(a)" required>
+                                                        <input type="text" id="nombre_entrevistado_ninio" name="nombre_entrevistado_ninio" class="form-control" value= "" placeholder="Nombre del entrevistado(a)" >
                                                     </div>
                                                 </div>
                                             </div>
@@ -2734,10 +2896,10 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                                 <div class="row">
                                                     <div class="col-md-8" >
                                                       <label for="parentesco_entrevistado">Parentesco :</label>
-                                                        <select class="form-control" name="parentesco_entrevistado" id="parentesco_entrevistado" required>
+                                                        <select class="form-control" name="parentesco_entrevistado" id="parentesco_entrevistado" >
                                                         <option value="">Seleccione</option>
                                                             <?php
-                                                            $sql_parentesco_nin = "select * from tbl_parentesco";
+                                                            $sql_parentesco_nin = "select * from tbl_parentesco order by detalle asc";
                                                             $ejecutar = mysqli_query($con, $sql_parentesco_nin);//ejecutar consulta
                                                             
                                                             if (mysqli_num_rows($ejecutar) > 0) {
@@ -2755,27 +2917,66 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
                                             </div>
                                             
 <!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ENTREVISTADOR XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-md-8" >
-                                                    <label for="nombres_user">Nombre del Entrevistador(a) :</label>
-                                                    <input type="text" name="nombres_user" id="nombres_user" class="form-control"  value="<?php 
-                                                        echo "$apellidos_user  $nombre_users";
-                                                    ?>" >
-                                                        
-                                                                                
-                                                    <label for="role_user">Tipo de Usuario:</label>                                                    
-                                                    <input type="text" id="role_user" name="role_user" class="form-control"  value="<?php   
-                                                    echo $tipo_user_ei;                                    
-                                                    ?>">
+                                                <div class="row">                             
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <label for="nombres_user">Nombre del Entrevistador(a):</label>
+                                                            <select required class="form-control" name="nombres_user" id="nombres_user">
+                                                            <option value="">Seleccione</option>
+                                                                <?php
+                                                                $sql_user = "SELECT * FROM tbl_usuario WHERE tbl_usuario.ci = $num_ci";
+                                                                $ejecutar = mysqli_query($con, $sql_user);//ejecutar consulta
+                                                                
+                                                                if (mysqli_num_rows($ejecutar) > 0) {
+                                                                    while ($row2 = mysqli_fetch_array($ejecutar)) {  
+                                                                        
+                                                                        $apellido_user = $row2['apellidos'];
+                                                                        $etninombre_user = $row2['nombres'];
+
+                                                                        $id_user = $row2['id_usuario'];
+                                                                        echo "<option value='" . $id_user. "' " .  ">" . ("$apellido_user $etninombre_user") . "</option>";
+                                                                    }
+                                                                } 
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>                                
                                                 </div>
-                                            </div>                                 
-                                        </div>
+                                                
+                                                
+                                                <div class="row">                             
+                                                    <div class="col-md-8">
+                                                        <div class="form-group">
+                                                            <label for="rol_usuario">Tipo de Usuario:</label>
+                                                            <select required class="form-control" name="rol_usuario" id="rol_usuario">
+                                                            <option value="">Seleccione</option>
+                                                                <?php
+                                                                $sql_tipo = "SELECT tbl_usuario_nombre.id_usuario_nombre, tbl_usuario_nombre.detalle
+                                                                FROM tbl_usuario
+                                                                INNER JOIN tbl_usuario_nombre
+                                                                ON tbl_usuario_nombre.id_usuario_nombre = tbl_usuario.tipo
+                                                                WHERE tbl_usuario.ci = $num_ci";
+                                                                
+                                                                $ejecutar = mysqli_query($con, $sql_tipo);//ejecutar consulta
+                                                                
+                                                                if (mysqli_num_rows($ejecutar) > 0) {
+                                                                    while ($row2 = mysqli_fetch_array($ejecutar)) {  
+                                                                        
+                                                                        $tipo_user = $row2['detalle'];
+                                                                        $id_tipo_user = $row2['id_usuario_nombre'];
+                                                                        echo "<option value='" . $id_tipo_user. "' " .  ">" . ("$tipo_user ") . "</option>";
+                                                                    }
+                                                                } 
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>                                
+                                                </div>
 <!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX FECHA INSCRIPCION XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
                                         <?php
                                             date_default_timezone_set('America/Bogota');//declaro zona horaria
                                             $time = new DateTime();//para sacar la fecha actual
-                                            $hoy = $time->format('Y-m-d (H:i:s)');  //imprimimos la fecha actual
+                                            $hoy = $time->format('Y-m-d');  //imprimimos la fecha actual
                                             //echo $hoy; 
                                         ?>
                                         <div class="form-group"> 
@@ -2789,7 +2990,7 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
 
  <!--+++++++++++++++++++++++++++++++++++++++++++++++++++++ AQUI ESE EL FIN DEL FORMULARIO (FORM) +++++++++++++++++++++++++++++++++++++++++-->
                                   
-                                    <input type="submit" value="Agregar Datos Personales del Niño(a)" name="submit" class="btn btn-primary">
+                                    <input type="submit" value="Agregar" name="submit" class="btn btn-primary">
                                     
                                     <a href="niniosregistrados_ci.php">
                                     <button type="button" class="btn btn-primary">Regresar</button>

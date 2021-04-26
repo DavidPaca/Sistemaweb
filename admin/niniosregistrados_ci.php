@@ -7,9 +7,12 @@ $_nom_cdi = $_SESSION['tipo_cdi'];
 //echo $_nom_cdi; 
 $_nom_periodo = $_SESSION['periodo_ac'];
 //echo $_nom_periodo;
+//$edit_id = $_GET['edit'];//get y post sirven para atrapar datos.
+//echo($edit_id);
 
 if (isset($_GET['del'])) {
     $del_id = $_GET['del'];
+    
    // $del_check_query = "SELECT * FROM tbl_datos_personales_ninio ORDER BY id_ninio DESC";
     //$del_check_run = mysqli_query($con, $del_check_query);
    // if (mysqli_num_rows($del_check_run) > 0) {
@@ -111,7 +114,7 @@ if (isset($_GET['del'])) {
                                         <th>Apellidos</th>
                                         <th>Nombres</th>                               
                                         <th>Ingrese entrevista inicial</th>
-                                        <th>Eliminar</th>
+                                        <!--     <th>Eliminar</th> -->
                                        
                                         
                                     </tr>
@@ -119,13 +122,15 @@ if (isset($_GET['del'])) {
                                 <tbody>
                                 
                                     <?php
+                                    $cont=0;
                                     while ($row = mysqli_fetch_array($run)) {
-                                        
+                                        $cont++;
                                         $idninio = $row['id_ninio'];
                                         $idTipodocumento = $row['id_docide'];
                                         $c_i = $row['numero_docide'];
                                         $last_name = ($row['apellidos']);
                                         $first_name = ($row['nombres']);
+                                        $estado_en_inicial = ($row['estado_ei']);
                                        // $fecha_nac = $row['fecha_nac'];
                                         //$anio_ninio = $row['anio'];
                                         //$mes_ninio = $row['mes'];
@@ -152,22 +157,30 @@ if (isset($_GET['del'])) {
                                         //$cdi = $row['id_cdi'];
                                         //$imagen_n = $row['imagen_ninio'];                          
                                     ?>
-                                        
-                                        
+                                    
                                         <tr>
-                                            <td><input type="checkbox" class="checkboxes" name="checkboxes[]" value="<?php echo $idninio; ?>"></td>
-                                            <td><?php echo $idninio; ?></td>
+                                            <td><input type="checkbox" class="checkboxes" name="checkboxes[]"></td>
+                                            <td><?php echo $cont; ?></td>
                                            <!-- <td><?php // echo $idTipodocumento; ?></td> -->
                                             <td><?php echo $c_i; ?></td>
                                             <td><?php echo $last_name ; ?></td>
                                             <td><?php echo $first_name; ?></td>
+
+                                        <?php
+                                        if ($estado_en_inicial == 0){ ?>
+                                            <td><a href="ing_entrevista_i.php?edit=<?php echo $idninio; ?>"><i id = "block_edit" class="far fa-file-alt"></i></a></td>
+                                            <?php  } else{ ?>
+                                               <td><i id = "block_edit" class="far fa-file-alt"></i></td> 
+                                               <?php    }  ?>
                                           
-                                            <td><a href="ing_entrevista_i.php?edit=<?php echo $idninio; ?>"><i class="far fa-file-alt"></i></a></td>
-                                            <td><a href="niniosregistrados_ci.php?del=<?php echo $idninio; ?>" onclick="return confirm('¿Desea Borrar?');"><i class="fas fa-trash-alt"></i></a></td> 
+                                            
+                                               <!---    <td><a href="niniosregistrados_ci.php?del=<?php //echo $idninio; ?>" onclick="return confirm('¿Desea Borrar?');"><i class="fas fa-trash-alt"></i></a></td> --> 
                                             
                                                         
                                         </tr>
                                     <?php } ?>
+                                    
+
                                 </tbody>
                             </table>
                             <?php

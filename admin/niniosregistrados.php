@@ -67,7 +67,12 @@ if (isset($_GET['del'])) {
                         <li class="active"><i class="fa fa-users"></i> Datos Personales del Niño(a)</li>
                     </ol>
                     <?php
-                    $query = "SELECT * FROM tbl_datos_personales_ninio Where estado='Activo' AND id_cdi = $_nom_cdi AND id_periodo_ninio = $_nom_periodo ORDER BY apellidos ASC";
+                    $query = "SELECT tbl_datos_personales_ninio.id_ninio, tbl_datos_personales_ninio.numero_docide, tbl_datos_personales_ninio.apellidos, tbl_datos_personales_ninio.nombres,
+                    tbl_cdi.nombre AS detalle_cdi, tbl_periodo.inicio, tbl_periodo.fin 
+                    FROM tbl_datos_personales_ninio
+                    INNER JOIN tbl_cdi ON tbl_cdi.id = tbl_datos_personales_ninio.id_cdi
+                    INNER JOIN tbl_periodo ON tbl_periodo.id_periodo = tbl_datos_personales_ninio.id_periodo_ninio
+                    Where estado='Activo' AND id_cdi = $_nom_cdi AND id_periodo_ninio = $_nom_periodo ORDER BY apellidos ASC";
                     $run = mysqli_query($con, $query);
                     if (mysqli_num_rows($run) > 0) {
                         ?>
@@ -117,6 +122,8 @@ if (isset($_GET['del'])) {
                                         <th>Cedula de Identidad</th>
                                         <th>Apellidos</th>                               
                                         <th>Nombres</th>
+                                        <th>CDI</th>
+                                        <th>Período</th>
                                         <th>Detalle</th>
                                         <th>Modificar</th>
                                         <th>Eliminar</th>
@@ -156,7 +163,9 @@ if (isset($_GET['del'])) {
                                         //$n_talla = $row['talla'];
                                         //$n_nivel = $row['detalle_nivel_ninio'];                               
                                         //$sobrenombre = $row['como_lo_llaman'];
-                                        //$cdi = $row['detalle_cdi'];
+                                        $detalle_cdi = $row['detalle_cdi'];
+                                        $ini_periodo = $row['inicio'];
+                                        $fin_periodo = $row['fin'];
                                         //$imagen_n = $row['imagen_ninio'];                          
                                     ?>
                                         
@@ -179,11 +188,12 @@ if (isset($_GET['del'])) {
                                             <td><?php// echo "$n_peso kg."; ?></td>
                                             <td><?php// echo "$n_talla cm."; ?></td>
                                             <td><?php// echo $n_nivel; ?></td>
-                                            <td><?php// echo $sobrenombre; ?></td>
-                                            <td><?php// echo $cdi; ?></td> -->
+                                            <td><?php// echo $sobrenombre; ?></td>-->
+                                            <td><?php echo $detalle_cdi; ?></td> 
+                                            <td><?php echo "$ini_periodo $fin_periodo" ; ?></td> 
                                            <!-- <td><?php// echo $imagen_n; ?></td> -->
                                            <!--  <td><img src="img/<?php //echo $imagen_n; ?>" width="50px"></td>  -->
-                                           <td><a href="profile_datos_ninio.php?edit=<?php echo $idninio; ?>"><i class="far fa-file-alt"></i></a></td>
+                                            <td><a href="profile_datos_ninio.php?edit=<?php echo $idninio; ?>"><i class="far fa-file-alt"></i></a></td>
                                             <td><a href="editar_datos_ninio.php?edit=<?php echo $idninio; ?>"><i class="far fa-edit"></i></a></td>
                                             <td><a href="niniosregistrados.php?del=<?php echo $idninio; ?>" onclick="return confirm('¿Desea Borrar?');"><i class="fas fa-trash-alt"></i></a></td>
                                         
@@ -194,16 +204,17 @@ if (isset($_GET['del'])) {
                                     <?php } ?>
                                 </tbody>
                             </table>
+                            <center>
+                                <a href="../reportes_pdf/pdf_lista_ninios.php" target="_blank">
+                                    <button type="button" class="btn btn-primary">Imprimir</button>
+                                </a>
+                                </center>
                             <?php
                         } else {
                             echo "<center><h2>Usuarios no disponibles por ahora</h2></center>";
                         }
                         ?>
-                                <center>
-                                <a href="pdf_lista_ninios.php">
-                                    <button type="button" class="btn btn-primary">Regresar</button>
-                                </a>
-                                </center>
+                                
                     </form>
                 </div>
             </div>

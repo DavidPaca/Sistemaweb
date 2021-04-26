@@ -10,11 +10,15 @@ if (isset($_GET['edit'])) {//si esque hay la variable edit
 //$session_username = $_SESSION['username'];
 //echo($session_username);
 
-$query = "SELECT   tbl_usuario.id_usuario, tbl_usuario.ci,  tbl_usuario.apellidos,  tbl_usuario.nombres,  tbl_usuario.fecha_ingreso,  tbl_usuario.tipo,  tbl_usuario.direccion_dom,  tbl_usuario.telefono,  tbl_usuario.correo_e,  tbl_usuario.contrasenia,  tbl_usuario.imagen_usuario,  tbl_usuario.id_docide, tbl_documento_identidad.detalle AS detalle_di,
+$query = "SELECT   tbl_usuario.id_usuario, tbl_usuario.ci,  tbl_usuario.apellidos,  tbl_usuario.nombres,  tbl_usuario.fecha_ingreso,
+tbl_usuario.direccion_dom,  tbl_usuario.telefono,  tbl_usuario.correo_e,  tbl_usuario.contrasenia,  tbl_usuario.imagen_usuario,
+tbl_usuario.id_docide, tbl_documento_identidad.detalle AS detalle_di, tbl_usuario_nombre.detalle AS nivel_usuario,
 tbl_usuario.id_cdi, tbl_cdi.nombre AS detalle_cdi, tbl_periodo.inicio, tbl_periodo.fin
                    FROM  tbl_usuario 
                    INNER JOIN tbl_documento_identidad 
                    ON  tbl_usuario.id_docide = tbl_documento_identidad.id_docide 
+                   INNER JOIN tbl_usuario_nombre
+                   ON tbl_usuario_nombre.id_usuario_nombre = tbl_usuario.tipo
                    INNER JOIN tbl_cdi
                    ON  tbl_usuario.id_cdi = tbl_cdi.id
                    INNER JOIN tbl_periodo
@@ -22,13 +26,13 @@ tbl_usuario.id_cdi, tbl_cdi.nombre AS detalle_cdi, tbl_periodo.inicio, tbl_perio
                    Where  tbl_usuario.id_usuario = $edit_id";
 $run = mysqli_query($con, $query);
 $row = mysqli_fetch_array($run);
-
+        $id_usuario = $row['id_usuario'];
         $tipo_docum = $row['detalle_di'];
         $ci=$row['ci'];
         $apellidos=$row['apellidos'];
         $nombre = $row['nombres'];
         $fecha_ing = $row['fecha_ingreso'];
-        $tipo = $row['tipo'];
+        $tipo = $row['nivel_usuario'];
         $direccion = $row['direccion_dom'];
         $correo = $row ['correo_e'];
         $telefono = $row['telefono'];
@@ -47,12 +51,12 @@ $row = mysqli_fetch_array($run);
         <div class="container-fluid body-section">
             <div class="row">
                 <div class="col-md-3">
-                    <?php require_once('inc/sidebar.php'); ?>
+                <?php require_once('../admin/inc/sidebar.php'); ?>
                 </div>
                 <div class="col-md-9">
-                    <h1><i class="fa fa-user"></i> Datos<small> Personales</small></h1><hr>
+                    <h1><i class="fa fa-user"></i> Información<small> Personal</small></h1><hr>
                     <ol class="breadcrumb">
-                        <li><a href="index.php"><i class="fas fa-home"></i> Menú</a></li>
+                        <li><a href="../admin/index.php"><i class="fas fa-home"></i> Menú</a></li>
                         <li class="active"><i class="fa fa-user"></i> Perfil</li>
                     </ol>
 
@@ -62,16 +66,12 @@ $row = mysqli_fetch_array($run);
                     
                         <div class="col-xs-12">
                         
-                            <center><img src="img/<?php echo $image; ?>" width="200px" class="rounded" id="profile-image"></center><br>
+                            <center><img src="../admin/img/<?php echo $image; ?>" width="200px" class="rounded" id="profile-image"></center><br>
                             
                             <center>
                                 <h3>Información</h3>
                             </center>
 
-                            <?php echo $_GET['edit']; ?>
-                            
-                            
-                            
                             <br>
                             <table class="table table-bordered">
                                 <tr>
@@ -106,9 +106,13 @@ $row = mysqli_fetch_array($run);
                                 </tr>
                                 
                             </table> <br>
-                            <center> <a href="edit-user.php?edit=<?php echo $edit_id; ?>" class="btn btn-primary">Editar Perfil</a>
-                            <a href="users.php">
-                                            <button type="button" class="btn btn-primary">Regresar</button>
+                            <center> 
+                            <a href="edit_user_cg_vs.php?edit=<?php echo $edit_id; ?>" class="btn btn-primary">Editar Perfil</a>
+                            
+                            <!--  <a href="../admin/edit-profile_cambiar_contraseña.php?edit=<?php //echo $id_usuario; ?>" class="btn btn-primary">Cambiar contraseña</a>  -->
+
+                            <a href="../admin/index.php?edit=<?php echo $edit_id; ?>">
+                            <button type="button" class="btn btn-primary">Menú</button>
                                 </a></center>
                         </div>
                     </div>

@@ -8,6 +8,9 @@ if (!isset($_SESSION['username'])) {
 
 $_nom_cdi = $_SESSION['tipo_cdi'];
 //echo $_nom_cdi;
+$_nom_periodo = $_SESSION['periodo_ac'];
+//echo $_nom_periodo;
+
 
 ?>
 </head>
@@ -52,15 +55,14 @@ $_nom_cdi = $_SESSION['tipo_cdi'];
                             $image='defecto.png';
                         }
 
-                      //  echo($first_name.$last_name.$username.$password.$role.$role.$email.$telef.$dir.$cdi);         //username
-
-                        
-                        
-                        //$password = crypt($password, $salt);
-/*----------------------empty =vacio--------------------------*/
-                        if (empty($first_name) or empty($last_name) or empty($username) or empty($email) or empty($password)) {   //username
-                            $error = "Todos los (*) Campos son requeridos";
-                        } else {
+                        if (empty($username)) {
+                            $error = "Debe llenar el campo";
+                        }else {
+                            $check_query = "SELECT * FROM tbl_usuario WHERE ci = $username";
+                            $check_run = mysqli_query($con, $check_query);                     
+                            if (mysqli_num_rows($check_run) > 0) {
+                                $error = "Número de documento de identidad existente";
+                            } else {
                             $insert_query = "INSERT INTO `tbl_usuario` ( `id_usuario`,`id_docide`,`ci`,`apellidos`,`nombres`,`fecha_ingreso`,`tipo`,`direccion_dom`,`telefono`,`correo_e`,`contrasenia`,`id_cdi`, id_periodo_usuario, `estado_us`, `imagen_usuario`) values('id_usuario','$tipo_docide','$username','$last_name','$first_name','$fecha_ingreso','$role','$dir','$telef','$email','$password','$cdi', $periodo_academic, '$estado_us_ni', '$image')";
                             if (mysqli_query($con, $insert_query)) {
                                 $msg = "Usuario ingresado";
@@ -83,10 +85,11 @@ $_nom_cdi = $_SESSION['tipo_cdi'];
                             }
                         }
                     }
+                }
                     ?>
                     <div class="row">
                         <div class="col-md-8">
-                            <form action="" method="post" enctype="multipart/form-data">
+                            <form action="" method="post" enctype="multipart/form-data" autocomplete="off">
 
                             <div class="row">                             
                                 <div class="col-md-12">
@@ -123,9 +126,15 @@ $_nom_cdi = $_SESSION['tipo_cdi'];
 
 
                                 <div class="form-group">
-                                    <label for="username">Número de Documento de Identidad:</label>    <!--username-->
-                                    <input type="number" id="username" name="ci" class="form-control" placeholder="Ej:1234567890" required>    <!--username-->
+                                    <label for="username">Número de Documento de Identidad (Sin guión):</label>    <!--username-->
+                                    <input type="text" id="username" name="ci" class="form-control" placeholder="Ej:1234567890" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>    <!--username-->
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="Password">Contraseña (Número documento de identidad):</label>
+                                    <input type="text" id="password" name="password" class="form-control" placeholder="Contraseña" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                </div>
+
 
                              <!--   <div class="form-group">
                                     <label for="apellidos_us">Apellidos:</label>
@@ -173,7 +182,7 @@ $_nom_cdi = $_SESSION['tipo_cdi'];
                                     <label for="telef">Teléfono:</label>
                                     <input type="text" id="telef" name="telef" class="form-control" maxlength="10" value="<?php
                                     
-                                    ?>" placeholder="Teléfono">
+                                    ?>" placeholder="Ej: 123456789" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                                 </div>
 
                                 <div class="form-group">
@@ -186,10 +195,7 @@ $_nom_cdi = $_SESSION['tipo_cdi'];
                                 </div>
 
                                 
-                                <div class="form-group">
-                                    <label for="Password">Contraseña:</label>
-                                    <input type="password" id="password" name="password" class="form-control" placeholder="Contraseña">
-                                </div>
+                               
 
 
                                 <div class="form-group">
@@ -218,7 +224,7 @@ $_nom_cdi = $_SESSION['tipo_cdi'];
                                     <select class="form-control" name="periodo_acad" id="periodo_acad" required>
                                     <option value="" >Seleccione</option>
                                         <?php
-                                            $sql_periodo_ac = "SELECT * FROM `tbl_periodo` WHERE id_periodo ";
+                                            $sql_periodo_ac = "SELECT * FROM `tbl_periodo` WHERE id_periodo = $_nom_periodo ";
                                             $ejecutar = mysqli_query($con, $sql_periodo_ac);//ejecutar consulta
                                             if (mysqli_num_rows($ejecutar) > 0) {
                                                 while ($row2 = mysqli_fetch_array($ejecutar)) {
@@ -237,7 +243,7 @@ $_nom_cdi = $_SESSION['tipo_cdi'];
                                 
 <!--............................................estado........................................................-->
 
-                                    <input type="hidden" name="estado_us_n" class="form-control" value= "activo">
+                                    <input type="hidden" name="estado_us_n" class="form-control" value= "Activo">
 
 
 <!--............................................Fotografia........................................................-->

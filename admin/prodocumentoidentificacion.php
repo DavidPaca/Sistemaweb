@@ -7,15 +7,27 @@ if (!isset($_SESSION['username'])) {
     header('Location: index.php');
 }*/
 
+$tipo_user = $_SESSION['roleSS'];
+//echo $tipo_user;
+
 if (isset($_GET['edit'])) {
     $edit_id = $_GET['edit'];
 }
 
+$sql="SELECT * FROM `tbl_usuario_nombre` WHERE  id_usuario_nombre = $tipo_user;";
+        
+        $check_username_run = mysqli_query($con, $sql);//ejecutar consulta 
+        $row = mysqli_fetch_array($check_username_run); //atratpa todos los valores de la fila
+        $db_id_us_nivel = $row['id_usuario_nombre'];
+        $db_detalle = $row['detalle'];
+        $db_nivel_permisos = $row['nivel_permisos'];
+ //echo $db_id_us_nivel;
+
 if (isset($_GET['del'])) {
     $del_id = $_GET['del'];
 
-    echo($_SESSION['roleSS']);
-    if ( $_SESSION['roleSS'] == 'Coordinador') {
+    
+    if ( $db_id_us_nivel == $tipo_user) {
         $del_query = "DELETE FROM tbl_documento_identidad WHERE id_docide = '$del_id'";
         if (mysqli_query($con, $del_query)) {
             $del_msg = "Tipo de Documento ha sido eliminado";
@@ -145,7 +157,7 @@ if (isset($_POST['update'])) {
                         </div>
                         <div class="col-md-6"><br>
                             <?php
-                            $get_query = "SELECT * FROM tbl_documento_identidad ORDER BY id_docide DESC";     //aqui era la tlb desc_evento - id_descevento
+                            $get_query = "SELECT * FROM tbl_documento_identidad ORDER BY detalle ASC";     //aqui era la tlb desc_evento - id_descevento
                             $get_run = mysqli_query($con, $get_query);
                             if (mysqli_num_rows($get_run) > 0) {
 
@@ -157,7 +169,7 @@ if (isset($_POST['update'])) {
                                 ?>
 
 
-                                <table class="table table-hover table-bordered table-striped">
+                                <table class="table table-bordered table-striped table-hover" id="example" >
                                     <thead>
                                         <tr>
                                             <th>Número</th>
@@ -168,12 +180,14 @@ if (isset($_POST['update'])) {
                                     </thead>
                                     <tbody>
                                         <?php
+                                        $cont = 0;
                                         while ($get_row = mysqli_fetch_array($get_run)) {
+                                            $cont++;
                                             $documento_id = $get_row['id_docide'];
                                             $documento_name = $get_row['detalle'];
                                             ?>
                                             <tr>
-                                                <td><?php echo $documento_id; ?></td>
+                                                <td><?php echo $cont; ?></td>
                                                 <td><?php echo ($documento_name); ?></td>
                                                 <td><a href="prodocumentoidentificacion.php?edit=<?php echo $documento_id; ?>"><i class="far fa-edit"></i></a></td>
                                                 <td><a href="prodocumentoidentificacion.php?del=<?php echo $documento_id; ?>" onclick="return confirm('¿Desea Borrar?');  "><i class="fas fa-trash-alt"></i></a></td>

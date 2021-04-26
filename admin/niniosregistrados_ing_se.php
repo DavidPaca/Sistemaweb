@@ -6,6 +6,8 @@ if (!isset($_SESSION['username'])) {
 
 $_nom_cdi = $_SESSION['tipo_cdi'];
 //echo $_nom_cdi; 
+$_nom_periodo = $_SESSION['periodo_ac'];
+//echo $_nom_periodo;
 
 if (isset($_GET['del'])) {
     $del_id = $_GET['del'];
@@ -63,7 +65,7 @@ if (isset($_GET['del'])) {
                         <li class="active"><i class="fa fa-users"></i> Información Socio Económica</li>
                     </ol>
                     <?php
-                    $query = "SELECT * FROM tbl_datos_personales_ninio WHERE estado='Activo' AND id_cdi = '$_nom_cdi'";
+                    $query = "SELECT * FROM tbl_datos_personales_ninio WHERE estado='Activo' AND id_cdi = $_nom_cdi AND id_periodo_ninio = $_nom_periodo ORDER BY apellidos ASC";
                     $run = mysqli_query($con, $query);
                     if (mysqli_num_rows($run) > 0) {
                         ?>
@@ -107,7 +109,7 @@ if (isset($_GET['del'])) {
                                         <th>Apellidos</th>
                                         <th>Nombres</th>                               
                                         <th>Ingrese Informacion Socio Económica</th>
-                                        <th>Eliminar</th>
+                                        <!--     <th>Eliminar</th> -->
                                        
                                         
                                     </tr>
@@ -115,14 +117,15 @@ if (isset($_GET['del'])) {
                                 <tbody>
                                 
                                     <?php
+                                     $cont=0;
                                     while ($row = mysqli_fetch_array($run)) {
-                                        
+                                        $cont++;
                                         $idninio = $row['id_ninio'];
                                         $idTipodocumento = $row['id_docide'];
                                         $c_i = $row['numero_docide'];
                                         $last_name = ($row['apellidos']);
                                         $first_name = ($row['nombres']);
-                                       // $fecha_nac = $row['fecha_nac'];
+                                        $estado_socio_ec = $row['estado_se'];
                                         //$anio_ninio = $row['anio'];
                                         //$mes_ninio = $row['mes'];
                                         //$dia_ninio = $row['dia'];
@@ -152,14 +155,23 @@ if (isset($_GET['del'])) {
                                         
                                         <tr>
                                             <td><input type="checkbox" class="checkboxes" name="checkboxes[]" value="<?php echo $idninio; ?>"></td>
-                                            <td><?php echo $idninio; ?></td>
+                                            <td><?php echo $cont; ?></td>
                                            <!-- <td><?php // echo $idTipodocumento; ?></td> -->
                                             <td><?php echo $c_i; ?></td>
                                             <td><?php echo $last_name ; ?></td>
                                             <td><?php echo $first_name; ?></td>
-                                          
+
+
+                                            <?php
+                                        if ($estado_socio_ec == 0){ ?>
                                             <td><a href="ing_socio_eco.php?edit=<?php echo $idninio; ?>"><i class="far fa-file-alt"></i></a></td>
-                                            <td><a href="niniosregistrados.php?del=<?php echo $idninio; ?>" onclick="return confirm('¿Desea Borrar?');"><i class="fas fa-trash-alt"></i></a></td> 
+                                            <?php  } else{ ?>
+                                               <td><i id = "block_edit" class="far fa-file-alt"></i></td> 
+                                               <?php    }  ?>
+                                         
+                                          
+                                            
+                                               <!--   <td><a href="niniosregistrados.php?del=<?php //echo $idninio; ?>" onclick="return confirm('¿Desea Borrar?');"><i class="fas fa-trash-alt"></i></a></td>  --> 
                                             
                                                         
                                         </tr>

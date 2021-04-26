@@ -4,11 +4,13 @@ require_once('../../inc/db.php');//CONEXION CON BASE DE DATOS
 $id_ninio_enf_padece = $_POST["id_ajax_ninio_list_enfermed_padecio"];
 //echo $id_ninio_habits;
 
-$sql = "SELECT tbl_inter_ei_enfermedades_padecio.id_ei_enfermedades_padecio, tbl_datos_personales_ninio.id_ninio, tbl_enfermedades_padecio.detalle
+$sql = "SELECT tbl_inter_ei_enfermedades_padecio.id_ei_enfermedades_padecio, tbl_datos_personales_ninio.id_ninio, tbl_enfermedades.detalle
 FROM tbl_inter_ei_enfermedades_padecio 
-INNER JOIN tbl_datos_personales_ninio ON tbl_datos_personales_ninio.id_ninio = tbl_inter_ei_enfermedades_padecio.id_ninio_ep
-INNER JOIN tbl_enfermedades_padecio ON tbl_enfermedades_padecio.id_enfermedades_padecio = tbl_inter_ei_enfermedades_padecio.id_enfermedades_padecio_ep
-WHERE tbl_inter_ei_enfermedades_padecio.id_ninio_ep = $id_ninio_enf_padece";
+INNER JOIN tbl_datos_personales_ninio 
+ON tbl_datos_personales_ninio.id_ninio = tbl_inter_ei_enfermedades_padecio.id_ninio_ep
+INNER JOIN tbl_enfermedades 
+ON tbl_enfermedades.id_enfermedades = tbl_inter_ei_enfermedades_padecio.id_enfermedades_padecio_ep
+WHERE tbl_inter_ei_enfermedades_padecio.id_ninio_ep= $id_ninio_enf_padece";
 $run = mysqli_query($con, $sql);
 echo "
         <div class='col-md-6'>

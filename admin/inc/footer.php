@@ -113,7 +113,8 @@
             '//www.tinymce.com/css/codepen.min.css'
         ],
 <?php
-$media_query = "SELECT * FROM media ORDER BY id DESC";
+//$media_query = "SELECT * FROM media ORDER BY id DESC";
+$media_query = "SELECT * FROM tbl_media ORDER BY id_media DESC";
 $media_run = mysqli_query($con, $media_query);
 if (mysqli_num_rows($media_run) > 0) {
     ?>

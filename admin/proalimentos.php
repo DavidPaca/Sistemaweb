@@ -7,15 +7,28 @@ if (!isset($_SESSION['username'])) {
     header('Location: index.php');
 }*/
 
+$tipo_user = $_SESSION['roleSS'];
+//echo $tipo_user;
+
 if (isset($_GET['edit'])) {
     $edit_id = $_GET['edit'];
 }
 
+$sql="SELECT * FROM `tbl_usuario_nombre` WHERE  id_usuario_nombre = $tipo_user;";
+        
+        $check_username_run = mysqli_query($con, $sql);//ejecutar consulta 
+        $row = mysqli_fetch_array($check_username_run); //atratpa todos los valores de la fila
+        $db_id_us_nivel = $row['id_usuario_nombre'];
+        $db_detalle = $row['detalle'];
+        $db_nivel_permisos = $row['nivel_permisos'];
+ //echo $db_id_us_nivel;
+
 if (isset($_GET['del'])) {
     $del_id = $_GET['del'];
 
-    echo($_SESSION['roleSS']);
-    if ( $_SESSION['roleSS'] == 'Coordinador') {
+//echo $del_id;
+    
+    if ( $db_id_us_nivel == $tipo_user) {
         $del_query = "DELETE FROM tbl_alimentos WHERE id_alimentos = '$del_id'";
         if (mysqli_query($con, $del_query)) {
             $del_msg = "Alimento ha sido eliminado";
@@ -24,6 +37,9 @@ if (isset($_GET['del'])) {
         }
     }
 }
+
+
+
 
 if (isset($_POST['submit'])) {
     $cat_name = ($_POST['cat-name']);
@@ -159,7 +175,8 @@ if (isset($_POST['update'])) {
                                 ?>
 
 
-                                <table class="table table-hover table-bordered table-striped">
+                                <table class="table table-bordered table-striped table-hover" id="example" >
+
                                     <thead>
                                         <tr>
                                             <th>Número</th>
@@ -170,12 +187,14 @@ if (isset($_POST['update'])) {
                                     </thead>
                                     <tbody>
                                         <?php
+                                        $cont = 0;
                                         while ($get_row = mysqli_fetch_array($get_run)) {
                                             $alimento_id = $get_row['id_alimentos'];
                                             $detalleali_name = $get_row['detalle'];
+                                            $cont++;
                                             ?>
                                             <tr>
-                                                <td><?php echo $alimento_id; ?></td>
+                                                <td><?php echo $cont; ?></td>
                                                 <td><?php echo ($detalleali_name); ?></td>
                                                 <td><a href="proalimentos.php?edit=<?php echo $alimento_id; ?>"><i class="far fa-edit"></i></a></td>
                                                 <td><a href="proalimentos.php?del=<?php echo $alimento_id; ?>" onclick="return confirm('¿Desea Borrar?');"><i class="fas fa-trash-alt"></i></a></td>

@@ -1,0 +1,154 @@
+
+
+html,body{
+    height: 100%;
+    font-family: 'Federo', sans-serif;
+}
+
+body{
+    padding-top: 60px;
+    font-family: 'Federo', sans-serif;
+}
+
+body#profile img#profile-image{
+    -webkit-box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 16px 0px rgba(0,0,0,0.75);
+}
+
+.huge{
+    font-size: 40px;
+}
+
+.tag-boxes .panel-primary{
+    border: 1px solid #595757;
+}
+
+.tag-boxes .panel-red{
+    color:white;
+    background:#d9534f;
+}
+
+.tag-boxes .panel-red a{
+    color:#d9534f;
+}
+
+.tag-boxes .panel-red a:hover{
+    color:#b52b27;
+}
+
+.tag-boxes .panel-yellow{
+    color:white;
+    background:#f0ad4e;
+}
+
+.tag-boxes .panel-yellow a{
+    color:#f0ad4e;
+}
+
+.tag-boxes .panel-yellow a:hover{
+    color:#595757;
+}
+
+.tag-boxes .panel-green{
+    color:white;
+    background:#5cb85c;
+}
+
+.tag-boxes .panel-green a{
+    color:#5cb85c;
+}
+
+.tag-boxes .panel-green a:hover{
+    color:#3d8b3d;
+}
+
+#wrapper{
+    min-height: 100%;
+    position: relative;
+}
+
+.body-section{
+    padding-bottom: 70px;
+}
+
+footer{
+    background:#ff4f00;
+    color:white;
+    height: 50px;
+    line-height: 50px;
+    font-size: 14px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+footer a{
+    color:#333;
+    font-weight: 500;
+}
+
+footer a:hover{
+    color:white;
+    text-decoration: underline;
+}
+
+.list-group-item{
+    background-color: #f4f1ed;
+   
+}
+
+.card {
+    background-color: #f4f1ed;
+}
+
+
+/*para llamar una clase dentro de otra*/
+.list-group-item.active{
+    background-color: #ff4f00;
+    border-color: #ff4f00;
+    /*color: red !important;*/
+    z-index: 200;
+
+}
+
+.list-group-item.active:hover{
+    background-color: rgba(243, 103, 21, .8);
+    border-color: #f7a82a;
+    /*color: red !important;*/
+    z-index: 200;
+
+}
+/*para el estilo del navbar en el panel de administracion*/
+.navbar{
+    background: #ff4f00;
+    border: white !important;
+}
+
+.navbar-brand:link, .navbar-brand:visited{ /*para que funcione en todo lo que voy poniendo*/
+
+    color: #333 !important;
+}
+.navbar-brand:hover, .navbar-brand:active{ 
+
+    color: white !important;
+}
+
+
+#navbar li a:link, #navbar li a:visited{
+    color: white !important;
+
+}
+#navbar li a:hover, #navbar li a:active{
+
+    color: #333 !important;
+    background: #efa77c;
+
+}
+/*para el estilo del navbar en el panel de administracion*/
+
+
+.rojo  {
+    /* background:red; */
+      z-index:2; /*El z-index es mayor al de la caja azul por lo que se muestra primero que la caja roja*/
+    }

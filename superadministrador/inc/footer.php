@@ -79,7 +79,7 @@
             '//www.tinymce.com/css/codepen.min.css'
         ],
 <?php
-$media_query = "SELECT * FROM media ORDER BY id DESC";
+$media_query = "SELECT * FROM tbl_media ORDER BY id_media DESC";
 $media_run = mysqli_query($con, $media_query);
 if (mysqli_num_rows($media_run) > 0) {
     ?>
@@ -88,7 +88,7 @@ if (mysqli_num_rows($media_run) > 0) {
     while ($media_row = mysqli_fetch_array($media_run)) {
         $media_name = $media_row['image'];
         ?>
-                    {title: '<?php echo $media_name; ?>', value: 'media/<?php echo $media_name; ?>'},
+                    {title: '<?php echo $media_name; ?>', value: 'image/<?php echo $media_name; ?>'},
     <?php } ?>
             ]
 <?php } ?>

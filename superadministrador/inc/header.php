@@ -3,9 +3,13 @@ $session_role2 = $_SESSION['roleSS'];
 $session_username2 = $_SESSION['username'];
 $session_tipo_cdi = $_SESSION['tipo_cdi'];
 
-echo $session_role2;
+//echo $session_role2;
 //echo $session_username2;
 //echo $session_tipo_cdi;
+//$num_cdi = $_REQUEST['numcdi'];
+//echo $num_cdi;
+//$num_per = $_REQUEST['numper'];
+//echo $num_per;
 
 
 require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
@@ -50,10 +54,14 @@ require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
             <ul class="nav navbar-nav navbar-right">
                 <li><a><i class="fa fa-user"></i> <?php echo ($db_Apellido.' '.$db_nombre); ?></a></li>
                 <li><a><i class="far fa-user-circle fa-1x"></i> <?php echo ($db_nivel_usuario); ?></a></li>
+                <?php
+                if ($session_role2 == '1') {
+                    ?>
+                  <li><a></a></li> 
+            <?php } ?>
+            <!--    <li><a><i class="far fa-user-circle fa-1x"></i> <?php  //echo ($db_nombre_cdi); ?></a></li>    --> 
 
-             <!--   <li><a><i class="far fa-user-circle fa-1x"></i> <?php // echo ($db_nombre_cdi); ?></a></li>     -->
-
-                <li><a href="profile.php"><i class="fa fa-user" title="Ver Perfil"></i>Ver Perfil</a></li>
+                <li><a href="profile_CDIS.php"><i class="fa fa-user" title="Ver Perfil"></i>Ver Perfil</a></li>
                 <li><a href="logout.php"><i class="fas fa-sign-out-alt" title="Salir"></i></a></li>
             </ul>
         </div>

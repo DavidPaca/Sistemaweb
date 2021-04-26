@@ -4,8 +4,10 @@ ob_start();
 require_once('../inc/db.php');//CONEXION CON BASE DE DATOS
 if (!isset($_SESSION['username'])) {
     header('Location: login.php');
+    
 }
-
+$user_ci = $_SESSION['username'];
+//echo $user_ci;
 ?>
 </head>
 <body>
@@ -18,7 +20,7 @@ if (!isset($_SESSION['username'])) {
                     <?php require_once('../admin/inc/sidebar.php'); ?>
                 </div>
                 <div class="col-md-9">
-                    <h1><i class="fa fa-user-plus"></i> Agregar<small> Nuevo </small></h1><hr>
+                    <h1><i class="fa fa-user-plus"></i> Agregar<small> Nuevo Visitador(a) Social </small></h1><hr>
                     <ol class="breadcrumb">
                          <li><a href="index.php"><i class="fas fa-home"></i> Menú</a></li>
                         <li class="active"><i class="fa fa-user-plus"></i> Nuevo Usuario</li>
@@ -28,8 +30,7 @@ if (!isset($_SESSION['username'])) {
                     <?php
 /*---------------------------Guarda los datos ingresados en los cajones en las variables------------------------------------------*/
                     if (isset($_POST['submit'])) {
-                        //$date = time();
-                          
+                                         
                         $tipo_docide = ($_POST['tipo_docid']);  
                         $username =($_POST['ci']);
                         $first_name = ($_POST['first-name']);     /*first name es el nombre del cajon*/
@@ -41,51 +42,57 @@ if (!isset($_SESSION['username'])) {
                         $email = ($_POST['email']);
                         $password =($_POST['password']);
                         $cdi = ($_POST['cdi']);
+                        $estado_us_ni = ($_POST['estado_us_n']);
                         $periodo_academic = ($_POST['periodo_acad']);
                         $image = $_FILES['image']['name'];
                         $image_temp = $_FILES['image']['tmp_name'];
                         if($image == null){
                             $image='defecto.png';
                         }
-
-                      //  echo($first_name.$last_name.$username.$password.$role.$role.$email.$telef.$dir.$cdi);         //username
-
-                        
+                            if (empty($username)) {
+                                $error = "Debe llenar el campo";
+                            }else {
+                                $check_query = "SELECT * FROM tbl_usuario WHERE ci = $username";
+                                $check_run = mysqli_query($con, $check_query);                     
+                                if (mysqli_num_rows($check_run) > 0) {
+                                    $error = "Número de documento de identidad existente";
+                                } else {
                         
                         //$password = crypt($password, $salt);
 /*----------------------empty =vacio--------------------------*/
-                        if (empty($first_name) or empty($last_name) or empty($username) or empty($email) or empty($password)) {   //username
-                            $error = "Todos los (*) Campos son requeridos";
-                        } else {
+                      //  if (empty($first_name) or empty($last_name) or empty($username) or empty($email) or empty($password)) {   //username
+                        //    $error = "Todos los (*) Campos son requeridos";
+                        //} else {
                             $insert_query = "INSERT INTO `tbl_usuario` ( `id_usuario`,`id_docide`,`ci`,`apellidos`,`nombres`,`fecha_ingreso`,`tipo`,
-                                            `direccion_dom`,`telefono`,`correo_e`,`contrasenia`,`id_cdi`, `id_periodo_usuario`, `imagen_usuario`) 
+                                            `direccion_dom`,`telefono`,`correo_e`,`contrasenia`,`id_cdi`, `id_periodo_usuario`, `estado_us`, `imagen_usuario`) 
                                             values('id_usuario','$tipo_docide','$username','$last_name','$first_name','$fecha_ingreso','$role','$dir',
-                                            '$telef','$email','$password','$cdi', '$periodo_academic', '$image')";
+                                            '$telef','$email','$password','$cdi', '$periodo_academic', '$estado_us_ni', '$image')";
                             if (mysqli_query($con, $insert_query)) {
                                 $msg = "Usuario ingresado";
-                                $path="img/$image";
+                               // $path="img/$image";
 
                                 
-                                move_uploaded_file($image_temp, "img/$image"); /** Mueve un archivo subido a una nueva ubicación */
+                                //move_uploaded_file($image_temp, "img/$image"); /** Mueve un archivo subido a una nueva ubicación */
                                 /*le edite*/
-                                move_uploaded_file($image_temp, $path);
+                                //move_uploaded_file($image_temp, $path);
                                 /*aqui tb*/
                                 //copy($path,"../$path");
-                                $msg = "Usuario ingresado";
-                                $first_name = "";
-                                $last_name = "";
-                                $email = "";
-                                $username = "";         //username
+                                //$msg = "Usuario ingresado";
+                                //$first_name = "";
+                                //$last_name = "";
+                                //$email = "";
+                                //$username = "";         //username
                                 //header("Location: users.php"); /*para poder volver al blog o login*/
                             } else {
                                 $error = "Usuario no ingresado";
                             }
                         }
                     }
+                }
                     ?>
                     <div class="row">
                         <div class="col-md-8">
-                            <form action="" method="post" enctype="multipart/form-data">
+                            <form action="" method="post" enctype="multipart/form-data" autocomplete="off">
 
 
                                 <div class="form-group">
@@ -119,8 +126,13 @@ if (!isset($_SESSION['username'])) {
 
 
                                 <div class="form-group">
-                                    <label for="username">Número de Documento de Identidad:</label>    <!--username-->
-                                    <input type="number" id="username" name="ci" class="form-control" placeholder="Ej:1234567890" required>    <!--username-->
+                                    <label for="username">Número de Documento de Identidad: (Sin guión)</label>    <!--username-->
+                                    <input type="text" id="username" name="ci" class="form-control" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="Ej:1234567890" required>    <!--username-->
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Password">Contraseña: (Número documento de identidad):</label>
+                                    <input type="text" id="password" name="password" class="form-control" placeholder="Contraseña" required maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                                 </div>
 
                              <!--   <div class="form-group">
@@ -153,7 +165,7 @@ if (!isset($_SESSION['username'])) {
                                     <select class="form-control" name="role" id="role" required>
                                     <option value="" >Seleccione</option>
                                         <?php
-                                            $sql_usuario_nom = "SELECT * FROM `tbl_usuario_nombre` WHERE id_usuario_nombre != 1 AND id_usuario_nombre != 4 AND id_usuario_nombre != 5 AND id_usuario_nombre != 2 ";
+                                            $sql_usuario_nom = "SELECT * FROM `tbl_usuario_nombre` WHERE id_usuario_nombre != 1 AND id_usuario_nombre != 4 AND id_usuario_nombre != 5 AND id_usuario_nombre != 2 AND id_usuario_nombre != 6 ";
                                             $ejecutar = mysqli_query($con, $sql_usuario_nom);//ejecutar consulta
                                             
                                             if (mysqli_num_rows($ejecutar) > 0) {
@@ -171,7 +183,12 @@ if (!isset($_SESSION['username'])) {
                                     </select>
                                 </div>
 
-                                <input type="hidden" name="cdi" id = "cdi" value= 100>
+                                <input type="hidden" name="cdi" id = "cdi" value= 101>
+
+<!--............................................estado........................................................-->
+
+                                <input type="hidden" name="estado_us_n" class="form-control" value= "Activo">   
+                                                                        
                                         
 
                                 <div class="form-group">
@@ -184,22 +201,15 @@ if (!isset($_SESSION['username'])) {
 
                                 <div class="form-group">
                                     <label for="telef">Teléfono:</label>
-                                    <input type="text" id="telef" name="telef" class="form-control" maxlength="10" value="<?php
+                                    <input type="text" id="telef" name="telef" class="form-control" maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57' value="<?php
                                     
-                                    ?>" placeholder="Teléfono">
+                                    ?>" placeholder="Teléfono" required>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="email">Correo Electrónico:</label>
-                                    <input type="text" id="email" name="email" class="form-control" value="" placeholder="Correo Electrónico">
+                                    <input type="text" id="email" name="email" class="form-control" value="" placeholder="Correo Electrónico" required>
                                 </div>
-
-                                
-                                <div class="form-group">
-                                    <label for="Password">Contraseña:</label>
-                                    <input type="password" id="password" name="password" class="form-control" placeholder="Contraseña">
-                                </div>
-
 
                                 <div class="form-group">
                                     <label for="periodo_acad">Período académico:</label>

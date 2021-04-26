@@ -110,9 +110,9 @@ if (isset($_POST['checkboxes'])) {
                                         <th>Apellidos/Nombre</th>
                                         <th>Fecha de Ingreso</th>
                                         <th>Tipo Usuario</th>
-                                        <th>Dirección domiciliaria</th>
+                                        <!--    <th>Dirección domiciliaria</th>  -->
                                         <th>Teléfono</th>
-                                        <th>Correo electrónico</th>
+                                      <!--  <th>CDI</th>   -->
                                         <th>CDI</th>
                                         <th>Detalle</th>
                                         <th>Modificar</th>
@@ -148,9 +148,9 @@ if (isset($_POST['checkboxes'])) {
                                             <td><?php echo "$last_name $first_name"; ?></td>
                                             <td><?php echo $fecha_ing; ?></td>
                                             <td><?php echo $role; ?></td>
-                                            <td><?php echo $dir; ?></td>
+                                            <!-- <td><?php //echo $dir; ?></td>  -->
                                             <td><?php echo $tlf; ?></td>
-                                            <td><?php echo $email; ?></td>
+                                          <!--  <td><?php echo $email; ?></td>    -->
                                             <td><?php echo $cdi;  ?></td>
                                             <td><a href="profile_users.php?edit=<?php echo $id_ni; ?>"><i class="far fa-file-alt"></i></a></td>
                                             <td><a href="edit-user.php?edit=<?php echo $id_ni; ?>"><i class="far fa-edit"></i></a></td>

@@ -197,26 +197,37 @@ $_nom_periodo = $_SESSION['periodo_ac'];
                         $cdi =  ($_POST['cdi']);
                         $periodo_nin =  ($_POST['periodo_ni']);
                         $n_estado = ( $_POST['estado_n']);
+                        $n_estado_ei = ( $_POST['estado_ent_inicial']);
+                        $n_estado_se = ( $_POST['estado_socio_eco']);
+                        $n_estado_ac = ( $_POST['estado_acta_comp']);
                         $image = $_FILES['image']['name'];
                         $image_temp = $_FILES['image']['tmp_name'];
                         if($image == null){
                             $image='defecto.png';
                         }                 
                         
-                        //$password = crypt($password, $salt);
+                        if (empty($ci)) {
+                            $error = "Debe llenar el campo";
+                        }else {
+                            $check_query = "SELECT * FROM tbl_usuario WHERE ci = $ci";
+                            $check_run = mysqli_query($con, $check_query);                     
+                            if (mysqli_num_rows($check_run) > 0) {
+                                $error = "Número de documento de identidad existente";
+                            } else {
+                             //$password = crypt($password, $salt);
 /*----------------------empty =vacio--------------------------*/
-                        if (empty($n_nombres) or empty($n_apellidos) or empty($ci)) {
-                            $error = "Todos los (*) Campos son requeridos";
-                        } else{
+                        //if (empty($n_nombres) or empty($n_apellidos) or empty($ci)) {
+                          //  $error = "Todos los (*) Campos son requeridos";
+                        //} else{
                             $insert_query = "INSERT INTO tbl_datos_personales_ninio(apellidos, nombres, id_docide, numero_docide, fecha_nac, anio, mes, dia , pais, 
                             id_provincia, id_canton, id_parroquia, direccion_dom, referencia_ubicacion, id_genero, id_etnia, discapacidad, porcentaje, carnet_conadis, 
                             id_tipo_discapacidad, asiste_estableci_personas_discapacidad, nombre_establecimiento, peso, talla, id_niveles_ninio, como_lo_llaman, id_cdi, 
-                            id_periodo_ninio, estado, imagen_ninio) VALUES ('$n_apellidos','$n_nombres','$tipo_docide','$ci','$fechanaci','$n_anio','$n_mes','$n_dia','$n_pais',
+                            id_periodo_ninio, estado, estado_ei, estado_se, estado_ac, imagen_ninio) VALUES ('$n_apellidos','$n_nombres','$tipo_docide','$ci','$fechanaci','$n_anio','$n_mes','$n_dia','$n_pais',
                             '$provincianac','$cantonnac','$parroquia_n','$direccion_domic','$referencia_dom','$genero_ni','$getnico_n','$n_discapacidad',
                             '$porcentaje_n','$c_conadis_n','$t_discapa_n','$establec_disca','$nombre_establec','$peso_n','$talla_n','$nivel_ninio','$sobrenombre',
-                            '$cdi', '$periodo_nin', '$n_estado','$image')";
+                            '$cdi', '$periodo_nin', '$n_estado', '$n_estado_ei', '$n_estado_se', '$n_estado_ac', '$image')";
                             if (mysqli_query($con, $insert_query)) {
-                               $msg = "Datos ingresados";
+                               //$msg = "Datos ingresados";
                              //  $path="img/$image";
 
                               
@@ -224,9 +235,9 @@ $_nom_periodo = $_SESSION['periodo_ac'];
                               //  move_uploaded_file($image_tmp, $path);
                               // copy($path,"../$path");
                               $msg = "Datos personales ingresados";
-                              $first_name = "";
-                                $last_name = "";
-                                $ci  = "";
+                              //$first_name = "";
+                                //$last_name = "";
+                                //$ci  = "";
                                 
                           // header("Location: niniosregistrados.php"); /*para poder volver al blog o login*/
                             } else {
@@ -234,6 +245,7 @@ $_nom_periodo = $_SESSION['periodo_ac'];
                             }
                         }
                     }
+                }
                     ?>                                  
 
                     <form action="" method="post" enctype="multipart/form-data">
@@ -252,7 +264,7 @@ $_nom_periodo = $_SESSION['periodo_ac'];
                                         <select class="form-control" name="ti_docide" id="ti_docide" required>
                                             <option value="" >Seleccione</option>
                                             <?php
-                                                $sql_cdi = "select * from tbl_documento_identidad";
+                                                $sql_cdi = "select * from tbl_documento_identidad order by detalle asc";
                                                 $ejecutar = mysqli_query($con, $sql_cdi);//ejecutar consulta
                                                 
                                                 if (mysqli_num_rows($ejecutar) > 0) {
@@ -272,7 +284,7 @@ $_nom_periodo = $_SESSION['periodo_ac'];
                                 <div class="col-md-8">
                                     <div class="form-group">
                                         <label for="ci">Número de Documento de Identificación:</label>
-                                        <input type="text" id="username" name="ci" class="form-control" maxlength="10" value="" placeholder="Ej:1234567890" required>
+                                        <input type="text" id="username" name="ci" class="form-control" value="" placeholder="Ej:1234567890" required maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                                     </div>
                                 </div>
                             </div>
@@ -358,7 +370,7 @@ $_nom_periodo = $_SESSION['periodo_ac'];
                                                             <select class="form-control" name="pais_nom" id="pais_nom">
                                                                 <option value="seleccione" selected>Seleccione</option>
                                                                 <?php
-                                                                    $sql_genero = "select * from tbl_pais WHERE id_pais != 1";
+                                                                    $sql_genero = "select * from tbl_pais WHERE id_pais != 1 order by detalle asc";
                                                                     $ejecutar = mysqli_query($con, $sql_genero);//ejecutar consulta
                                                                     
                                                                     if (mysqli_num_rows($ejecutar) > 0) {
@@ -384,7 +396,7 @@ $_nom_periodo = $_SESSION['periodo_ac'];
                                                         <select name="provincia_n" class="form-control" id="provincia">
                                                             <option value="0" selected>Seleccione</option>  
                                                             <?php
-                                                                $sql_provincia = "select * from tbl_provincia";
+                                                                $sql_provincia = "select * from tbl_provincia order by detalle asc";
                                                                 $ejecutar_prov = mysqli_query($con, $sql_provincia);//ejecutar consulta
                                                                 
                                                                 if (mysqli_num_rows($ejecutar_prov) > 0) {
@@ -451,7 +463,7 @@ $_nom_periodo = $_SESSION['periodo_ac'];
                                     <select class="form-control" name="genero_n" id="genero_n" required>
                                         <option value="">Seleccione</option>
                                         <?php
-                                        $sql_genero = "select * from tbl_genero";
+                                        $sql_genero = "select * from tbl_genero order by detalle asc";
                                         $ejecutar = mysqli_query($con, $sql_genero);//ejecutar consulta
                                         
                                         if (mysqli_num_rows($ejecutar) > 0) {
@@ -478,7 +490,7 @@ $_nom_periodo = $_SESSION['periodo_ac'];
                                     <select class="form-control" name="grupoetnico" id="grupoetnico" required>
                                       <option value="">Seleccione</option>
                                         <?php
-                                        $sql_etnia = "select * from tbl_etnia";
+                                        $sql_etnia = "select * from tbl_etnia order by detalle asc";
                                         $ejecutar = mysqli_query($con, $sql_etnia);//ejecutar consulta
                                         
                                         if (mysqli_num_rows($ejecutar) > 0) {
@@ -535,7 +547,7 @@ $_nom_periodo = $_SESSION['periodo_ac'];
                                         <select name="n_tipo_disca" class="form-control" id="especificar">
                                             <option value="0" selected>Seleccione</option>  
                                             <?php
-                                                $sql_tdiscap = "select * from tbl_tipos_discapacidad";
+                                                $sql_tdiscap = "SELECT * FROM tbl_tipos_discapacidad WHERE id_tipo_discapacidad != 0 order by detalle asc";
                                                 $ejecutar_tdiscap = mysqli_query($con, $sql_tdiscap);//ejecutar consulta
                                                 
                                                 if (mysqli_num_rows($ejecutar_tdiscap) > 0) {
@@ -624,7 +636,7 @@ $_nom_periodo = $_SESSION['periodo_ac'];
                                     <div class="row">
                                         <div class="col-md-3">
                                             <div class="input-group">                                                
-                                                <input type="text" id="n_peso" name="n_peso" maxlength="3" type="range" value="" min="1" max="100"class="form-control" value="" placeholder="Peso" required>
+                                                <input type="text" id="n_peso" name="n_peso" maxlength="7" class="form-control" value="" placeholder="00.000" required>
                                                 <span class="input-group-addon">kg</span>   
                                             </div>
                                         </div>
@@ -636,7 +648,7 @@ $_nom_periodo = $_SESSION['periodo_ac'];
                                     <div class="row">
                                         <div class="col-md-3">
                                             <div class="input-group">                                            
-                                                <input type="text" id="n_talla" name="n_talla" maxlength="3" type="range" value="" min="1" max="100"class="form-control" value="" placeholder="Talla" required>
+                                                <input type="text" id="n_talla" name="n_talla" maxlength="3" value="" class="form-control" placeholder="123" required>
                                                 <span class="input-group-addon">cm</span>   
                                             </div>
                                         </div>
@@ -650,7 +662,7 @@ $_nom_periodo = $_SESSION['periodo_ac'];
                                                 <select class="form-control" name="ninio_nivel" id="ninio_nivel" required>
                                                   <option value="">Seleccione</option>
                                                     <?php
-                                                    $sql_nivel_ninio = "select * from tbl_niveles_estudio_ninio";
+                                                    $sql_nivel_ninio = "select * from tbl_niveles_estudio_ninio order by detalle asc";
                                                     $ejecutar = mysqli_query($con, $sql_nivel_ninio);//ejecutar consulta
                                                     
                                                     if (mysqli_num_rows($ejecutar) > 0) {
@@ -731,6 +743,16 @@ $_nom_periodo = $_SESSION['periodo_ac'];
 <!--............................................estado........................................................-->
 
                                     <input type="hidden" name="estado_n" class="form-control" value= "Activo">
+
+<!--............................................estado EI........................................................-->
+
+<input type="hidden" name="estado_ent_inicial" class="form-control" value= "0">        
+<!--............................................estado SE........................................................-->
+
+<input type="hidden" name="estado_socio_eco" class="form-control" value= "0">  
+<!--............................................estado AC........................................................-->
+
+<input type="hidden" name="estado_acta_comp" class="form-control" value= "0">                              
                                    
 
 <!--............................................Imagen........................................................-->
